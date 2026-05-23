@@ -34,15 +34,66 @@
         p { font-size: 1.05rem; color: #b0b0b0; margin-bottom: 20px; font-weight: 300; }
         .btn { display: inline-block; background: transparent; border: 1px solid var(--accent); padding: 12px 24px; color: var(--accent); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s ease; margin-top: 20px; font-family: 'Courier New', Courier, monospace; }
         .btn:hover { background: var(--accent); color: var(--bg); font-weight: bold; }
+        .founder-card {
+            background: #111113;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            padding: 35px;
+            margin-top: 30px;
+        }
+        .founder-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 6px 0;
+        }
+        .founder-title {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 25px;
+        }
+        .founder-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .meta-badge {
+            font-size: 0.78rem;
+            color: var(--muted);
+            border: 1px solid #333;
+            padding: 3px 10px;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .founder-bio p {
+            font-size: 1.0rem;
+            color: #b0b0b0;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
         .card { background: #111113; border: 1px solid var(--border); padding: 30px; transition: border-color 0.3s ease; }
         .card:hover { border-color: var(--accent); }
         .card h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #ffffff; }
-        .card .meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 15px; font-family: 'Courier New', Courier, monospace; }
-        .card p { font-size: 0.95rem; margin-bottom: 20px; }
-        .card a { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-family: 'Courier New', Courier, monospace; }
-        .card a:hover { text-decoration: underline; }
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } nav { flex-direction: column; gap: 20px; } nav .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; } nav .links a { margin: 0; } }
+        .card p { font-size: 0.95rem; margin-bottom: 0; }
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 20px; }
+            nav .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+            nav .links a { margin: 0; }
+            .founder-meta { flex-direction: column; }
+        }
         footer { margin-top: 60px; border-top: 1px solid var(--border); padding-top: 30px; padding-bottom: 30px; font-size: 0.85rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
         .footer-logo { font-family: 'Courier New', Courier, monospace; }
     </style>
@@ -59,23 +110,59 @@
             </div>
         </nav>
         <main>
-            
-            <h1>About AIG</h1>
-            <div class="subtitle">Operational Philosophy & Leadership</div>
-            
-            <p>Akamai Intelligence Group (AIG) is a specialized R&D firm focused on the intersection of distributed systems architecture and advanced autonomous governance. We build frameworks that allow multi-agent systems to operate securely in contested, degraded, and communication-denied environments.</p>
 
-            <h2>Christopher Ramos</h2>
-            <p><strong>Principal Investigator / Lead Systems Architect</strong></p>
-            <p>Christopher Ramos brings a highly unconventional and empirically grounded methodology to distributed systems engineering: <em>Culinary Operations Analysis</em>.</p>
-            
-            <p>Drawing on deep professional expertise as an Executive Chef and restaurant operations system designer, Ramos adapts the high-pressure, decentralized organizational paradigm of the classic <em>Kitchen Brigade</em> into formal software coordination architectures. In high-volume culinary operations, complex tasks are executed asynchronously by specialized nodes (stations) without constant top-down micromanagement. The environment itself—through tickets, physical staging, and standardized operational procedures (SOPs)—acts as a stigmergic state bus.</p>
-            
-            <p>This biological and operational reality forms the foundation of AIG's approach to distributed synthetic cognition. By mapping the efficiency, fault-tolerance, and modular redundancy of brigade-based execution onto multi-agent AI, AIG develops systems that organically resist structural collapse and adversarial contamination.</p>
-            
-            <p>Under this doctrine, a failure in one node does not crash the system. Because tasks are decoupled and state is shared persistently across the environment, the rest of the brigade can absorb the shock, re-route tasks, and maintain mission continuity. This provides a battle-tested model for scaling robust, resilient autonomous behavior in adversarial landscapes.</p>
-            
-            <a href="mailto:topher.ramos50@gmail.com" class="btn">Contact PI</a>
+            <h1>About AIG</h1>
+            <div class="subtitle">Institution, Leadership &amp; Philosophy</div>
+
+            <p>Akamai Intelligence Group (AIG) is a Hawaii-based, minority-owned research and development laboratory specializing in adversarial resilience, distributed stigmergic coordination architectures, and institutional governance for autonomous multi-agent AI systems. "Akamai" means intelligent in Hawaiian.</p>
+
+            <p>AIG operates at the intersection of distributed systems engineering, multi-agent governance theory, and contested-edge autonomy. The research program investigates whether distributed autonomous cognitive systems can remain governable, resilient, and operationally stable under adversarial conditions -- using governance-first institutional design rather than centralized control or benevolence assumptions.</p>
+
+            <h2>Founder &amp; CEO</h2>
+
+            <div class="founder-card">
+                <div class="founder-name">Christopher Ramos</div>
+                <div class="founder-title">Founder &amp; Chief Executive Officer &nbsp;/&nbsp; Principal Investigator</div>
+                <div class="founder-meta">
+                    <span class="meta-badge">Hawaii-Based</span>
+                    <span class="meta-badge">Filipino-American</span>
+                    <span class="meta-badge">Minority-Owned</span>
+                    <span class="meta-badge">6 Provisional Patents Pending</span>
+                    <span class="meta-badge">SBA 8(a) Eligible</span>
+                </div>
+                <div class="founder-bio">
+                    <p>Christopher Ramos is the founder, sole owner, and principal investigator of Akamai Intelligence Group LLC. His research program focuses on governance-first distributed cognition -- designing multi-agent AI architectures that remain operationally stable and recoverable under adversarial conditions without central oversight dependencies.</p>
+
+                    <p>The research originated from an unconventional but empirically grounded methodology: <strong style="color: #e0e0e0;">Culinary Operations Analysis</strong>. Drawing on deep professional expertise as an Executive Chef and high-volume operations system designer, Ramos adapts the organizational architecture of the classic <em>Kitchen Brigade</em> into formal distributed coordination models. In high-volume culinary operations, complex tasks execute asynchronously across specialized stations without top-down micromanagement. The environment itself -- through tickets, physical staging, and standardized SOPs -- functions as a stigmergic state bus. Failure at one station does not halt the line. The system absorbs the shock, redistributes load, and maintains continuity. This battle-tested operational model forms the architectural intuition underlying AIG's distributed governance framework.</p>
+
+                    <p>This methodology produced the foundational architectural insight of AIG's research program: resilience in complex systems traces not to the quality of individual components but to the governance topology connecting them. Compartmentalization, bounded authority, role specialization, and fault isolation are not safety features added to a system -- they are the structural conditions that make safety possible. That insight reframes alignment from a property of isolated models to a property of system architecture.</p>
+
+                    <p>Ramos leads all aspects of AIG's research, engineering, and business development. The current portfolio includes six provisional patents, five published research papers spanning adversarial multi-agent governance, biomimetic coordination topology, and human-AI trust dynamics, and an active proposal to the DARPA DICE program for Phase I SBIR funding.</p>
+                </div>
+                <a href="mailto:topher.ramos50@gmail.com" class="btn">Contact</a>
+            </div>
+
+            <hr class="section-divider">
+
+            <h2>Institutional Identity</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Entity</h3>
+                    <p>Hawaii Domestic LLC. NAICS 541715 (R&amp;D Physical &amp; Engineering Sciences), 541512 (Computer Systems Design), 541330 (Engineering Services).</p>
+                </div>
+                <div class="card">
+                    <h3>Ownership</h3>
+                    <p>100% minority-owned. Filipino-American founder. Asian Pacific Islander designation. SBA 8(a) application pending LLC formation.</p>
+                </div>
+                <div class="card">
+                    <h3>Intellectual Property</h3>
+                    <p>Six provisional patents filed (AIG-PAT-001 through AIG-PAT-006) covering distributed governance architecture, IPI defense, alignment-by-architecture topology, and biomimetic coordination primitives.</p>
+                </div>
+                <div class="card">
+                    <h3>Research Output</h3>
+                    <p>Five peer-review-ready technical papers. Active DARPA DICE SBIR proposal. Edge-deployed prototype running on local open-source inference hardware with zero cloud dependency.</p>
+                </div>
+            </div>
 
         </main>
         <footer>
