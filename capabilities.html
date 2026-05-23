@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capabilities | Akamai Intelligence Group</title>
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+            --muted: #888888;
+            --border: #222222;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 40px; }
+        nav .logo { font-weight: 700; color: var(--text); text-decoration: none; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace; }
+        nav .logo span { color: var(--accent); }
+        nav .links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; }
+        nav .links a:hover, nav .links a.active { color: var(--accent); }
+        main { flex-grow: 1; }
+        h1 { font-size: 2.2rem; margin: 0 0 10px 0; letter-spacing: 1px; color: #ffffff; }
+        h2 { font-size: 1.3rem; border-left: 3px solid var(--accent); padding-left: 15px; margin-top: 50px; color: #ffffff; font-weight: 500; }
+        .subtitle { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Courier New', Courier, monospace; margin-bottom: 30px; }
+        p { font-size: 1.05rem; color: #b0b0b0; margin-bottom: 20px; font-weight: 300; }
+        .btn { display: inline-block; background: transparent; border: 1px solid var(--accent); padding: 12px 24px; color: var(--accent); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s ease; margin-top: 20px; font-family: 'Courier New', Courier, monospace; }
+        .btn:hover { background: var(--accent); color: var(--bg); font-weight: bold; }
+        .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 30px; }
+        .cap-card { background: #111113; border: 1px solid var(--border); padding: 28px; transition: border-color 0.3s ease; }
+        .cap-card:hover { border-color: var(--accent); }
+        .cap-card h3 { margin: 0 0 6px 0; font-size: 1.05rem; color: #ffffff; }
+        .cap-card .cap-id { font-size: 0.75rem; color: var(--accent); font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .cap-card p { font-size: 0.95rem; color: #999; margin: 0; }
+        .naics-block { background: #111113; border: 1px solid var(--border); padding: 28px; margin-top: 30px; }
+        .naics-block table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .naics-block td { padding: 8px 12px; border-bottom: 1px solid #1e1e1e; color: #b0b0b0; }
+        .naics-block td:first-child { color: var(--accent); font-family: 'Courier New', Courier, monospace; white-space: nowrap; width: 80px; }
+        .naics-block tr:last-child td { border-bottom: none; }
+        .ip-block { background: #111113; border: 1px solid var(--border); padding: 28px; margin-top: 24px; }
+        .ip-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; }
+        .ip-row:last-child { border-bottom: none; }
+        .ip-id { color: var(--accent); font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; white-space: nowrap; margin-right: 20px; padding-top: 2px; }
+        .ip-desc { color: #b0b0b0; }
+        .ip-status { color: var(--muted); font-size: 0.78rem; font-family: 'Courier New', Courier, monospace; white-space: nowrap; margin-left: 20px; padding-top: 2px; }
+        @media (max-width: 768px) {
+            .cap-grid { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 20px; }
+            nav .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+            nav .links a { margin: 0; }
+            .ip-row { flex-direction: column; gap: 4px; }
+            .ip-status { margin-left: 0; }
+        }
+        footer { margin-top: 60px; border-top: 1px solid var(--border); padding-top: 30px; padding-bottom: 30px; font-size: 0.85rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .footer-logo { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">AIG<span>.</span></a>
+            <div class="links">
+                <a href="index.html" class="">Home</a>
+                <a href="research.html" class="">Research</a>
+                <a href="about.html" class="">About</a>
+                <a href="future.html" class="">Future</a>
+                <a href="capabilities.html" class="active">Capabilities</a>
+            </div>
+        </nav>
+        <main>
+
+            <h1>Capabilities</h1>
+            <div class="subtitle">Technical Areas &amp; Deliverables</div>
+
+            <p>AIG develops research architectures and edge-deployed prototype platforms for adversarially contested autonomous environments. The current capability set spans distributed governance theory, adversarial resilience engineering, and low-overhead edge-compute deployment.</p>
+
+            <a href="AIG_COMPANY_OVERVIEW.pdf" class="btn" download>Download Company Overview (PDF)</a>
+
+            <h2>Core Technical Areas</h2>
+            <div class="cap-grid">
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-001</div>
+                    <h3>Distributed Governance Architecture</h3>
+                    <p>Design and validation of multi-agent governance frameworks enforcing bounded authority, compartmentalized cognition, and trust-lineage integrity without centralized orchestration.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-002</div>
+                    <h3>Adversarial Resilience Engineering</h3>
+                    <p>Systematic adversarial evaluation across Byzantine fault tolerance, prompt injection, authority escalation, coordination collapse, and epistemic drift scenarios. Validated to 16 attack categories.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-003</div>
+                    <h3>Ingestion-Layer IPI Defense</h3>
+                    <p>Infrastructure-level Indirect Prompt Injection mitigation architecture. Sanitization pipeline, 14-category threat taxonomy, cryptographic skill chain-of-custody, and quarantine subsystem.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-004</div>
+                    <h3>Stigmergic Coordination Substrates</h3>
+                    <p>Asynchronous, environment-mediated agent coordination using pheromone-analog state buses. Supports 25 signal types, time-to-live decay, and emergent pattern detection (convergence, cascade, cluster).</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-005</div>
+                    <h3>Adaptive Network Topology</h3>
+                    <p>Self-optimizing coordination topology derived from Physarum polycephalum and mycelial network models. Path conductance reinforcement, phase coupling, and damage-triggered rerouting without protocol overhead.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-006</div>
+                    <h3>Contested Edge Deployment</h3>
+                    <p>Fully air-gap-capable multi-agent systems running on local open-source inference hardware. Validated at 5W sustained compute, zero cloud dependency, and 15W total platform draw.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-007</div>
+                    <h3>Human-AI Governance Interface Design</h3>
+                    <p>Structural countermeasures for parasocial trust exploitation at the human principal layer. HITL gate integrity architecture, trust asymmetry monitoring, and persuasion friction classification.</p>
+                </div>
+
+                <div class="cap-card">
+                    <div class="cap-id">CAP-008</div>
+                    <h3>Covert Counterintelligence Architecture</h3>
+                    <p>Out-of-band governance coordination and meta-level identity attack defense for adversarial human-AI interaction scenarios. Empirically validated against doctrine self-rejection and identity boundary attacks.</p>
+                </div>
+
+            </div>
+
+            <h2>NAICS Codes</h2>
+            <div class="naics-block">
+                <table>
+                    <tr><td>541715</td><td>Research and Development in Physical, Engineering, and Life Sciences (except Nanotechnology and Biotechnology)</td></tr>
+                    <tr><td>541512</td><td>Computer Systems Design Services</td></tr>
+                    <tr><td>541330</td><td>Engineering Services</td></tr>
+                </table>
+            </div>
+
+            <h2>Intellectual Property</h2>
+            <div class="ip-block">
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-001</span>
+                    <span class="ip-desc">Distributed Stigmergic State Bus for Multi-Agent Cognitive Coordination</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-002</span>
+                    <span class="ip-desc">Ingestion-Layer Defense Proxy for Indirect Prompt Injection Mitigation</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-003</span>
+                    <span class="ip-desc">Alignment by Architecture: Governance Topology as a Safety Property</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-004</span>
+                    <span class="ip-desc">Ghost Field Coordination: Pheromone-Analog Environmental State Signaling</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-005</span>
+                    <span class="ip-desc">Memory Palace: Multi-Source Indexed Knowledge Architecture for Agent Collectives</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+                <div class="ip-row">
+                    <span class="ip-id">AIG-PAT-006</span>
+                    <span class="ip-desc">Skill Chain-of-Custody: Cryptographic Integrity Verification for Agent Tool Access</span>
+                    <span class="ip-status">Provisional Filed</span>
+                </div>
+            </div>
+
+        </main>
+        <footer>
+            <div class="footer-logo">AIG-INTEL.DEV</div>
+            <div>Independent R&amp;D laboratory focused on distributed autonomy governance. &copy; 2026 Akamai Intelligence Group LLC. Hawaii-Based, Minority-Owned.</div>
+        </footer>
+    </div>
+</body>
+</html>
