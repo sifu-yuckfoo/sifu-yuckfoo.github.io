@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- v1780950168 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Future | Akamai Intelligence Group</title>
+    <style>
+:root {
+            --bg: #0a0a0c;
+            --panel: #111113;
+            --panel2: #151519;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+            --accent2: #7df9ff;
+            --muted: #888888;
+            --line: #2a2a2f;
+            --warn: #ffcc66;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+            padding: 0;
+        }
+        .container {
+            max-width: 960px;
+            padding: 40px 40px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        nav .logo span { color: var(--accent); }
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; } }
+        header {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        
+            h1 { font-size: 1.35rem; letter-spacing: 1px; 
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        }
+        h1 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        h2 {
+            font-size: 1.15rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 42px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h3 {
+            font-size: 1rem;
+            color: var(--accent2);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle { color: var(--muted); font-size: 0.9rem; text-transform: uppercase; }
+        .hero {
+            background: linear-gradient(135deg, #111113 0%, #121820 100%);
+            border: 1px solid var(--line);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .hero strong { color: #f2f2f2; }
+        .pillar {
+            background: var(--panel);
+            border: 1px solid #222;
+            border-left: 3px solid var(--accent);
+            padding: 22px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s ease;
+        }
+        .pillar:hover { border-color: var(--accent); }
+        .pillar-title {
+            color: var(--accent);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .pillar-subtitle {
+            color: var(--accent2);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--panel);
+            border: 1px solid #222;
+            padding: 20px;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover { border-color: var(--accent); }
+        .status-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .status-speculative { border: 1px solid #444; color: #888; }
+        .status-active { border: 1px solid var(--accent); color: var(--accent); }
+        .status-planned { border: 1px solid var(--warn); color: var(--warn); }
+        .tag {
+            display: inline-block;
+            font-size: 0.70rem;
+            border: 1px solid #333;
+            color: var(--muted);
+            padding: 2px 7px;
+            margin-right: 5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .divider { border: none; border-top: 1px solid var(--line); margin: 36px 0; }
+        p { margin-bottom: 16px; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .notice {
+            background: var(--panel2);
+            border: 1px solid #333;
+            padding: 14px 18px;
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-top: 32px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2f;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        nav .logo {
+            font-weight: 700;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', Courier, monospace;
+            flex-shrink: 0;
+        }
+        nav .logo span { color: #00ffcc; }
+        nav .hamburger {
+            display: none;
+            background: none;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 6px 10px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        nav .hamburger:hover { border-color: #00ffcc; color: #00ffcc; }
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+        nav .links a {
+            color: #888888;
+            text-decoration: none;
+            padding: 4px 7px;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin-right: 0;
+        }
+        nav .links a:hover { color: #00ffcc; }
+        nav .links a.active { color: #00ffcc; }
+
+        @media (max-width: 900px) {
+            .container { padding-left: 40px; padding-right: 40px; }
+            nav .links a { font-size: 0.68rem; padding: 4px 5px; letter-spacing: 0.5px; }
+            h1 { font-size: 1.55rem !important; letter-spacing: 1px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            nav .hamburger { display: block; }
+            nav .links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f0f11;
+                border: 1px solid #2a2a2f;
+                border-top: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                z-index: 100;
+                padding: 8px 0;
+            }
+            nav .links.open { display: flex; }
+            nav .links a {
+                width: 100%;
+                padding: 10px 20px;
+                border-bottom: 1px solid #1a1a1f;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+            }
+            nav .links a:last-child { border-bottom: none; }
+            h1 { font-size: 1.35rem !important; letter-spacing: 1px !important; }
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">AIG<span>.</span></a>
+            <button class="hamburger" aria-label="Toggle navigation">&#9776; MENU</button>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research</a>
+                <a href="dice.html">DICE</a>
+                <a href="rf.html">RF Lane</a>
+                <a href="causal.html">Causal</a>
+                <a href="capabilities.html">Capabilities</a>
+                <a href="future.html" class="active">Future</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+
+        <header>
+            <h1>Future Research</h1>
+            <div class="subtitle">Long-horizon development — biomimetics, robotics, and governed physical systems</div>
+        </header>
+
+        <div class="hero">
+            <p><strong>AIG's long-horizon research agenda extends governance-first architecture beyond software agents into physical systems.</strong> The same principles that govern distributed AI collectives — sparse signaling, role-bounded authority, context-governed behavior, adversarial resilience — are directly applicable to autonomous robotic swarms, UUV coordination, and distributed physical intelligence operating in denied environments.</p>
+            <p>Nature solved these problems first. AIG studies how.</p>
+        </div>
+
+        <h2>Biomimetic Swarm Governance</h2>
+        <p>
+            AIG's biomimetic research program (AIG-RESEARCH-008) investigates how biological coordination strategies from cetaceans, social insects, and avian flocking behavior can be translated into formal governance architectures for distributed autonomous systems.
+        </p>
+        <p>
+            The core hypothesis: <strong>biological swarms achieve robust, adaptive, large-scale coordination without centralized control</strong> — using the same mechanisms AIG's governance architecture formalizes. Sparse semantic signaling. Local inference with shared context. Stigmergic coordination through environment-state rather than direct messaging. Role-specialization without authority collapse.
+        </p>
+
+        <div class="pillar">
+            <div class="pillar-title">Cetacean Sparse Semantic Signaling</div>
+            <div class="pillar-subtitle">Sparse typed communication for high-noise environments</div>
+            <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 0;">
+                Cetacean pod coordination achieves remarkable collective behavior through extremely low-bandwidth, high-semantic-density communication. AIG models this as a template for DDIL (Degraded, Disconnected, Intermittent, and Low-bandwidth) agent communication — where message frequency is minimized and message authority is maximized. Direct application to RELAY architecture and contested RF environments.
+            </p>
+        </div>
+
+        <div class="pillar">
+            <div class="pillar-title">Avian Flocking — Local Dynamic Coordination</div>
+            <div class="pillar-subtitle">Emergent coordination without global state</div>
+            <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 0;">
+                Murmuration produces globally coherent behavior from purely local rules — each agent responds only to its nearest neighbors with no global state visibility. AIG formalizes this as a governance model for large-scale logical agent clusters: coherent collective behavior from locally enforced role boundaries and typed interaction rules, without centralized orchestration that becomes a single point of failure.
+            </p>
+        </div>
+
+        <div class="pillar">
+            <div class="pillar-title">Eusocial Stigmergic Coordination</div>
+            <div class="pillar-subtitle">Environment-mediated coordination for persistent autonomous operations</div>
+            <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 0;">
+                Ant and termite colonies coordinate complex long-duration construction and logistics through environment state rather than direct agent-to-agent communication. AIG models this as a provenance and shared-context architecture: agents coordinate by reading and writing to a governed shared state, with authority boundaries enforced at the state layer rather than the messaging layer.
+            </p>
+        </div>
+
+        <hr class="divider">
+
+        <h2>Robotics Development Roadmap</h2>
+        <p style="color: var(--muted); font-size: 0.88rem;">Speculative long-horizon development targets. None of these represent funded programs or committed timelines.</p>
+
+        <div class="grid">
+            <div class="card">
+                <div class="status-badge status-active">Research Phase</div>
+                <h3>Biomimetic Governance Framework</h3>
+                <p style="color: var(--muted); font-size: 0.85rem;">Formal translation of cetacean, avian, and eusocial coordination patterns into governance architecture primitives. Foundation layer for all robotics applications.</p>
+                <span class="tag">AIG-RESEARCH-008</span>
+            </div>
+            <div class="card">
+                <div class="status-badge status-planned">Planned</div>
+                <h3>UUV Swarm Coordination</h3>
+                <p style="color: var(--muted); font-size: 0.88rem;">Governed coordination architecture for heterogeneous unmanned undersea vehicle swarms operating in GPS-denied, DDIL environments. Draws directly from cetacean sparse signaling and AIG's DDIL governance work.</p>
+                <span class="tag">UUV</span>
+                <span class="tag">DDIL</span>
+                <span class="tag">Swarm</span>
+            </div>
+            <div class="card">
+                <div class="status-badge status-planned">Planned</div>
+                <h3>Ground Robotics Governance Layer</h3>
+                <p style="color: var(--muted); font-size: 0.88rem;">Role-bounded authority architecture for heterogeneous ground robot teams. Human command preservation under communication-degraded conditions. Focus on contested urban environments.</p>
+                <span class="tag">Ground</span>
+                <span class="tag">Contested Urban</span>
+            </div>
+            <div class="card">
+                <div class="status-badge status-speculative">Speculative</div>
+                <h3>Cross-Domain Swarm Integration</h3>
+                <p style="color: var(--muted); font-size: 0.88rem;">Unified governance framework spanning air, ground, and maritime autonomous systems. Heterogeneous agent types, domain-specific communication constraints, unified human command authority layer.</p>
+                <span class="tag">Multi-Domain</span>
+                <span class="tag">Long Horizon</span>
+            </div>
+            <div class="card">
+                <div class="status-badge status-speculative">Speculative</div>
+                <h3>Physical-Digital Agent Hybrid Governance</h3>
+                <p style="color: var(--muted); font-size: 0.88rem;">Governance architecture that spans both software AI agents (DGCA) and physical robotic agents in the same command hierarchy. Provenance, authority, and adversarial integrity preserved across the physical-digital boundary.</p>
+                <span class="tag">Hybrid</span>
+                <span class="tag">DGCA Extension</span>
+            </div>
+            <div class="card">
+                <div class="status-badge status-speculative">Speculative</div>
+                <h3>Edge Inference Hardware Platform</h3>
+                <p style="color: var(--muted); font-size: 0.88rem;">Custom low-power hardware substrate for running local governance inference at the edge — no cloud dependency, no connectivity requirement. Draws from uConsole/cyberdeck development experience.</p>
+                <span class="tag">Hardware</span>
+                <span class="tag">Edge</span>
+                <span class="tag">Airgap</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <h2>Research Publications</h2>
+        <p>Foundational biomimetic research is documented in AIG's internal research corpus and will be released as public-safe artifacts as the program matures.</p>
+        <div style="margin-top: 8px;">
+            <span class="tag">AIG-RESEARCH-007 — Cetacean / UUV Coordination</span>
+            <span class="tag">AIG-RESEARCH-008 — Biomimetic Swarm Governance</span>
+            <span class="tag">AIG-ROBOTICS-001 — Robotics Governance Spec</span>
+        </div>
+
+        <div class="notice">
+            All future development targets listed here are speculative research directions. AIG is an independent R&amp;D laboratory operating without external funding. Timeline and scope are subject to resource availability and program outcomes. Nothing on this page constitutes a commitment, proposal, or program-performer claim.
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var btn = document.querySelector('.hamburger');
+            var links = document.querySelector('nav .links');
+            if(btn && links){
+                btn.addEventListener('click', function(){
+                    links.classList.toggle('open');
+                    btn.textContent = links.classList.contains('open') ? '✕ MENU' : '≡ MENU';
+                });
+                document.addEventListener('click', function(e){
+                    if(!btn.contains(e.target) && !links.contains(e.target)){
+                        links.classList.remove('open');
+                        btn.textContent = '≡ MENU';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

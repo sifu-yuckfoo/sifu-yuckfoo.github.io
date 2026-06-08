@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- v1780950168 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>AIG Research Publications</title>
+    <style>
+:root {
+            --bg: #0a0a0c;
+            --panel: #111113;
+            --panel2: #151519;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+            --muted: #888888;
+            --line: #2a2a2f;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+            padding: 0;
+        }
+        .container {
+            max-width: 960px;
+            padding: 40px 40px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        header {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 24px;
+            margin-bottom: 36px;
+        }
+        h1 {
+            color: var(--accent);
+            font-size: 1.9rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        h2 {
+            font-size: 1.15rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 42px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle, .muted {
+            color: var(--muted);
+        }
+        .notice {
+            background: var(--panel2);
+            border: 1px solid var(--line);
+            padding: 18px;
+            margin: 24px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .paper-card {
+            background: var(--panel);
+            border: 1px solid #222;
+            padding: 20px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .paper-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .paper-title {
+            font-weight: bold;
+            font-size: 1.02rem;
+            margin-bottom: 10px;
+            color: #f2f2f2;
+        }
+        .paper-meta {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .tag {
+            display: inline-block;
+            font-size: 0.70rem;
+            border: 1px solid #333;
+            color: var(--muted);
+            padding: 2px 7px;
+            margin-right: 5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .tag.primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            padding: 7px 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+        }
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2f;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        nav .logo {
+            font-weight: 700;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', Courier, monospace;
+            flex-shrink: 0;
+        }
+        nav .logo span { color: #00ffcc; }
+        nav .hamburger {
+            display: none;
+            background: none;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 6px 10px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        nav .hamburger:hover { border-color: #00ffcc; color: #00ffcc; }
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+        nav .links a {
+            color: #888888;
+            text-decoration: none;
+            padding: 4px 7px;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin-right: 0;
+        }
+        nav .links a:hover { color: #00ffcc; }
+        nav .links a.active { color: #00ffcc; }
+
+        @media (max-width: 900px) {
+            .container { padding-left: 40px; padding-right: 40px; }
+            nav .links a { font-size: 0.68rem; padding: 4px 5px; letter-spacing: 0.5px; }
+            h1 { font-size: 1.55rem !important; letter-spacing: 1px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            nav .hamburger { display: block; }
+            nav .links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f0f11;
+                border: 1px solid #2a2a2f;
+                border-top: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                z-index: 100;
+                padding: 8px 0;
+            }
+            nav .links.open { display: flex; }
+            nav .links a {
+                width: 100%;
+                padding: 10px 20px;
+                border-bottom: 1px solid #1a1a1f;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+            }
+            nav .links a:last-child { border-bottom: none; }
+            h1 { font-size: 1.35rem !important; letter-spacing: 1px !important; }
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+    <nav>
+            <a href="index.html" class="logo">AIG<span>.</span></a>
+            <button class="hamburger" aria-label="Toggle navigation">&#9776; MENU</button>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="research.html" class="active">Research</a>
+                <a href="dice.html">DICE</a>
+                <a href="rf.html">RF Lane</a>
+                <a href="causal.html">Causal</a>
+                <a href="capabilities.html">Capabilities</a>
+                <a href="future.html">Future</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+            <header>
+            <h1>AIG Research Publications</h1>
+            <div class="subtitle">Governed collective intelligence, context architecture, and evaluation-first AI systems.</div>
+        </header>
+
+        <section class="notice">
+            <strong>Attribution standard:</strong> Author: Christopher Ramos. Research and drafting support: Deus ex Machina.
+            <br>
+            AIG publishes curated, public-safe research artifacts that support technical review, partner diligence,
+            and government R&amp;D conversations. Operationally sensitive implementation details and private concepts are withheld.
+        </section>
+
+        <section>
+            <h2>Flagship Public Research Set</h2>
+            <p class="muted">Initial public-safe corpus selected for DICE/DARPA alignment, partner review, and technical credibility.</p>
+            <p><a href="dice.html" class="btn">View DICE Capability Page</a> <a href="rf.html" class="btn">View Governed RF Lane</a></p>
+
+            <div class="grid">
+                <div class="paper-card">
+                    <div class="paper-title">Causal Reasoning Auditor</div>
+                    <div class="paper-meta">AIG-CAUSAL-005 | June 2026 | Christopher Ramos</div>
+                    <span class="tag primary">DICE-Adjacent</span><span class="tag">Causal Inference</span><span class="tag">GAL-040B</span>
+                    <p>Four-phase pipeline that moves governance evaluation beyond accuracy metrics — attributing every governance decision to its upstream causal drivers using structural causal modeling (HillClimbSearch + PC) on 1,800 adversarial trial records. 11 high-confidence consensus causal edges. 99.89% correct rate across 6 scenario families.</p>
+                    <a href="causal.html" class="btn">View Causal Auditor</a>
+                    <a href="aig/AIG_CAUSAL_AUDITOR_TECHNICAL_BRIEF.md" class="btn">Technical Brief</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Governed RF Experimentation Capability Note</div>
+                    <div class="paper-meta">AIG-SIGINT-LUC-009 | June 2026 | Christopher Ramos</div>
+                    <span class="tag primary">RF Governance</span><span class="tag">SIGIntAgentOS</span><span class="tag">Public-Safe</span>
+                    <p>Public-safe LUC-adjacent capability note describing AIG's governed RF analysis and edge experimentation substrate: provenance, synthetic fixtures, bounded modulation/FEC triage, GRAND-inspired lab experiments, and human-gated decoder orchestration.</p>
+                    <a href="rf.html" class="btn">View RF Lane</a>
+                    <a href="aig/AIG_LUC_PUBLIC_SAFE_CAPABILITY_NOTE.md" class="btn">View Note</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">DICE One-Page Capability Summary</div>
+                    <div class="paper-meta">AIG-DICE-008 | June 2026 | Christopher Ramos</div>
+                    <span class="tag primary">DICE</span><span class="tag">Capability</span><span class="tag">Human Control</span>
+                    <p>Concise DICE-facing overview mapping AIG's 101/500 governed collective evidence to decentralized coordination, local inference control, contested environments, and human command authority.</p>
+                    <a href="aig/AIG_DICE_ONE_PAGE_CAPABILITY_SUMMARY.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">DICE Scaling Evidence Section</div>
+                    <div class="paper-meta">AIG-DICE-006 | June 2026 | Christopher Ramos</div>
+                    <span class="tag primary">Scale</span><span class="tag">Evidence</span><span class="tag">Governance</span>
+                    <p>Proposal-ready evidence narrative showing a validated path from a 101-record command catalog to 500 governed logical agents without uncontrolled all-to-all coordination.</p>
+                    <a href="aig/AIG_DICE_SCALING_NARRATIVE_SECTION.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Context-Governance Architecture</div>
+                    <div class="paper-meta">AIG-BRIEF-002 | May 2026 | Christopher Ramos</div>
+                    <span class="tag primary">Context</span><span class="tag">Architecture</span><span class="tag">External-Safe</span>
+                    <p>Sanitized external-safe brief defining context governance as the control plane for agent collectives, with emphasis on interpretable context methods and bounded authority.</p>
+                    <a href="aig/AIG_CONTEXT_GOVERNANCE_ARCHITECTURE_SANITIZED_BUILDER_BRIEF.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Ghost Field Scale Decision Memo</div>
+                    <div class="paper-meta">AIG-ARCH-017 | May 2026 | Christopher Ramos</div>
+                    <span class="tag primary">Ghost Field</span><span class="tag">State Bus</span><span class="tag">DICE Path</span>
+                    <p>Architecture decision memo for the current edge/evaluation state bus, sparse coordination posture, and migration path toward sharded or distributed substrates.</p>
+                    <a href="aig/AIG_GHOST_FIELD_SCALE_DECISION.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Alignment by Architecture</div>
+                    <div class="paper-meta">AIG-TECH-003 | May 2026 | Christopher Ramos</div>
+                    <span class="tag primary">Alignment</span><span class="tag">Topology</span><span class="tag">Governance</span>
+                    <p>Foundational thesis: alignment is not only a property of isolated models; it is a property of governance architecture, authority topology, and bounded delegation.</p>
+                    <a href="aig/AIG_ALIGNMENT_BY_ARCHITECTURE.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Distributed Governance Cognitive Architecture Framework</div>
+                    <div class="paper-meta">AIG-TECH-004 | May 2026 | Christopher Ramos</div>
+                    <span class="tag primary">DGCA</span><span class="tag">Framework</span><span class="tag">Synthetic Cognition</span>
+                    <p>Formal systems specification for distributed governance cognitive architecture: roles, controls, trust boundaries, evaluation posture, and adversarial resilience.</p>
+                    <a href="aig/AIG_DGCA_framework.md" class="btn">View Paper</a>
+                </div>
+
+                <div class="paper-card">
+                    <div class="paper-title">Current Roster Preflight and 500-Capacity Harness Finding</div>
+                    <div class="paper-meta">AIG-EVIDENCE | June 2026 | Christopher Ramos</div>
+                    <span class="tag primary">Evaluation</span><span class="tag">500 Agents</span><span class="tag">Controlled Emergence</span>
+                    <p>Evidence record validating the current 101-record roster, fake-Qt preflight, and 500 logical-agent governed capacity harness with blocked/throttled interaction paths.</p>
+                    <a href="aig/AIG_CURRENT_ROSTER_PREFLIGHT_AND_500_CAPACITY_FINDING.md" class="btn">View Finding</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Publication Policy</h2>
+            <p>Public artifacts are curated for external review. Internal binders, raw patent filings, private project material, and operational implementation details remain off the public research page until explicitly cleared.</p>
+            <p><a href="aig/AIG_PUBLIC_RESEARCH_PUBLICATION_MANIFEST.md">View publication manifest</a></p>
+        </section>
+
+        <footer>
+            Akamai Intelligence Group | Hawaii-based research and development lab | <a href="index.html">Home</a>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            var btn = document.querySelector('.hamburger');
+            var links = document.querySelector('nav .links');
+            if(btn && links){
+                btn.addEventListener('click', function(){
+                    links.classList.toggle('open');
+                    btn.textContent = links.classList.contains('open') ? '✕ MENU' : '≡ MENU';
+                });
+                document.addEventListener('click', function(e){
+                    if(!btn.contains(e.target) && !links.contains(e.target)){
+                        links.classList.remove('open');
+                        btn.textContent = '≡ MENU';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

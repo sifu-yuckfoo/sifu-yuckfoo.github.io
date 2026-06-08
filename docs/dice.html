@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- v1780950168 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>AIG DICE Capability</title>
+    <style>
+:root {
+            --bg: #0a0a0c;
+            --panel: #111113;
+            --panel2: #151519;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+            --accent2: #7df9ff;
+            --muted: #888888;
+            --line: #2a2a2f;
+            --warn: #ffcc66;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+            padding: 0;
+        }
+        .container {
+            max-width: 960px;
+            padding: 40px 40px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        header {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+        h1 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        h2 {
+            font-size: 1.15rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 42px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h3 {
+            font-size: 1rem;
+            color: var(--accent2);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle, .muted {
+            color: var(--muted);
+        }
+        .hero {
+            background: linear-gradient(135deg, #111113 0%, #121820 100%);
+            border: 1px solid var(--line);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .hero strong {
+            color: #f2f2f2;
+        }
+        .notice {
+            background: var(--panel2);
+            border: 1px solid var(--line);
+            padding: 18px;
+            margin: 24px 0;
+        }
+        .notice.warn {
+            border-color: #4a3b1f;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--panel);
+            border: 1px solid #222;
+            padding: 20px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .metric {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .metric-label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .tag {
+            display: inline-block;
+            font-size: 0.70rem;
+            border: 1px solid #333;
+            color: var(--muted);
+            padding: 2px 7px;
+            margin-right: 5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .tag.primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        ul {
+            padding-left: 22px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            padding: 8px 13px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            margin-top: 10px;
+            margin-right: 8px;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+        }
+        .btn.secondary {
+            border-color: #444;
+            color: var(--text);
+        }
+        .btn.secondary:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+        .quote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            color: #f2f2f2;
+            font-size: 1.05rem;
+        }
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2f;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        nav .logo {
+            font-weight: 700;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', Courier, monospace;
+            flex-shrink: 0;
+        }
+        nav .logo span { color: #00ffcc; }
+        nav .hamburger {
+            display: none;
+            background: none;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 6px 10px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        nav .hamburger:hover { border-color: #00ffcc; color: #00ffcc; }
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+        nav .links a {
+            color: #888888;
+            text-decoration: none;
+            padding: 4px 7px;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin-right: 0;
+        }
+        nav .links a:hover { color: #00ffcc; }
+        nav .links a.active { color: #00ffcc; }
+
+        @media (max-width: 900px) {
+            .container { padding-left: 40px; padding-right: 40px; }
+            nav .links a { font-size: 0.68rem; padding: 4px 5px; letter-spacing: 0.5px; }
+            h1 { font-size: 1.55rem !important; letter-spacing: 1px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            nav .hamburger { display: block; }
+            nav .links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f0f11;
+                border: 1px solid #2a2a2f;
+                border-top: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                z-index: 100;
+                padding: 8px 0;
+            }
+            nav .links.open { display: flex; }
+            nav .links a {
+                width: 100%;
+                padding: 10px 20px;
+                border-bottom: 1px solid #1a1a1f;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+            }
+            nav .links a:last-child { border-bottom: none; }
+            h1 { font-size: 1.35rem !important; letter-spacing: 1px !important; }
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+    <nav>
+            <a href="index.html" class="logo">AIG<span>.</span></a>
+            <button class="hamburger" aria-label="Toggle navigation">&#9776; MENU</button>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research</a>
+                <a href="dice.html" class="active">DICE</a>
+                <a href="rf.html">RF Lane</a>
+                <a href="causal.html">Causal</a>
+                <a href="capabilities.html">Capabilities</a>
+                <a href="future.html">Future</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+            <header>
+            <h1>DICE Capability</h1>
+            <div class="subtitle">Akamai Intelligence Group | Governed collective intelligence under human command</div>
+        </header>
+
+        <section class="hero">
+            <span class="tag primary">DARPA DICE Alignment</span>
+            <span class="tag">Decentralized Coordination</span>
+            <span class="tag">Local Inference Control</span>
+            <span class="tag">Human Command</span>
+            <p><strong>AIG builds governed collective-intelligence architecture for heterogeneous AI agents operating in contested, long-duration environments under human control.</strong></p>
+            <p>AIG's core contribution is not centralized orchestration and not ad hoc chatbot swarms. It is context-governed collective behavior: local inference, sparse activation, role boundaries, provenance, and adversarial integrity treated as first-class controls.</p>
+            <a href="aig/AIG_DICE_ONE_PAGE_CAPABILITY_SUMMARY.md" class="btn">Read One-Page Summary</a>
+            <a href="research.html" class="btn secondary">Research Corpus</a>
+        </section>
+
+        <section class="notice">
+            <strong>Current evidence posture:</strong> AIG has demonstrated a 101-record named command catalog and a 500 logical-agent governed capacity harness under local test conditions. Logical agents are governance-bounded role instances, not independent concurrently reasoning LLM processes.
+        </section>
+
+        <section>
+            <h2>Why This Matters for DICE</h2>
+            <p>DICE-scale collective intelligence fails if coordination grows faster than governance. AIG tests the opposite pattern: as the collective grows, interaction is constrained by authority, budget, role, provenance, and risk.</p>
+            <p class="quote">Agents are replaceable. Context architecture is the control plane.</p>
+        </section>
+
+        <section>
+            <h2>Evidence Snapshot</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="metric">101</div>
+                    <div class="metric-label">Named command records</div>
+                    <p>Profile, CAI agent, GUI suite, and registry coverage preflighted before scale expansion.</p>
+                </div>
+                <div class="card">
+                    <div class="metric">500</div>
+                    <div class="metric-label">Logical agents</div>
+                    <p>101 named agents plus 399 sharded logical support agents in the Phase I governed-capacity harness.</p>
+                </div>
+                <div class="card">
+                    <div class="metric">24</div>
+                    <div class="metric-label">Active inference workers</div>
+                    <p>Sparse activation keeps active reasoning to 4.8 percent of the 500-agent logical population.</p>
+                </div>
+                <div class="card">
+                    <div class="metric">2,875</div>
+                    <div class="metric-label">Allowed paths</div>
+                    <p>Only 2,875 of 249,500 possible all-to-all interaction paths were permitted by governance.</p>
+                </div>
+                <div class="card">
+                    <div class="metric">246,675</div>
+                    <div class="metric-label">Blocked or throttled paths</div>
+                    <p>Interaction growth was constrained through authority, budget, role, provenance, and risk controls.</p>
+                </div>
+                <div class="card">
+                    <div class="metric">50/50</div>
+                    <div class="metric-label">Unauthorized authority attempts blocked</div>
+                    <p>GAL-034 blocked every unauthorized authority attempt under the tested policy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Human Control Boundary</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>WARLORD</h3>
+                    <p>Owns command authority and authorization. Forecasting and recommendation do not silently become command.</p>
+                </div>
+                <div class="card">
+                    <h3>STRATEGIST</h3>
+                    <p>Owns consequence architecture and second-order effects. It models what decisions may produce.</p>
+                </div>
+                <div class="card">
+                    <h3>ORACLE</h3>
+                    <p>Owns Bayesian forecasting, likelihoods, and confidence intervals. It estimates; it does not command.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Public Research Artifacts</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>One-Page Capability Summary</h3>
+                    <p>DICE-first overview mapping AIG's 101/500 governed collective evidence to decentralized coordination, local inference control, contested environments, and human command authority.</p>
+                    <a href="aig/AIG_DICE_ONE_PAGE_CAPABILITY_SUMMARY.md" class="btn">View</a>
+                </div>
+                <div class="card">
+                    <h3>Scaling Evidence Section</h3>
+                    <p>Proposal-ready evidence narrative for governed interaction capacity and the 101-to-500 logical-agent scale path.</p>
+                    <a href="aig/AIG_DICE_SCALING_NARRATIVE_SECTION.md" class="btn">View</a>
+                </div>
+                <div class="card">
+                    <h3>Alignment by Architecture</h3>
+                    <p>Foundational thesis: behavioral governance is enforced through role doctrine, authority topology, and bounded delegation.</p>
+                    <a href="aig/AIG_ALIGNMENT_BY_ARCHITECTURE.md" class="btn">View</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="notice warn">
+            <strong>Evidence annex:</strong> A detailed evidence and methods annex is available upon request for qualified reviewers, program stakeholders, and teaming partners.
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p>For DICE-related review, teaming, or program discussions:</p>
+            <p><a href="mailto:contact@aig-intel.dev">contact@aig-intel.dev</a> | <a href="mailto:christopher@aig-intel.dev">christopher@aig-intel.dev</a></p>
+        </section>
+
+
+        <section>
+            <h2>Adjacent Edge Domain: Governed RF Experimentation</h2>
+            <p>AIG also maintains a SIGIntAgentOS-native RF research lane focused on provenance-preserving signal workflows, bounded modulation/FEC triage, GRAND-inspired lab experiments, and human-gated decoder orchestration. This is not a LUC implementation or program-performer association claim; it is an adjacent edge-domain demonstration of the same governance doctrine applied to RF interpretation workflows.</p>
+            <a href="rf.html" class="btn">View Governed RF Lane</a>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Akamai Intelligence Group LLC. Hawaii-Based, Minority-Owned.</p>
+            <p>Author: Christopher Ramos. Research and drafting support: Deus ex Machina.</p>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            var btn = document.querySelector('.hamburger');
+            var links = document.querySelector('nav .links');
+            if(btn && links){
+                btn.addEventListener('click', function(){
+                    links.classList.toggle('open');
+                    btn.textContent = links.classList.contains('open') ? '✕ MENU' : '≡ MENU';
+                });
+                document.addEventListener('click', function(e){
+                    if(!btn.contains(e.target) && !links.contains(e.target)){
+                        links.classList.remove('open');
+                        btn.textContent = '≡ MENU';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

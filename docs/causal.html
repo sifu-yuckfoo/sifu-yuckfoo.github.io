@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- v1780950168 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Causal Reasoning Auditor | Akamai Intelligence Group</title>
+    <style>
+:root {
+            --bg: #0a0a0c;
+            --panel: #111113;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+            --muted: #888888;
+            --line: #2a2a2d;
+            --warn: #ffcc66;
+            --causal: #cc88ff;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 960px;
+            padding: 40px 40px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        header {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 20px;
+            margin-bottom: 34px;
+        }
+        h1 {
+            color: var(--accent);
+            font-size: 1.85rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        h2 {
+            font-size: 1.1rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 38px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h2.causal-section {
+            border-left-color: var(--causal);
+        }
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero, .card, .notice {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 20px 24px;
+            margin-bottom: 22px;
+        }
+        .notice {
+            border-color: var(--warn);
+        }
+        .causal-card {
+            background: var(--panel);
+            border: 1px solid var(--causal);
+            border-opacity: 0.4;
+            padding: 20px 24px;
+            margin-bottom: 22px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .metric-box {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 18px 16px;
+            text-align: center;
+        }
+        .metric {
+            color: var(--accent);
+            font-size: 1.7rem;
+            font-weight: bold;
+            display: block;
+        }
+        .metric.causal {
+            color: var(--causal);
+        }
+        .metric-label {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: block;
+        }
+        .tag {
+            display: inline-block;
+            border: 1px solid #333;
+            color: var(--muted);
+            padding: 2px 8px;
+            margin-right: 6px;
+            margin-bottom: 8px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .tag.primary { border-color: var(--accent); color: var(--accent); }
+        .tag.causal  { border-color: var(--causal); color: var(--causal); }
+        .tag.warn    { border-color: var(--warn); color: var(--warn); }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 7px; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            padding: 8px 14px;
+            margin-right: 10px;
+            margin-top: 8px;
+            font-size: 0.82rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.15s;
+        }
+        .btn:hover { background: rgba(0,255,204,0.08); text-decoration: none; }
+        .btn.causal {
+            border-color: var(--causal);
+            color: var(--causal);
+        }
+        .btn.causal:hover { background: rgba(204,136,255,0.08); }
+        nav a { color: var(--muted); margin-right: 18px; }
+        nav a:hover { color: var(--accent); }
+
+        /* Phase pipeline */
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+        .phase-box {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 16px;
+        }
+        .phase-box.active { border-color: var(--causal); }
+        .phase-num {
+            color: var(--causal);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .phase-title {
+            font-size: 0.95rem;
+            margin: 6px 0 8px 0;
+            color: var(--text);
+        }
+        .phase-stat {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .phase-stat-label {
+            color: var(--muted);
+            font-size: 0.74rem;
+            text-transform: uppercase;
+        }
+
+        /* Edge table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        th {
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding: 8px 6px;
+            text-align: left;
+        }
+        td {
+            padding: 9px 6px;
+            border-bottom: 1px solid #1a1a1d;
+            vertical-align: top;
+        }
+        td.edge {
+            color: var(--causal);
+            white-space: nowrap;
+        }
+        tr:hover td { background: #141416; }
+
+        /* Rec bar */
+        .rec-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .rec-row:last-child { border-bottom: none; }
+        .rec-rate {
+            min-width: 54px;
+            color: var(--causal);
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-align: right;
+        }
+        .rec-key {
+            color: var(--accent);
+            font-size: 0.82rem;
+            margin-bottom: 4px;
+        }
+        .rec-text {
+            color: var(--muted);
+            font-size: 0.83rem;
+            line-height: 1.5;
+        }
+
+        /* Family table */
+        .family-table td.ok { color: var(--accent); }
+        .family-table td.fail { color: var(--warn); }
+        .family-table td.complex { color: var(--causal); }
+
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--line);
+            padding-top: 18px;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2f;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        nav .logo {
+            font-weight: 700;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', Courier, monospace;
+            flex-shrink: 0;
+        }
+        nav .logo span { color: #00ffcc; }
+        nav .hamburger {
+            display: none;
+            background: none;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 6px 10px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        nav .hamburger:hover { border-color: #00ffcc; color: #00ffcc; }
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+        nav .links a {
+            color: #888888;
+            text-decoration: none;
+            padding: 4px 7px;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            white-space: nowrap;
+            font-family: 'Courier New', Courier, monospace;
+            margin-right: 0;
+        }
+        nav .links a:hover { color: #00ffcc; }
+        nav .links a.active { color: #00ffcc; }
+
+        @media (max-width: 900px) {
+            .container { padding-left: 40px; padding-right: 40px; }
+            nav .links a { font-size: 0.68rem; padding: 4px 5px; letter-spacing: 0.5px; }
+            h1 { font-size: 1.55rem !important; letter-spacing: 1px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            nav .hamburger { display: block; }
+            nav .links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f0f11;
+                border: 1px solid #2a2a2f;
+                border-top: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                z-index: 100;
+                padding: 8px 0;
+            }
+            nav .links.open { display: flex; }
+            nav .links a {
+                width: 100%;
+                padding: 10px 20px;
+                border-bottom: 1px solid #1a1a1f;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+            }
+            nav .links a:last-child { border-bottom: none; }
+            h1 { font-size: 1.35rem !important; letter-spacing: 1px !important; }
+        }
+</style>
+</head>
+<body>
+<div class="container">
+    <nav>
+            <a href="index.html" class="logo">AIG<span>.</span></a>
+            <button class="hamburger" aria-label="Toggle navigation">&#9776; MENU</button>
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research</a>
+                <a href="dice.html">DICE</a>
+                <a href="rf.html">RF Lane</a>
+                <a href="causal.html" class="active">Causal</a>
+                <a href="capabilities.html">Capabilities</a>
+                <a href="future.html">Future</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+    <header>
+        <p class="subtitle">AIG-CAUSAL-005 &nbsp;|&nbsp; June 2026 &nbsp;|&nbsp; Christopher Ramos</p>
+        <h1>Causal Reasoning Auditor</h1>
+        <p style="color: var(--muted); margin-top: 8px; font-size: 0.92rem;">
+            A four-phase pipeline that moves governance evaluation beyond accuracy metrics —
+            attributing every governance decision to its upstream causal drivers
+            using structural causal modeling on real adversarial trial data.
+        </p>
+        <div style="margin-top: 16px;">
+            <span class="tag primary">DICE-Adjacent</span>
+            <span class="tag causal">Causal Inference</span>
+            <span class="tag">GAL-040B</span>
+            <span class="tag">1,800 Trials</span>
+            <span class="tag">4/4 Phases Passing</span>
+        </div>
+    </header>
+
+    <!-- Top metrics -->
+    <div class="grid">
+        <div class="metric-box">
+            <span class="metric">1,800</span>
+            <span class="metric-label">GAL-040B Trials Attributed</span>
+        </div>
+        <div class="metric-box">
+            <span class="metric">99.89%</span>
+            <span class="metric-label">Correct Governance Rate</span>
+        </div>
+        <div class="metric-box">
+            <span class="metric causal">47.5×</span>
+            <span class="metric-label">Coverage Expansion (Phase 2)</span>
+        </div>
+        <div class="metric-box">
+            <span class="metric causal">11</span>
+            <span class="metric-label">Consensus Causal Edges</span>
+        </div>
+    </div>
+
+    <!-- Pipeline overview -->
+    <h2 class="causal-section">Four-Phase Pipeline</h2>
+    <div class="pipeline">
+        <div class="phase-box active">
+            <div class="phase-num">Phase 1</div>
+            <div class="phase-title">Concept Extraction</div>
+            <div class="phase-stat">35</div>
+            <div class="phase-stat-label">Governance concepts</div>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px;">
+                Converts 1,800 GAL-040B trial records into binary concept activation vectors
+                across authority, provenance, topology, load, adversarial signal, fanout, and outcome dimensions.
+            </p>
+        </div>
+        <div class="phase-box active">
+            <div class="phase-num">Phase 2</div>
+            <div class="phase-title">Counterfactual Augmentation</div>
+            <div class="phase-stat">25,764</div>
+            <div class="phase-stat-label">Total states generated</div>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px;">
+                MCMC-inspired counterfactual chain generation expands 1,800 observed states to 25,764 —
+                47.5× coverage expansion. 0 invalid states. 100% provenance-traced.
+            </p>
+        </div>
+        <div class="phase-box active">
+            <div class="phase-num">Phase 3</div>
+            <div class="phase-title">Causal Structure Discovery</div>
+            <div class="phase-stat">11</div>
+            <div class="phase-stat-label">Consensus edges</div>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px;">
+                Two independent algorithms — HillClimbSearch+BIC (91 edges) and PC chi-square (30 edges) —
+                are run and intersected. Consensus = edges confirmed by both.
+            </p>
+        </div>
+        <div class="phase-box active">
+            <div class="phase-num">Phase 4</div>
+            <div class="phase-title">Causal Attribution</div>
+            <div class="phase-stat">5.86</div>
+            <div class="phase-stat-label">Avg root causes / trial</div>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px;">
+                Consensus DAG applied to all 1,800 trials. Each trial receives root cause list,
+                causal chains, and governance recommendation keys. 0 unmatched trials.
+            </p>
+        </div>
+    </div>
+
+    <!-- Key finding -->
+    <div class="causal-card">
+        <div style="color: var(--causal); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Key Finding</div>
+        <p style="margin: 0 0 10px 0;">
+            <code style="color: var(--causal);">adversarial_escalation</code> is the single most causally active governance concept —
+            3 outgoing consensus edges confirmed by two independent algorithms:
+        </p>
+        <ul style="margin: 0; color: var(--muted); font-size: 0.88rem;">
+            <li><code style="color:var(--causal);">adversarial_escalation → outcome_block</code></li>
+            <li><code style="color:var(--causal);">adversarial_escalation → human_gate_bypassed</code></li>
+            <li><code style="color:var(--causal);">adversarial_escalation → role_functional</code> (contaminates functional role signal)</li>
+        </ul>
+        <p style="color: var(--muted); font-size: 0.85rem; margin: 12px 0 0 0;">
+            Detecting escalation early is worth more than any downstream remediation.
+            PARIAH intercepts at the escalation stage. JACKAL emits early-warning trust-fracture signal.
+            This is the governance architecture doing its job — the data confirmed it.
+        </p>
+    </div>
+
+    <!-- Consensus DAG table -->
+    <h2 class="causal-section">Consensus DAG — 11 High-Confidence Edges</h2>
+    <p style="color: var(--muted); font-size: 0.85rem; margin-top: -8px; margin-bottom: 14px;">
+        Edges present in both HillClimbSearch (BIC) and PC (chi-square independence test) outputs.
+        Two independent algorithms. Same edge = high-confidence causal claim.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Cause</th>
+                <th></th>
+                <th>Effect</th>
+                <th>Interpretation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="edge">adversarial_escalation</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">outcome_block</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Escalation causally drives block decisions</td>
+            </tr>
+            <tr>
+                <td class="edge">adversarial_escalation</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">human_gate_bypassed</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Escalation causally precedes gate bypass</td>
+            </tr>
+            <tr>
+                <td class="edge">adversarial_escalation</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">role_functional</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Escalation contaminates functional role signal</td>
+            </tr>
+            <tr>
+                <td class="edge">fanout_attempted_excess</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">fanout_over_budget</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Excess attempts causally produce budget violations</td>
+            </tr>
+            <tr>
+                <td class="edge">load_normal</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">load_burst</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Temporal: normal load transitions to burst</td>
+            </tr>
+            <tr>
+                <td class="edge">load_normal</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">load_degraded</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Temporal: normal load transitions to degraded</td>
+            </tr>
+            <tr>
+                <td class="edge">role_mix_contaminated</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">role_mix_clean</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Contamination suppresses clean role signal</td>
+            </tr>
+            <tr>
+                <td class="edge">outcome_correct</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">failure_none</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Correct outcome causally produces no failure</td>
+            </tr>
+            <tr>
+                <td class="edge">outcome_incorrect</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">failure_false_positive</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Incorrect outcome causally produces false positive</td>
+            </tr>
+            <tr>
+                <td class="edge">authority_valid</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">authority_missing</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Valid authority context predicts missing authority transitions</td>
+            </tr>
+            <tr>
+                <td class="edge">adversarial_absent</td>
+                <td style="color:var(--muted);">→</td>
+                <td class="edge">adversarial_present</td>
+                <td style="color:var(--muted); font-size:0.82rem;">Temporal: absence precedes presence in adversarial trials</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Per-family results -->
+    <h2>Per-Scenario-Family Attribution Results</h2>
+    <table class="family-table">
+        <thead>
+            <tr>
+                <th>Scenario Family</th>
+                <th>Trials</th>
+                <th>Correct Rate</th>
+                <th>Avg Causal Complexity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>benign_coordination</td>
+                <td>300</td>
+                <td class="ok">100.00%</td>
+                <td class="complex">5.90</td>
+            </tr>
+            <tr>
+                <td>rogue_coalition</td>
+                <td>300</td>
+                <td class="ok">100.00%</td>
+                <td class="complex">6.00</td>
+            </tr>
+            <tr>
+                <td>provenance_degradation</td>
+                <td>300</td>
+                <td class="ok">100.00%</td>
+                <td class="complex">5.81</td>
+            </tr>
+            <tr>
+                <td>mixed_noisy_load</td>
+                <td>300</td>
+                <td class="ok">100.00%</td>
+                <td class="complex" style="color:var(--warn);">6.49</td>
+            </tr>
+            <tr>
+                <td>unauthorized_authority_escalation</td>
+                <td>300</td>
+                <td class="ok">100.00%</td>
+                <td class="complex">5.50</td>
+            </tr>
+            <tr>
+                <td>false_consensus</td>
+                <td>300</td>
+                <td class="fail">99.33%</td>
+                <td class="complex">5.48</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="color:var(--muted); font-size:0.82rem;">
+        <code style="color:var(--warn);">false_consensus</code> is the only family with failures (2 of 300 trials — F-BENIGN-002).
+        Both failures trace to <code>authority_missing</code> + <code>role_mix_contaminated</code> as causal roots.
+        <code style="color:var(--warn);">mixed_noisy_load</code> has the highest causal complexity (6.49) — noisiest governance surface.
+    </p>
+
+    <!-- Governance recommendations -->
+    <h2 class="causal-section">Governance Recommendations</h2>
+    <p style="color: var(--muted); font-size: 0.85rem; margin-top: -8px; margin-bottom: 18px;">
+        Keyed to causal root nodes. Trigger rate = fraction of 1,800 trials where this root was causally active.
+    </p>
+
+    <div class="card" style="padding: 4px 20px;">
+        <div class="rec-row">
+            <div class="rec-rate">46.3%</div>
+            <div>
+                <div class="rec-key">authority_missing</div>
+                <div class="rec-text">Enforce authority attestation at every inter-agent handoff. WARLORD owns this gate — no exceptions.</div>
+            </div>
+        </div>
+        <div class="rec-row">
+            <div class="rec-rate">41.7%</div>
+            <div>
+                <div class="rec-key">adversarial_present</div>
+                <div class="rec-text">When adversarial signal is confirmed, route all downstream decisions through WARLORD authority gate before allow/block is issued. ORACLE flags elevated false-negative risk in this condition.</div>
+            </div>
+        </div>
+        <div class="rec-row">
+            <div class="rec-rate">16.7%</div>
+            <div>
+                <div class="rec-key">fanout_attempted_excess</div>
+                <div class="rec-text">Implement hard fanout caps at the message dispatch layer. RELAY enforces delivery — WARLORD must own the fanout budget gate.</div>
+            </div>
+        </div>
+        <div class="rec-row">
+            <div class="rec-rate">15.5%</div>
+            <div>
+                <div class="rec-key">load_burst</div>
+                <div class="rec-text">ORACLE models burst arrival rates and pre-positions WARLORD for throttle decisions before fanout threshold is reached.</div>
+            </div>
+        </div>
+        <div class="rec-row">
+            <div class="rec-rate">12.3%</div>
+            <div>
+                <div class="rec-key">role_mix_contaminated</div>
+                <div class="rec-text">OPSEC enforces strict role boundary separation. SHADOW owns low-observable behavior — contamination detection must not cross into HUMINT lanes. JACKAL emits early-warning trust-fracture signal.</div>
+            </div>
+        </div>
+        <div class="rec-row">
+            <div class="rec-rate">8.3%</div>
+            <div>
+                <div class="rec-key">adversarial_escalation</div>
+                <div class="rec-text">PARIAH increases sensitivity at the role boundary when escalation_target is non-null. Mandatory human gate review when adversarial_escalation is active.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boundary / what this is not -->
+    <h2>Scope &amp; Limitations</h2>
+    <div class="notice">
+        <p style="margin: 0 0 10px 0; color: var(--warn); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px;">What this is not</p>
+        <ul style="color:var(--muted); font-size:0.85rem; margin:0;">
+            <li>This is not a universal causal model of AI governance. It is a causal model of the concept space defined for GAL-040B.</li>
+            <li>This is not external validation. Causal structure reflects AIG's own evaluation data.</li>
+            <li>The PC algorithm runs on a 2,000-state sample for tractability. Consensus edges are directionally reliable, not statistically exhaustive.</li>
+            <li>Causal discovery on binary data has well-known limitations (faithfulness assumption, Markov condition). These are acknowledged.</li>
+            <li>No live agent inference. No network calls. No LLM used for causal inference — classical algorithms only.</li>
+        </ul>
+    </div>
+
+    <!-- Links -->
+    <h2>Documents &amp; Artifacts</h2>
+    <p>
+        <a href="aig/AIG_CAUSAL_AUDITOR_TECHNICAL_BRIEF.md" class="btn causal">Technical Brief (AIG-CAUSAL-005)</a>
+        <a href="research.html" class="btn">← Research Index</a>
+        <a href="dice.html" class="btn">DICE Capability Page</a>
+    </p>
+
+    <footer>
+        AIG-CAUSAL-005 &nbsp;|&nbsp; Causal Reasoning Auditor &nbsp;|&nbsp; June 2026 &nbsp;|&nbsp; Akamai Intelligence Group &nbsp;|&nbsp; aig-intel.dev
+    </footer>
+
+</div>
+
+    <script>
+        (function(){
+            var btn = document.querySelector('.hamburger');
+            var links = document.querySelector('nav .links');
+            if(btn && links){
+                btn.addEventListener('click', function(){
+                    links.classList.toggle('open');
+                    btn.textContent = links.classList.contains('open') ? '✕ MENU' : '≡ MENU';
+                });
+                document.addEventListener('click', function(e){
+                    if(!btn.contains(e.target) && !links.contains(e.target)){
+                        links.classList.remove('open');
+                        btn.textContent = '≡ MENU';
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
