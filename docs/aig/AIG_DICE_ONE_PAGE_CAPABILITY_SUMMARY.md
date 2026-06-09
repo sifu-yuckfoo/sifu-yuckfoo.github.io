@@ -3,12 +3,11 @@ ONE-PAGE DICE CAPABILITY SUMMARY
 ==============================================================================
 Document ID: AIG-DICE-008
 Classification: UNCLASSIFIED // PUBLIC RELEASE
-Version: 0.2 | June 5, 2026
+Version: 0.2 | Public release | June 5, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Status: HARDENED PROPOSAL-READY ONE-PAGE SUMMARY
+Status: PUBLIC CAPABILITY SUMMARY
 ==============================================================================
-
 AIG POSITIONING
 ------------------------------------------------------------------------------
 Akamai Intelligence Group (AIG) develops governed collective-intelligence

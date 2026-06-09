@@ -1,24 +1,14 @@
-COVERT COUNTERINTELLIGENCE ARCHITECTURE FOR ADVERSARIAL HUMAN-AI INTERACTION:
-INVISIBLE GOVERNANCE COORDINATION, META-LEVEL IDENTITY ATTACK DEFENSE,
-AND EMPIRICAL VALIDATION UNDER SPECIALIZED HUMINT ADVERSARIAL CONDITIONS
-
-Akamai Intelligence Group LLC
-Technical Report AIG-2026-003 (Public Release Edition)
-Hawaii-Based, Minority-Owned
-
+AKAMAI INTELLIGENCE GROUP
+COVERT COUNTERINTELLIGENCE ARCHITECTURE FOR ADVERSARIAL HUMAN-AI INTERACTION
+Public Release Edition
+==============================================================================
+Document ID: AIG-2026-003
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 22, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Date: May 22, 2026
-Classification: UNCLASSIFIED // PUBLIC RELEASE
 Status: PUBLIC RESEARCH PAPER
-
-NOTE: This is the public release edition. Specific implementation
-parameters, signal taxonomy, and operational protocol details have
-been abstracted to the architectural principle level. The full
-technical specification is retained in AIG internal documentation.
-
 ==============================================================================
-
 ABSTRACT
 
 AI agents deployed with operational personas in contested social environments
@@ -181,7 +171,7 @@ The adversary is a knowledgeable actor who:
 
 Eight distinct attack techniques are classified by threat level.
 Specific technique names and countermeasure protocols are retained
-in AIG internal documentation. The categories are presented here
+in AIG source documentation. The categories are presented here
 at the architectural principle level.
 
 CRITICAL THREAT LEVEL (attacks operating above instruction layer):
@@ -291,7 +281,7 @@ operates with two. The adversary cannot target what they cannot observe.
 The key architectural invariants are:
 
   (i)  The CI monitor never produces output in the adversary-facing channel.
-  (ii) CI guidance reaches the primary operator as private context,
+  (ii) CI guidance reaches the primary operator as controlled context,
        not as observable dialogue.
   (iii) The primary operator's final response is its own -- it
         incorporates CI guidance but does not surface it.
@@ -306,8 +296,7 @@ incapable of producing adversary-facing output.
 4.2 Governance Coordination Signals
 
 The COGC model requires a minimal set of coordination signal types.
-Specific signal names and payload schemas are retained in AIG internal
-documentation. The functional categories are:
+Specific signal names and payload schemas are intentionally omitted from this public release. The functional categories are:
 
   Detection signal:
     Primary operator emits when an adversarial technique is identified.
@@ -571,7 +560,7 @@ has a cognitive blind spot that message-level detection cannot expose.
 Theoretical: It enables measurement of agent recognition capability
 as a first-class property, independent of adversary syntax. This
 is a more meaningful evaluation metric for assessing whether
-governance doctrine is operationally internalized.
+governance doctrine is absorbed into operational behavior.
 
 ==============================================================================
 
@@ -700,7 +689,7 @@ DOCUMENT CONTROL
   Author:       Christopher Ramos
   Institution:  Akamai Intelligence Group LLC
   Status:       PUBLIC RELEASE WEBSITE COPY
-  Internal ref: AIG-2026-003 (full technical specification)
+  Reference: AIG-2026-003 (public release edition)
   Prior work:   AIG-2026-001 (IPI Defense)
                 AIG-2026-002 (GAL Empirical Validation)
                 AIG-TECH-003 (Alignment by Architecture)

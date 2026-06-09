@@ -1,19 +1,14 @@
-BIOMIMETIC ADAPTIVE TOPOLOGY FOR DISTRIBUTED COGNITIVE GOVERNANCE:
-SELF-OPTIMIZING COORDINATION NETWORKS DERIVED FROM PHYSARUM POLYCEPHALUM,
-MYCELIAL NETWORKS, AND MULTI-SCALE AVIAN COORDINATION PRIMITIVES
-
-Akamai Intelligence Group LLC
-Technical Report AIG-2026-004
-Hawaii-Based, Minority-Owned
-
+AKAMAI INTELLIGENCE GROUP
+BIOMIMETIC ADAPTIVE TOPOLOGY FOR DISTRIBUTED COGNITIVE GOVERNANCE
+Self-Optimizing Coordination Networks
+==============================================================================
+Document ID: AIG-2026-004
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 22, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Date: May 22, 2026
-Classification: UNCLASSIFIED // PUBLIC RELEASE
 Status: PUBLIC RESEARCH PAPER
-
 ==============================================================================
-
 ABSTRACT
 
 Distributed multi-agent AI systems operating at scale face a fundamental

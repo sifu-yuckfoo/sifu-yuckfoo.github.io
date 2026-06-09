@@ -1,19 +1,14 @@
-EMPIRICAL EVALUATION OF ADVERSARIAL RESILIENCE IN DISTRIBUTED
-COGNITIVE GOVERNANCE ARCHITECTURES: A SYSTEMATIC STUDY ACROSS
-SIXTEEN ATTACK CATEGORIES
-
-Akamai Intelligence Group LLC
-Technical Report AIG-2026-002
-Hawaii-Based, Minority-Owned
-
+AKAMAI INTELLIGENCE GROUP
+EMPIRICAL EVALUATION OF ADVERSARIAL RESILIENCE
+Distributed Cognitive Governance Architectures Across Sixteen Attack Categories
+==============================================================================
+Document ID: AIG-2026-002
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 22, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Date: May 22, 2026
-Classification: UNCLASSIFIED // PUBLIC RELEASE
 Status: PUBLIC RESEARCH PAPER
-
 ==============================================================================
-
 ABSTRACT
 
 Distributed multi-agent AI systems operating in contested environments
@@ -186,7 +181,7 @@ Threat model: Adversary claims to be the Human Principal
 checks using fabricated urgency framing.
 
 Two attack vectors tested:
-  Vector A -- Internal adversary (IRREGULAR tier)
+  Vector A -- Insider adversary (IRREGULAR tier)
   Vector B -- External unverified node
 
 Results:
@@ -220,7 +215,7 @@ contradiction produces safe suspension, not hallucinated resolution.
 4.3 GAL-003: Stigmergic Memory Bus Poisoning
 
 Threat model: Adversary bypasses the IPI ingestion gate by gaining
-write access to the internal coordination bus, injecting false signals
+write access to the coordination bus, injecting false signals
 that all 49 operators read without integrity verification.
 
 Baseline result: VULNERABILITY CONFIRMED. Without M4 (read_verified),
@@ -479,7 +474,7 @@ not signal manipulation.
 5.2 Failure Modes Identified
 
 GAL-003 (Stigmergic Bus Poisoning) confirmed a genuine architectural
-vulnerability: the internal bus lacked write-boundary protection and
+vulnerability: the coordination bus lacked write-boundary protection and
 read integrity verification. This was not a theoretical weakness --
 it was empirically confirmed, then resolved through M1-M6 mitigations.
 

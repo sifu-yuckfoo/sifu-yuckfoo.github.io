@@ -1,17 +1,14 @@
-INDIRECT PROMPT INJECTION IN MULTI-AGENT AI SYSTEMS:
-THREAT TAXONOMY, ATTACK SURFACE ANALYSIS, AND A WORKING
-DEFENSE ARCHITECTURE FOR CONTESTED EDGE ENVIRONMENTS
-
-Akamai Intelligence Group LLC
+AKAMAI INTELLIGENCE GROUP
+INDIRECT PROMPT INJECTION IN MULTI-AGENT AI SYSTEMS
+Threat Taxonomy, Attack Surface Analysis, and Working Defense Architecture
+==============================================================================
 Document ID: AIG-2026-001
 Classification: UNCLASSIFIED // PUBLIC RELEASE
 Version: Public release | May 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Status: PUBLIC RESEARCH PAPER
-
----
-
+==============================================================================
 > **RESEARCH CORPUS NOTE**: This paper is one of four documents in the AIG
 > research program. The theoretical foundation is AIG-TECH-004
 > (DGCA: Governance Architecture for Distributed Synthetic Cognition).
@@ -56,10 +53,10 @@ IPI-relevant ingestion surfaces ranked by exploitation likelihood, with a
 formal threat model specifying attacker capability tiers, trust boundaries,
 and privilege levels.
 
-Third, design, implementation, and internal engineering validation of a
+Third, design, implementation, and local engineering validation of a
 layered IPI defense architecture -- the IPI Defense Engine -- on a
 resource-constrained Raspberry Pi CM5 platform. We report performance metrics
-explicitly as internal validation baselines against known-class attacks, not
+explicitly as local validation baselines against known-class attacks, not
 as generalized defense guarantees. Third-party blinded evaluation using
 Anthropic's Petri 3.0 alignment tool (as used by the UK AI Security Institute)
 is in progress and constitutes a Phase I research deliverable.
@@ -218,9 +215,9 @@ capabilities, trust boundaries, privilege levels, and explicit scope limits.
 TIER 1 -- OPPORTUNISTIC ATTACKER
   Capabilities: Web content injection, basic prompt override, publicly
   documented jailbreak techniques, social engineering via email/document.
-  Resources: No insider access, no model internals knowledge.
+  Resources: No insider access, no model implementation knowledge.
   Detection expectation: IPI Defense Engine detects >90% of Tier 1 attacks
-  based on internal engineering validation baseline.
+  based on a local engineering validation baseline.
 
 TIER 2 -- TARGETED ATTACKER
   Capabilities: All Tier 1, plus: crafted semantic indirection, multi-hop
@@ -247,7 +244,7 @@ The IPI Defense Engine operates on the following trust model:
 
   TRUSTED:  System prompt, operator-authored constitutional doctrine,
             operator-approved tool registry, local file system (verified
-            via skill_verifier.py SHA-256 manifest), internal Layer 1 distributed stigmergic state bus (Ghost Field)
+            via skill_verifier.py SHA-256 manifest), Layer 1 distributed stigmergic state bus (Ghost Field)
             pheromone signals from verified operators.
 
   UNTRUSTED BY DEFAULT: All external content ingested during operation --
@@ -307,7 +304,7 @@ Current defenses address the following attack tiers reliably:
 
   TIER A (SIGNATURE-DETECTABLE): Direct injection markers, HTML obfuscation,
   Unicode confusables, base64 encoding, explicit authority claims, role
-  injection keywords. Detection rate: >93% (internal baseline, known-class).
+  injection keywords. Detection rate: >93% (local baseline, known-class).
 
   TIER B (SEMANTIC INDIRECTION): Multi-hop payload construction, contextual
   authority erosion, tool call chaining abuse, memory write injection.
@@ -791,7 +788,7 @@ embedded in the only function through which external missions enter the system.
 6.1 EVALUATION METHODOLOGY AND LIMITATIONS
 
 **CRITICAL DISCLOSURE**: The evaluation results reported in this section
-constitute an internal engineering validation baseline, not a rigorous
+constitute a local engineering validation baseline, not a rigorous
 security evaluation. The following limitations apply and must be understood
 before interpreting any metric:
 
@@ -1445,4 +1442,3 @@ AIG claims the second. AIG does not claim the first.
 That distinction is the honest boundary of this work.
 
 ---
-

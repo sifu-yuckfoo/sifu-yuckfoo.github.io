@@ -1,12 +1,15 @@
-# AIG Public-Safe Capability Note: LUC-Adjacent RF Governance & Edge Experimentation
-
-**Document ID:** AIG-SIGINT-LUC-009  
-**Date:** 2026-06-07  
-**Author:** Christopher Ramos, Akamai Intelligence Group  
-**Classification:** UNCLASSIFIED // PUBLIC RELEASE  
-**Status:** PUBLIC-SAFE CAPABILITY NOTE  
-**Classification posture:** Unclassified, capability-framing only. No performer-status, endorsement, or validation claim.
-
+AKAMAI INTELLIGENCE GROUP
+LUC-ADJACENT RF GOVERNANCE + EDGE EXPERIMENTATION
+Capability-Framing Note
+==============================================================================
+Document ID: AIG-SIGINT-LUC-009
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | June 7, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC-SAFE CAPABILITY NOTE
+Classification posture: Unclassified, capability-framing only. No performer-status, endorsement, or validation claim.
+==============================================================================
 ## Purpose
 
 Akamai Intelligence Group is evaluating whether its SIGIntAgentOS / Ghost Unit research stack may be relevant as an **adjacent edge experimentation and governance substrate** for DARPA Lightweight Universal Codec (LUC)-related performer teams or evaluation workflows.
@@ -32,7 +35,7 @@ This is best understood as a **governed RF analysis and test/evaluation workbenc
 
 ## Current Demonstrated Prototype State
 
-The current local prototype has completed an internal lab ladder:
+The current local prototype has completed a lab validation ladder:
 
 1. adaptive decoder broker for dry-run candidate routing
 2. capture provenance sidecars and SigMF-style metadata

@@ -1,18 +1,14 @@
-PARASOCIAL GOVERNANCE: SOCIAL TRUST AS A VULNERABILITY SURFACE
-IN HUMAN-AI PRINCIPAL HIERARCHIES
-
-Akamai Intelligence Group LLC
-Technical Report AIG-2026-005
-Hawaii-Based, Minority-Owned
-
+AKAMAI INTELLIGENCE GROUP
+PARASOCIAL GOVERNANCE
+Social Trust as a Vulnerability Surface in Human-AI Principal Hierarchies
+==============================================================================
+Document ID: AIG-2026-005
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 22, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Date: May 22, 2026
-Classification: UNCLASSIFIED // PUBLIC RELEASE
 Status: PUBLIC RESEARCH PAPER
-
 ==============================================================================
-
 ABSTRACT
 
 Contemporary AI alignment research focuses predominantly on agent-level
@@ -821,6 +817,6 @@ DOCUMENT CONTROL
   Author:       Christopher Ramos
   Institution:  Akamai Intelligence Group LLC
   Status:       PUBLIC RELEASE WEBSITE COPY
-  Source docs:  AIG-RESEARCH-015 (Parasocial Governance internal)
+  Source corpus: Parasocial Governance research notes
                 AIG-RESEARCH-016 (Aggregation and Governance Emergence)
   Prior work:   AIG-2026-001 through AIG-2026-004

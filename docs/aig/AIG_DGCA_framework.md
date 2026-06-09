@@ -4,14 +4,11 @@ Formal Systems Specification
 ==============================================================================
 Document ID: AIG-TECH-004
 Classification: UNCLASSIFIED // PUBLIC RELEASE
-Version: 3.0 | May 11, 2026
+Version: 3.0 | Public release | May 11, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Supersedes: AIG-TECH-004 v1.x, v2.0
-Related: AIG-RESEARCH-006 (GAL), AIG-2026-001 (IPI), AIG-TECH-003 (Alignment)
-         AIG-QMS-001, AIG-RESEARCH-009 (CASCP), AIG-ROBOTICS-001
+Status: PUBLIC FORMAL SYSTEMS SPECIFICATION
 ==============================================================================
-
 REVISION NOTES:
   v1.x: DGCA governance-first thesis. 17 sections.
   v2.0: Adaptive Biomimetic Governance Orchestration (ABGO). Five archetypes.
@@ -513,7 +510,7 @@ PRIMITIVE 14 -- CONTAMINATION ISOLATION
 
   RULE:
     Suspect nodes enter reduced authority state, observation mode,
-    and restricted propagation domains.
+    and bounded propagation domains.
     Compromised nodes cannot directly contaminate governance roots.
 
   INVARIANT (P14):
@@ -775,9 +772,9 @@ ACTIVE PUBLIC-SAFE DOCUMENTS:
   AIG-RESEARCH-009:    CASCP-DAS -- five-layer coordination stack
 
 PUBLIC RELEASE NOTE:
-  This website copy intentionally omits proprietary IP docketing, filing
-  strategy, and non-public implementation material. It preserves the public
-  research architecture and claim boundaries only.
+  This website copy intentionally omits non-public filing strategy and
+  implementation material. It preserves the public research architecture and
+  claim boundaries only.
 
 MONOGRAPH CONTEXT (PUBLIC-SAFE SUMMARY):
   Part I:   Foundations -- distributed cognition, governance problem

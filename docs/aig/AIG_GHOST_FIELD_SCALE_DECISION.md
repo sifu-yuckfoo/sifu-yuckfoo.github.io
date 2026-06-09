@@ -3,12 +3,11 @@ GHOST FIELD SCALE DECISION MEMO
 ==============================================================================
 Document ID: AIG-ARCH-017
 Classification: UNCLASSIFIED // PUBLIC RELEASE
-Version: 0.1 | May 31, 2026
+Version: 0.2 | Public release | May 31, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Status: PUBLIC ARCHITECTURE DECISION MEMO
 ==============================================================================
-
 PURPOSE
 ------------------------------------------------------------------------------
 This memo records the current architecture decision for the Ghost Field state bus

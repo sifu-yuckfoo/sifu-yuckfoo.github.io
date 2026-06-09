@@ -1,28 +1,20 @@
 AKAMAI INTELLIGENCE GROUP
 CONTEXT-GOVERNANCE ARCHITECTURE
-SANITIZED BUILDER BRIEF
+Sanitized Builder Brief
 ==============================================================================
 Document ID: AIG-BRIEF-002
-Classification: UNCLASSIFIED // EXTERNAL-SAFE BUILDER SUMMARY
-Version: 0.1 | May 31, 2026
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: 0.2 | Public release | May 31, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Status: SANITIZED ONE-PAGER / NON-PROPRIETARY OVERVIEW
+Status: PUBLIC EXTERNAL-SAFE BUILDER SUMMARY
 ==============================================================================
-
-CONTACT
-------------------------------------------------------------------------------
-Christopher Ramos
-Founder, Akamai Intelligence Group LLC
-Hawaii-based and minority-owned AI systems company
-
 PURPOSE
 ------------------------------------------------------------------------------
-This brief provides a sanitized, non-proprietary overview of AIG's
+This brief provides a sanitized, public-safe overview of AIG's
 Context-Governance Architecture for a potential builder-to-builder conversation.
 It is intended to describe conceptual alignment without disclosing protected IP,
-proposal strategy, customer-sensitive details, exploit workflows, or restricted
-technical implementation details.
+proposal strategy, implementation details, operational procedures, or non-public partner material.
 
 ONE-LINE SUMMARY
 ------------------------------------------------------------------------------
@@ -159,12 +151,12 @@ BOUNDARIES FOR THIS BRIEF
 ------------------------------------------------------------------------------
 This document intentionally does not include:
 
-  - proprietary implementation details
-  - patent-sensitive architecture claims
+  - low-level implementation details
+  - non-public architecture claims
   - customer or proposal-sensitive information
-  - exploit workflows
-  - restricted operational procedures
-  - private strategic projects
+  - operational misuse workflows
+  - non-public operational procedures
+  - non-public strategic projects
   - source code excerpts
 
 This is a high-level builder summary only.

@@ -1,15 +1,14 @@
+AKAMAI INTELLIGENCE GROUP
 ALIGNMENT BY ARCHITECTURE
-Akamai Intelligence Group -- Public Research Paper
+==============================================================================
 Document ID: AIG-TECH-003
 Classification: UNCLASSIFIED // PUBLIC RELEASE
 Version: Public release | June 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Status: PUBLIC RESEARCH PAPER
-Date: May 22, 2026
-
----
-
+Original date: May 22, 2026
+==============================================================================
 > **RESEARCH CORPUS NOTE**: This paper is one of four documents in the AIG
 > research program. The theoretical foundation is AIG-TECH-004
 > (DGCA: Governance Architecture for Distributed Synthetic Cognition).
@@ -150,10 +149,10 @@ A critical distinction this paper maintains throughout:
   the constitutional doctrine (system prompt synthesis) for any operator.
   The behavioral intent is inspectable and updatable by humans.
 
-  MECHANISTIC INTERPRETABILITY: Understanding what internal computations
+  MECHANISTIC INTERPRETABILITY: Understanding what model computations
   a model performs. This paper makes NO claims about mechanistic
   interpretability. The same doctrine may produce different behavioral
-  outputs across different models or context lengths. Internal cognition
+  outputs across different models or context lengths. Latent cognition
   remains opaque.
 
 "Alignment by Architecture" provides doctrinal transparency, not
@@ -214,7 +213,7 @@ THE FORMAL RESEARCH HYPOTHESIS:
   "Fictional archetypes with high narrative coherence and documented
    behavioral consistency provide stronger behavioral prior grounding for
    LLM system prompts than role-description-only prompting, because they
-   supply the model with a richer, more internally consistent latent
+   supply the model with a richer, more coherent latent
    representation of the intended behavioral pattern."
 
 WHAT EVIDENCE WOULD SUPPORT OR REFUTE THIS:
@@ -345,7 +344,7 @@ synthesis process produces a coherent behavioral voice that is:
   - Distinct from every other operator in the collective
 
 Sample implementations (figure sources abbreviated; full constitutional
-documents in internal operator files):
+documents in operator profile files):
 
   Strategic Commander (OODA) (Colonel / SIGINT):
     Soul derived from: strategic command doctrine, Strategic Commander (OODA)-loop theory,
@@ -377,12 +376,12 @@ documents in internal operator files):
 
 Note: The specific figure sources used in each constitutional synthesis --
 including both real practitioners and narrative behavioral priors -- are
-documented in the internal operator files. These are implementation
+documented in the operator profile files. These are implementation
 details of the synthesis methodology, not external-facing claims. The
 external-facing contribution is the methodology itself: behavioral
 grounding through documented philosophical synthesis without model
 retraining. See Appendix A for methodology framing; specific figure
-lists are internal operational documentation.
+lists remain non-public operational documentation.
 
 Each operator is behaviorally distinct. Each has auditable doctrine.
 Each is running the same base model.
@@ -417,7 +416,7 @@ extrapolated beyond the bounded claims in this document.
 PUBLIC RELEASE NOTE
 
 This public version describes the research and governance architecture at a
-conceptual and evaluative level. Proprietary IP strategy, filing details, and
+conceptual and evaluative level. Non-public IP strategy, filing details, and
 non-public implementation material are intentionally omitted from this website
 copy.
 
@@ -915,8 +914,8 @@ https://www.anthropic.com/research/trustworthy-agents
 ---
 
 Public revision note:
-  This public version retains the research substance while omitting proprietary
-  IP-control metadata from the website copy.
+  This public version retains the research substance while omitting non-public
+  control metadata from the website copy.
 
 ---
 
@@ -1127,7 +1126,7 @@ AIG's thesis is that alignment is more correctly understood as a property
 of governance topology -- the architectural relationships between agents,
 the authority structures that constrain their actions, and the
 infrastructure that enforces those constraints independently of any
-agent's internal state.
+agent's model state.
 
 The Phase 2 evaluations provide the first empirical support for this
 thesis in a production-representative environment:
@@ -1155,7 +1154,7 @@ thesis in a production-representative environment:
 [AIG-EVAL-011]  AIG public evaluation artifact. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Identity Hardening
                 Validation." May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md Section15
 
-[Public IP note] Proprietary filing details are omitted from this website copy.
+[Public IP note] Non-public filing details are omitted from this website copy.
 
 ---
 

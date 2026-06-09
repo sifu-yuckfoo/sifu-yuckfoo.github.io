@@ -1,13 +1,15 @@
-# AIG Causal Reasoning Auditor - Technical Brief
-
-**Document ID:** AIG-CAUSAL-005  
-**Date:** June 8, 2026  
-**Author:** Christopher Ramos  
-**Status:** PUBLIC TECHNICAL BRIEF - All 4 phases passing  
-**Classification:** UNCLASSIFIED // PUBLIC RELEASE
-
----
-
+AKAMAI INTELLIGENCE GROUP
+CAUSAL REASONING AUDITOR
+Technical Brief
+==============================================================================
+Document ID: AIG-CAUSAL-005
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | June 8, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC TECHNICAL BRIEF
+Evidence posture: Local-harness evaluation evidence; no live-system safety guarantee implied.
+==============================================================================
 ## Summary
 
 AIG's Causal Reasoning Auditor is a four-phase pipeline that takes real governance evaluation data (GAL-040B, 1,800 trials across 6 adversarial scenario families) and produces directed causal graphs showing *why* governance decisions are made - not just *what* decisions were made.

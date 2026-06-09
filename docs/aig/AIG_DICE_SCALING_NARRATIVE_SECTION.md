@@ -3,12 +3,11 @@ DICE SCALING EVIDENCE SECTION
 ==============================================================================
 Document ID: AIG-DICE-006
 Classification: UNCLASSIFIED // PUBLIC RELEASE
-Version: 0.3 | June 4, 2026
+Version: 0.3 | Public release | June 4, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Status: PUBLIC TECHNICAL EVIDENCE SECTION
 ==============================================================================
-
 PURPOSE
 ------------------------------------------------------------------------------
 This section provides public-facing technical language for AIG's DICE scaling evidence.
@@ -223,7 +222,7 @@ as first-class hazards.
 
 DICE EVIDENCE SNAPSHOT
 ------------------------------------------------------------------------------
-The following table is proposal-facing evidence, not internal test decoration.
+The following table is public-facing evidence, not decorative test output.
 
 | Capability Claim | Evidence | Result |
 |---|---|---|
