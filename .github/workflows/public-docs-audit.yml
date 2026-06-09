@@ -1,0 +1,23 @@
+name: Public Docs Audit
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'tools/audit_public_docs.py'
+      - '.github/workflows/public-docs-audit.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'tools/audit_public_docs.py'
+      - '.github/workflows/public-docs-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit-public-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run public docs audit
+        run: python3 tools/audit_public_docs.py docs
