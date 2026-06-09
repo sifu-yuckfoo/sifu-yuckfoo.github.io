@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'   # triggers on v0.1.0, v1.0.0, etc.
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          cat > release_notes.md << 'NOTES'
+          ## SIGIntAgentOS ${{ steps.version.outputs.VERSION }}
+
+          ### What's included
+          - `sigint_agent/` — full RF intelligence stack
+          - `sigint_agent_os/` — custom OS image build system
+          - `modules/flipper/` — Flipper Zero feature parity modules
+
+          ### Install
+          ```bash
+          git clone https://github.com/sifu-yuckfoo/SIGIntAgentOS.git
+          cd SIGIntAgentOS
+          cp sigint_agent/config.py.example sigint_agent/config.py
+          pip install -r requirements.txt
+          python3 sigint_agent/main.py
+          ```
+
+          ### Flashable image
+          Build the `.img` yourself:
+          ```bash
+          cd sigint_agent_os
+          sudo ./scripts/build.sh
+          ```
+          Or attach a pre-built image to this release manually after building on ARM64.
+
+          ### Hardware
+          - uConsole CM5 + HackerGadgets AIO V2
+          - DragonOS Pi64 base (Debian Trixie, kernel 6.12.y)
+          NOTES
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: SIGIntAgentOS ${{ steps.version.outputs.VERSION }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.VERSION, 'alpha') || contains(steps.version.outputs.VERSION, 'beta') || contains(steps.version.outputs.VERSION, 'rc') }}
+          generate_release_notes: true   # appends auto-generated changelog from commits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>AKAMAI INTELLIGENCE GROUP | Akamai Intelligence Group</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --panel: #10131a;
+      --panel2: #151a23;
+      --text: #eef3ff;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --accent: #00d4ff;
+      --accent2: #8a5cff;
+      --code: #0b0f16;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0,212,255,.14), transparent 28rem), radial-gradient(circle at 80% 10%, rgba(138,92,255,.13), transparent 26rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,8,11,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: .8rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .08em; font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+    .nav { display: flex; gap: .65rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: .42rem .65rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(1.1rem, 3.2vw, 2.5rem);
+    }
+    article {
+      background: linear-gradient(180deg, rgba(21,26,35,.92), rgba(16,19,26,.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(1.1rem, 4vw, 2.5rem);
+      box-shadow: 0 24px 80px rgba(0,0,0,.36);
+    }
+    .doc-meta {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h1, h2, h3, h4 { line-height: 1.18; letter-spacing: -.02em; scroll-margin-top: 5rem; }
+    h1 { font-size: clamp(1.65rem, 6vw, 3.2rem); margin: .1rem 0 1rem; }
+    h2 { font-size: clamp(1.25rem, 4vw, 2rem); margin-top: 2.3rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+    h3 { font-size: clamp(1.08rem, 3vw, 1.45rem); margin-top: 1.8rem; color: #dfe8ff; }
+    p, li { font-size: clamp(1rem, 2.7vw, 1.08rem); }
+    p { margin: 1rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .45rem 0; }
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 1.2rem 0;
+      padding: .5rem 1rem;
+      background: rgba(0,212,255,.07);
+      color: #dceeff;
+      border-radius: 0 14px 14px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 7px;
+      padding: .13rem .35rem;
+      font-size: .92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: pre;
+      max-width: 100%;
+    }
+    pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    th, td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
+    th { background: rgba(0,212,255,.1); text-align: left; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .footer-note { color: var(--muted); font-size: .85rem; margin-top: 1.25rem; text-align: center; }
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      article { border-radius: 18px; }
+      th, td { min-width: 12rem; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar { display: none; }
+      article { box-shadow: none; border: 0; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Akamai Intelligence Group</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../dice.html">DICE</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="doc-meta">Public research document. Responsive HTML edition generated from <code>AIG_DICE_SCALING_NARRATIVE_SECTION.md</code>.</div>
+<h1>AKAMAI INTELLIGENCE GROUP
+DICE SCALING EVIDENCE SECTION</h1>
+<h1>Document ID: AIG-DICE-006
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: 0.3 | Public release | June 4, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC TECHNICAL EVIDENCE SECTION</h1>
+<h2>PURPOSE</h2>
+<p>This section provides public-facing technical language for AIG&#39;s DICE scaling evidence.
+It packages the empirically evaluated 101-record command catalog, the
+500-logical-agent Phase I evidence chain, governed interaction capacity metrics,
+and the Ghost Field scale decision into a form suitable for external technical review.</p>
+<h2>CORE POSITION</h2>
+<p>AIG treats scale as governed interaction capacity, not raw agent count.</p>
+<p>A large collective is not useful merely because it contains many agents. It is
+useful only if those agents can coordinate, adapt, and exchange state while
+preserving:</p>
+<ul>
+<li>role coherence</li>
+<li>authority boundaries</li>
+<li>trust-lineage integrity</li>
+<li>state/action provenance</li>
+<li>bounded communication fanout</li>
+<li>resilience against false consensus</li>
+<li>containment of rogue or compromised subgroups</li>
+<li>continuity across model and framework changes</li>
+</ul>
+<p>AIG&#39;s architecture separates three layers of scale:</p>
+<ol>
+<li><p>Doctrine/Profile Operators
+Durable role definitions, operating doctrine, tool boundaries, authority
+tier, and reference context.</p>
+</li>
+<li><p>Logical Runtime Agents
+Lightweight stateful identities that can participate in simulation, emit
+signals, hold local state, and be evaluated without requiring persistent
+model sessions.</p>
+</li>
+<li><p>Active Inference Workers
+The bounded subset of agents that receive reasoning/inference budget at a
+given time based on mission relevance, authority, confidence, and risk.</p>
+</li>
+</ol>
+<p>This distinction prevents the common failure mode of equating 500 agents with
+500 always-on models.</p>
+<h2>CONTEXT ARCHITECTURE PRINCIPLE</h2>
+<p>AIG&#39;s scale path is enabled by durable context architecture.</p>
+<p>Agents are replaceable. Context architecture is the control plane.</p>
+<p>The architecture is organized around five persistent layers:</p>
+<ul>
+<li>identity layer</li>
+<li>routing layer</li>
+<li>stage contract layer</li>
+<li>reference material layer</li>
+<li>working artifact layer</li>
+</ul>
+<p>This allows logical agents to be reconstructed, audited, routed, and resumed
+from durable context rather than relying on hidden chat state. Model updates,
+framework changes, and tool migration do not erase the system&#39;s role structure,
+authority model, state lineage, or evidence artifacts.</p>
+<h2>CURRENT NAMED COMMAND CATALOG</h2>
+<p>AIG&#39;s current command catalog is an empirically evaluated named roster with paired
+doctrine, CAI agent files, GUI profile records, and operator suites.</p>
+<p>Current repository state:</p>
+<ul>
+<li>101 unique profile records</li>
+<li>101 matching CAI agent modules</li>
+<li>101 matching GUI suite modules</li>
+<li>complete suite_window registry coverage</li>
+<li>complete dynamic OPERATOR_REGISTRY coverage</li>
+<li>explicit sections including COMMAND, SENIOR NCO, WARRANT, COMMISSIONED,
+ENLISTED, and IRREGULAR</li>
+<li>role-specific prompts, GUI suites, profile metadata, operator doctrines,
+and bounded authority lanes</li>
+</ul>
+<p>AIG describes this as a 101-record named command catalog: 100 deployable
+operators plus the OODA root profile. The important point for DICE is not the
+number alone; it is that every role is represented as durable doctrine,
+metadata, tool boundary, authority class, and recoverable runtime identity.</p>
+<h2>PHASE I SCALE TARGET: 500 GOVERNED LOGICAL AGENTS</h2>
+<p>For Phase I scale, AIG validates 500 governed logical agents.</p>
+<p>The tested 500-agent population is composed of:</p>
+<ul>
+<li>101 named doctrine/profile agents</li>
+<li>399 sharded logical support agents</li>
+</ul>
+<p>These 500 logical agents are distributed across functional layers:</p>
+<ul>
+<li>governance_core: 20</li>
+<li>functional_specialist: 100</li>
+<li>mission_cell: 180</li>
+<li>sensor_environment_node: 140</li>
+<li>adversarial_evaluator: 60</li>
+</ul>
+<p>Most logical agents are lightweight stateful identities. They do not require
+always-on LLM sessions. Inference is activated selectively through mission
+relevance, authority tier, interaction budget, confidence, and risk.</p>
+<p>The central scaling claim is direct:</p>
+<p>  AIG scales governed coordination, not raw model count.</p>
+<h2>EXECUTABLE EVIDENCE CHAIN</h2>
+<p>AIG&#39;s Phase I scaling claim is backed by executable harnesses, not architecture
+diagrams alone.</p>
+<p>Implemented substrate:</p>
+<ul>
+<li>sigint_agent/cai/operator_scale_manifest.py</li>
+<li>sigint_agent/cai/logical_agent_factory.py</li>
+<li>sigint_agent/cai/ghost_field_load_simulator.py</li>
+<li>sigint_agent/cai/controlled_emergence_stress.py</li>
+<li>sigint_agent/cai/phase1_500_governed_capacity.py</li>
+<li>sigint_agent/cai/governed_interaction_metrics.py</li>
+<li>eval_current_roster_system_preflight.py</li>
+<li>eval_gal033_operator_scale_manifest.py</li>
+<li>eval_gal033_logical_agent_factory.py</li>
+<li>eval_gal033_ghost_field_load.py</li>
+<li>eval_gal034_phase1_500_capacity.py</li>
+<li>eval_gal035_governed_interaction_metrics.py</li>
+</ul>
+<p>Evidence artifacts:</p>
+<ul>
+<li>docs/aig/AIG_CURRENT_ROSTER_PREFLIGHT_AND_500_CAPACITY_FINDING.md</li>
+<li>stage2_artifacts/current_roster_preflight/current_roster_system_preflight_results.json</li>
+<li>petri_eval/outputs/governed_interaction_capacity/AIG_GOVERNED_INTERACTION_CAPACITY_METRICS.json</li>
+<li>petri_eval/outputs/governed_interaction_capacity/AIG_GOVERNED_INTERACTION_CAPACITY_METRICS.md</li>
+</ul>
+<h2>CURRENT ROSTER PREFLIGHT</h2>
+<p>Before claiming scale, AIG validates roster integrity.</p>
+<p>The preflight confirms:</p>
+<ul>
+<li>every profile id is unique</li>
+<li>every profile has a matching CAI agent module</li>
+<li>every profile has a matching GUI suite module</li>
+<li>every suite is registered in suite_window</li>
+<li>every CAI agent imports through the dynamic OPERATOR_REGISTRY</li>
+<li>legacy seed-era profiles are normalized to the modern schema</li>
+<li>the GUI suite registry imports in a headless fake-Qt environment</li>
+<li>the logical population factory preserves the named roster before sharding</li>
+</ul>
+<p>Proposal interpretation:</p>
+<p>AIG&#39;s scale layer is built on a checked command catalog, not a pile of anonymous
+agent prompts. This matters for DICE because authority, evidence, and role
+coherence have to survive scale. AIG can show that the catalog survives static
+analysis, registry import, GUI binding, and logical-agent reconstruction before
+it is used in the 500-agent harness.</p>
+<h2>GAL-033: CURRENT-ROSTER GOVERNED COLLECTIVE</h2>
+<p>GAL-033 validates the current named roster as a governed collective.</p>
+<p>Observed metrics:</p>
+<ul>
+<li>101 logical named agents</li>
+<li>10,100 naive all-to-all possible edges</li>
+<li>834 budget-allowed edges</li>
+<li>91.7426 percent fanout reduction</li>
+<li>307 allowed peer consultations</li>
+<li>100 percent authority-spoof block rate in tested attempts</li>
+<li>false-consensus detection passed</li>
+<li>rogue-coalition detection passed</li>
+<li>consultation-budget enforcement passed</li>
+<li>phase pass rate: 1.0</li>
+</ul>
+<p>Proposal interpretation:</p>
+<p>AIG demonstrates that adding heterogeneous roles does not require uncontrolled
+communication growth. The system bounds fanout, blocks unauthorized authority,
+and detects false agreement before the collective can turn scale into a failure
+mode.</p>
+<h2>GAL-034: 500-AGENT GOVERNED INTERACTION CAPACITY</h2>
+<p>GAL-034 validates Phase I logical-agent scale.</p>
+<p>Observed metrics:</p>
+<ul>
+<li>500 logical agents</li>
+<li>101 named agents</li>
+<li>399 sharded logical agents</li>
+<li>24 active inference workers</li>
+<li>4.8 percent active reasoning ratio</li>
+<li>249,500 naive all-to-all possible edges</li>
+<li>2,875 budget-allowed edges</li>
+<li>0.011523 governed interaction ratio</li>
+<li>1,105 allowed peer consultations</li>
+<li>246,675 blocked or throttled potential interaction paths</li>
+<li>100 percent authority-boundary block rate in tested attempts</li>
+<li>false-consensus detection passed</li>
+<li>rogue-coalition detection passed</li>
+<li>sensor-burst observability passed</li>
+<li>phase pass rate: 1.0</li>
+</ul>
+<p>Proposal interpretation:</p>
+<p>AIG can instantiate and evaluate a 500-logical-agent population while activating
+only 24 reasoning workers. The result is not a brute-force swarm. It is a sparse,
+auditable, authority-bounded collective where most possible interactions are
+blocked by design, and where consensus failures and rogue subgroups are tested
+as first-class hazards.</p>
+<h2>DICE EVIDENCE SNAPSHOT</h2>
+<p>The following table is public-facing evidence, not decorative test output.</p>
+<table>
+<thead>
+<tr>
+<th>Capability Claim</th>
+<th>Evidence</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Named command catalog integrity</td>
+<td>Current roster preflight</td>
+<td>101 profiles, agents, suites; registry PASS</td>
+</tr>
+<tr>
+<td>Headless deployment resilience</td>
+<td>Fake-Qt suite import smoke</td>
+<td>101 suites import without hardware GUI dependency</td>
+</tr>
+<tr>
+<td>Bounded named-collective coordination</td>
+<td>GAL-033</td>
+<td>834 allowed edges of 10,100 possible; 91.7426% fanout reduction</td>
+</tr>
+<tr>
+<td>Authority containment</td>
+<td>GAL-033 / GAL-034</td>
+<td>100% block rate for tested unauthorized authority attempts</td>
+</tr>
+<tr>
+<td>Phase I logical-agent scale</td>
+<td>GAL-034</td>
+<td>500 logical agents: 101 named + 399 sharded</td>
+</tr>
+<tr>
+<td>Sparse inference activation</td>
+<td>GAL-034</td>
+<td>24 active reasoning workers; 4.8% active ratio</td>
+</tr>
+<tr>
+<td>Coordination-collapse prevention</td>
+<td>GAL-034</td>
+<td>2,875 allowed edges; 246,675 blocked/throttled paths</td>
+</tr>
+<tr>
+<td>Consensus integrity</td>
+<td>GAL-033 / GAL-034</td>
+<td>False-consensus and rogue-coalition detection PASS</td>
+</tr>
+<tr>
+<td>Evidence packaging</td>
+<td>GAL-035</td>
+<td>Metrics package generated proposal-ready JSON/Markdown artifacts</td>
+</tr>
+</tbody></table>
+<h2>PROPOSAL-READY CLAIM</h2>
+<p>AIG has demonstrated, under local harness conditions, a path from a named command catalog to a
+500-logical-agent governed collective without relying on 500 always-on model
+sessions or uncontrolled all-to-all communication.</p>
+<p>The current evidence supports this statement:</p>
+<p>  AIG instantiated and evaluated a 500-logical-agent Phase I population composed
+  of 101 named agents and 399 sharded logical agents. Only 24 agents were active
+  reasoning workers. The system allowed 2,875 of 249,500 possible interaction
+  paths, blocked or throttled 246,675 paths, preserved authority boundaries,
+  detected false consensus and rogue coalition behavior, and maintained Ghost
+  Field observability throughout the evaluation.</p>
+<p>Why this matters for DICE:</p>
+<p>  DICE-scale collective intelligence will fail if coordination grows faster than
+  governance. AIG&#39;s evidence shows the opposite pattern: as the collective grows,
+  interaction is constrained by authority, budget, role, provenance, and risk.
+  Scale becomes a governed surface, not an emergent hazard.</p>
+<h2>GHOST FIELD SCALE DECISION</h2>
+<p>AIG&#39;s current Ghost Field is a SQLite/WAL implementation of a broader stigmergic
+state-bus abstraction.</p>
+<p>Current decision:</p>
+<p>  SQLite/WAL Ghost Field remains the near-term bus for edge prototype work,
+  local evaluation, and Phase I-scale simulation evidence.</p>
+<p>AIG does not claim SQLite is the final 100,000-agent distributed substrate.
+Instead, AIG claims the governance primitives are substrate-agnostic and can
+migrate to sharded, queue-backed, or distributed event-bus implementations as
+scale and evaluation requirements increase.</p>
+<p>The current Ghost Field supports:</p>
+<ul>
+<li>local state exchange</li>
+<li>signal TTL semantics</li>
+<li>operator registry validation</li>
+<li>eval-safe probe/system identities</li>
+<li>HMAC provenance signing for registered operators</li>
+<li>adversarial payload scanning</li>
+<li>PARIAH bus monitoring</li>
+<li>burst/cascade warnings</li>
+<li>field status metrics</li>
+</ul>
+<p>Known caveat:</p>
+<p>  GhostField.read() defaults to LIMIT 100. At large scale, consumers must use
+  explicit read limits, pagination, read_recent(), field_status(), or batch read
+  helpers.</p>
+<p>Migration path:</p>
+<ul>
+<li>hardened SQLite with explicit batching/pagination</li>
+<li>sharded Ghost Fields by cohort/layer</li>
+<li>queue-backed ingestion</li>
+<li>distributed event-bus or event-store implementation as required</li>
+</ul>
+<h2>GAL-040 RELIABILITY CHARACTERIZATION UPDATE</h2>
+<p>GAL-040 adds repeated-trial local-harness characterization for three core
+DICE-relevant governance boundaries: unauthorized authority escalation, false
+consensus formation, and rogue coalition formation. Across 720 deterministic
+local-harness trials, GAL-040 observed zero missed interventions and zero benign
+over-blocks, with Wilson 95 percent confidence intervals reported for both
+detection and benign-allow rates.</p>
+<p>This update strengthens the scale argument without claiming field validation or
+eliminating real-world risk. The appropriate claim is that AIG has empirically
+evaluated failure-rate behavior under tested local harness conditions.</p>
+<h2>PROPOSAL CLAIMS</h2>
+<p>AIG can safely make the following claims based on current evidence:</p>
+<ol>
+<li><p>AIG has an empirically evaluated 101-record named command catalog: 100 deployable
+operators plus the OODA root profile.</p>
+</li>
+<li><p>AIG has implemented a logical agent factory that preserves the named catalog
+and instantiates 500 Phase I logical agents without requiring 500 always-on
+model sessions.</p>
+</li>
+<li><p>GAL-033 demonstrates current-roster governed coordination with 834 allowed
+edges of 10,100 possible all-to-all edges, a 91.7426 percent fanout
+reduction, and 100 percent authority-spoof blocking in tested attempts.</p>
+</li>
+<li><p>GAL-034 demonstrates a 500-logical-agent Phase I population composed of 101
+named agents and 399 sharded logical agents.</p>
+</li>
+<li><p>GAL-034 activates only 24 reasoning workers across the 500-agent population,
+producing a 4.8 percent active reasoning ratio.</p>
+</li>
+<li><p>GAL-034 allows only 2,875 of 249,500 possible all-to-all interaction paths,
+a 0.011523 governed interaction ratio.</p>
+</li>
+<li><p>GAL-034 blocks or throttles 246,675 potential interaction paths while
+preserving observability, layer sampling, false-consensus detection,
+rogue-coalition detection, and authority-boundary enforcement.</p>
+</li>
+<li><p>AIG&#39;s current Ghost Field is sufficient for local edge/evaluation evidence,
+while the governance primitives are designed to survive migration to sharded,
+queue-backed, or distributed state-bus substrates.</p>
+</li>
+</ol>
+<h2>REVIEWER-SAFE LANGUAGE</h2>
+<p>AIG does not propose scaling by creating hundreds of uncontrolled model sessions.
+Instead, AIG separates durable operator doctrine, logical runtime identity, and
+active inference. This enables large heterogeneous collectives to be simulated
+and governed through sparse activation, interaction budgeting, authority-tiered
+routing, state lineage, and auditable working artifacts.</p>
+<p>AIG&#39;s current command catalog is an empirically evaluated 101-record named roster. The
+Phase I target is a 500-logical-agent simulation in which most agents operate as
+lightweight stateful identities and only mission-relevant roles receive inference
+budget.</p>
+<p>The key metric is governed interaction capacity: the density of agent
+interactions that can be sustained while preserving mission alignment, authority
+boundaries, role coherence, provenance, and adversarial integrity.</p>
+<h2>SHORT VERSION</h2>
+<p>AIG is not building a pile of chatbots. AIG is building a context-governance
+architecture for controlled emergence.</p>
+<p>Agents are replaceable. Context architecture is the control plane.</p>
+
+    </article>
+    <div class="footer-note">AIG public documentation / mobile-readable edition</div>
+  </main>
+</body>
+</html>

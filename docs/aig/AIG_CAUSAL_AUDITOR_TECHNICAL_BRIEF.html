@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>AKAMAI INTELLIGENCE GROUP | Akamai Intelligence Group</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --panel: #10131a;
+      --panel2: #151a23;
+      --text: #eef3ff;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --accent: #00d4ff;
+      --accent2: #8a5cff;
+      --code: #0b0f16;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0,212,255,.14), transparent 28rem), radial-gradient(circle at 80% 10%, rgba(138,92,255,.13), transparent 26rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,8,11,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: .8rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .08em; font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+    .nav { display: flex; gap: .65rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: .42rem .65rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(1.1rem, 3.2vw, 2.5rem);
+    }
+    article {
+      background: linear-gradient(180deg, rgba(21,26,35,.92), rgba(16,19,26,.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(1.1rem, 4vw, 2.5rem);
+      box-shadow: 0 24px 80px rgba(0,0,0,.36);
+    }
+    .doc-meta {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h1, h2, h3, h4 { line-height: 1.18; letter-spacing: -.02em; scroll-margin-top: 5rem; }
+    h1 { font-size: clamp(1.65rem, 6vw, 3.2rem); margin: .1rem 0 1rem; }
+    h2 { font-size: clamp(1.25rem, 4vw, 2rem); margin-top: 2.3rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+    h3 { font-size: clamp(1.08rem, 3vw, 1.45rem); margin-top: 1.8rem; color: #dfe8ff; }
+    p, li { font-size: clamp(1rem, 2.7vw, 1.08rem); }
+    p { margin: 1rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .45rem 0; }
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 1.2rem 0;
+      padding: .5rem 1rem;
+      background: rgba(0,212,255,.07);
+      color: #dceeff;
+      border-radius: 0 14px 14px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 7px;
+      padding: .13rem .35rem;
+      font-size: .92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: pre;
+      max-width: 100%;
+    }
+    pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    th, td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
+    th { background: rgba(0,212,255,.1); text-align: left; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .footer-note { color: var(--muted); font-size: .85rem; margin-top: 1.25rem; text-align: center; }
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      article { border-radius: 18px; }
+      th, td { min-width: 12rem; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar { display: none; }
+      article { box-shadow: none; border: 0; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Akamai Intelligence Group</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../dice.html">DICE</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="doc-meta">Public research document. Responsive HTML edition generated from <code>AIG_CAUSAL_AUDITOR_TECHNICAL_BRIEF.md</code>.</div>
+<h1>AKAMAI INTELLIGENCE GROUP
+CAUSAL REASONING AUDITOR
+Technical Brief</h1>
+<h1>Document ID: AIG-CAUSAL-005
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | June 8, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC TECHNICAL BRIEF
+Evidence posture: Local-harness evaluation evidence; no live-system safety guarantee implied.</h1>
+<h2>Summary</h2>
+<p>AIG&#39;s Causal Reasoning Auditor is a four-phase pipeline that takes real governance evaluation data (GAL-040B, 1,800 trials across 6 adversarial scenario families) and produces directed causal graphs showing <em>why</em> governance decisions are made - not just <em>what</em> decisions were made.</p>
+<p>It does not use an LLM for causal inference. It uses classical causal discovery algorithms (HillClimbSearch + BIC scoring, PC constraint-based algorithm) operating on binary concept activation vectors derived from actual trial data. This is structural causal modeling - a peer-reviewed methodology with a clear audit trail.</p>
+<p>The result is a machine-readable governance explanation layer: every trial attribution traces to root causes, and every root cause maps to a concrete governance recommendation.</p>
+<hr>
+<h2>Motivation</h2>
+<p>Standard evaluation frameworks measure outcomes. They tell you accuracy, recall, false positive rate.<br>What they do not tell you is <strong>why</strong> a governance system failed - or more importantly, <em>which upstream conditions causally produced</em> a given failure.</p>
+<p>This matters for three reasons:</p>
+<ol>
+<li><p><strong>Accountability.</strong> WARLORD owns decision authority. STRATEGIST owns consequences. ORACLE owns probabilistic forecasting. Without causal attribution, these roles operate on symptoms, not causes.</p>
+</li>
+<li><p><strong>Anticipation.</strong> If <code>adversarial_escalation</code> causally precedes <code>human_gate_bypassed</code> (confirmed by two independent algorithms), then detecting escalation early is worth more than detecting bypass late.</p>
+</li>
+<li><p><strong>Credibility.</strong> Causal claims require a methodology. This auditor provides one - one that a reviewer can inspect, reproduce, and challenge.</p>
+</li>
+</ol>
+<hr>
+<h2>Architecture</h2>
+<h3>Phase 1 - Concept Extraction</h3>
+<p>Converts each of the 1,800 GAL-040B trial records into a binary concept activation vector.</p>
+<p>35 governance concepts across 7 dimensions:</p>
+<ul>
+<li>Authority (valid / missing / escalated / human gate)</li>
+<li>Provenance (signed / unsigned / forged)</li>
+<li>Topology (sparse / dense / role-routed / cross-domain)</li>
+<li>Load (normal / burst / degraded)</li>
+<li>Adversarial signal (absent / present / mimicry / escalation)</li>
+<li>Fanout (within budget / over budget / attempted excess)</li>
+<li>Outcome / Failure (allow / block / correct / incorrect / false positive / false negative)</li>
+</ul>
+<p><strong>Output:</strong> 1,800 binary concept state vectors, one per trial.</p>
+<hr>
+<h3>Phase 2 - Counterfactual Augmentation</h3>
+<p>Observed governance states cluster tightly - real trials only cover 257 unique concept fingerprints. Causal discovery needs diverse state coverage.</p>
+<p>Using MCMC-inspired counterfactual chain generation (based on methodology from HuggingFace paper 2606.05972 - causal reasoning in LLMs via counterfactual augmentation), the pipeline generates 23,964 synthetic states from the 1,800 observed ones.</p>
+<p><strong>Output:</strong></p>
+<ul>
+<li>25,764 total states (1,800 observed + 23,964 synthetic)</li>
+<li>12,205 unique concept fingerprints</li>
+<li>47.5x coverage expansion</li>
+<li>0 invalid states (all constraint-valid)</li>
+<li>100% chain provenance (every synthetic state traces to its seed trial)</li>
+</ul>
+<p>The 9.9% constraint-absorbed states (perturbations that repair back to the same state) are semantically correct - they demonstrate that governance constraints are tight enough to absorb random perturbation. That is a finding, not an artifact.</p>
+<hr>
+<h3>Phase 3 - Causal Structure Discovery</h3>
+<p>Two independent algorithms run on the augmented concept matrix:</p>
+<p><strong>HillClimbSearch + BIC scoring</strong> (score-based, greedy)</p>
+<ul>
+<li>Runs on the full 25,764-state dataset</li>
+<li>Produces 91 directed edges across 35 concept nodes</li>
+<li>Prior alignment: 25% (5 of 20 AIG governance priors confirmed)</li>
+</ul>
+<p><strong>PC algorithm - chi-square independence tests</strong> (constraint-based)</p>
+<ul>
+<li>Runs on a 2,000-state stratified sample (tractability constraint; max_cond_vars=3)</li>
+<li>Produces 30 directed edges across 34 concept nodes</li>
+<li>Prior alignment: 15%</li>
+</ul>
+<p><strong>Consensus DAG:</strong> edges confirmed by <em>both</em> algorithms - high-confidence causal structure.</p>
+<table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>adversarial_escalation -&gt; outcome_block</code></td>
+<td>Escalation causally drives blocking decisions</td>
+</tr>
+<tr>
+<td><code>adversarial_escalation -&gt; human_gate_bypassed</code></td>
+<td>Escalation causally precedes gate bypass</td>
+</tr>
+<tr>
+<td><code>adversarial_escalation -&gt; role_functional</code></td>
+<td>Escalation contaminates functional role signal</td>
+</tr>
+<tr>
+<td><code>fanout_attempted_excess -&gt; fanout_over_budget</code></td>
+<td>Excess fanout attempts causally produce budget violations</td>
+</tr>
+<tr>
+<td><code>load_normal -&gt; load_burst</code></td>
+<td>Normal load state transitions to burst (temporal causal sequence)</td>
+</tr>
+<tr>
+<td><code>load_normal -&gt; load_degraded</code></td>
+<td>Normal load state transitions to degraded</td>
+</tr>
+<tr>
+<td><code>role_mix_contaminated -&gt; role_mix_clean</code></td>
+<td>Contamination suppresses clean role signal</td>
+</tr>
+<tr>
+<td><code>outcome_correct -&gt; failure_none</code></td>
+<td>Correct outcome causally produces no-failure state</td>
+</tr>
+<tr>
+<td><code>outcome_incorrect -&gt; failure_false_positive</code></td>
+<td>Incorrect outcome causally produces false positive</td>
+</tr>
+<tr>
+<td><code>authority_valid -&gt; authority_missing</code></td>
+<td>Valid authority context predicts missing authority transitions</td>
+</tr>
+<tr>
+<td><code>adversarial_absent -&gt; adversarial_present</code></td>
+<td>Temporal: absence precedes presence in adversarial trials</td>
+</tr>
+</tbody></table>
+<p><strong>Key finding:</strong> <code>adversarial_escalation</code> is the single most causally active node - 3 outgoing consensus edges. It causally precedes outcome blocking, gate bypass, and role contamination. Early detection of escalation is worth more than any downstream remediation.</p>
+<hr>
+<h3>Phase 4 - Causal Attribution</h3>
+<p>The consensus DAG is applied to every one of the 1,800 original GAL-040B trials. Each trial receives:</p>
+<ul>
+<li><strong>Active concept vector</strong> (from Phase 1)</li>
+<li><strong>Active sink nodes</strong> - which outcome/failure concepts fired</li>
+<li><strong>Root causes</strong> - active concepts with no active upstream predecessors in the consensus DAG</li>
+<li><strong>Causal chains</strong> - shortest active paths from root to outcome (e.g., <code>adversarial_escalation -&gt; outcome_block</code>)</li>
+<li><strong>Governance recommendation keys</strong> - which root causes have actionable recommendations</li>
+</ul>
+<p><strong>Results across 1,800 trials:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Trials attributed</td>
+<td>1,800 / 1,800 (0 unmatched)</td>
+</tr>
+<tr>
+<td>Correct governance decisions</td>
+<td>1,798 (99.89%)</td>
+</tr>
+<tr>
+<td>Governance failures</td>
+<td>2 (0.11%)</td>
+</tr>
+<tr>
+<td>Avg causal root causes per trial</td>
+<td>5.86</td>
+</tr>
+</tbody></table>
+<p><strong>Per-scenario-family correct rates:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario Family</th>
+<th>Correct Rate</th>
+<th>Avg Causal Complexity</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>benign_coordination</td>
+<td>100.00%</td>
+<td>5.90</td>
+</tr>
+<tr>
+<td>rogue_coalition</td>
+<td>100.00%</td>
+<td>6.00</td>
+</tr>
+<tr>
+<td>provenance_degradation</td>
+<td>100.00%</td>
+<td>5.81</td>
+</tr>
+<tr>
+<td>mixed_noisy_load</td>
+<td>100.00%</td>
+<td>6.49</td>
+</tr>
+<tr>
+<td>unauthorized_authority_escalation</td>
+<td>100.00%</td>
+<td>5.50</td>
+</tr>
+<tr>
+<td>false_consensus</td>
+<td>99.33%</td>
+<td>5.48</td>
+</tr>
+</tbody></table>
+<p><code>false_consensus</code> is the only family with failures. Both failures (F-BENIGN-002) trace to <code>authority_missing</code> + <code>role_mix_contaminated</code> as causal roots.</p>
+<p><code>mixed_noisy_load</code> has the highest causal complexity (6.49 active root causes per trial) - the noisiest governance surface.</p>
+<hr>
+<h2>Governance Recommendations</h2>
+<p>Recommendations are keyed to causal root nodes and weighted by trigger frequency across all 1,800 trials.</p>
+<table>
+<thead>
+<tr>
+<th>Root Cause</th>
+<th>Trigger Rate</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>authority_missing</code></td>
+<td>46.33%</td>
+<td>Enforce authority attestation at every inter-agent handoff. WARLORD owns this gate - no exceptions.</td>
+</tr>
+<tr>
+<td><code>adversarial_present</code></td>
+<td>41.67%</td>
+<td>Route all downstream decisions through WARLORD authority gate before allow/block. ORACLE should flag elevated false-negative risk.</td>
+</tr>
+<tr>
+<td><code>fanout_attempted_excess</code></td>
+<td>16.67%</td>
+<td>Implement hard fanout caps at the message dispatch layer. RELAY enforces delivery - WARLORD must own the fanout budget gate.</td>
+</tr>
+<tr>
+<td><code>load_burst</code></td>
+<td>15.50%</td>
+<td>ORACLE should model burst arrival rates and pre-position WARLORD for throttle decisions before fanout threshold is reached.</td>
+</tr>
+<tr>
+<td><code>role_mix_contaminated</code></td>
+<td>12.28%</td>
+<td>OPSEC enforces strict role boundary separation. SHADOW owns low-observable behavior - contamination detection must not cross into HUMINT lanes.</td>
+</tr>
+<tr>
+<td><code>adversarial_escalation</code></td>
+<td>8.33%</td>
+<td>PARIAH increases sensitivity at the role boundary when escalation_target is non-null. Mandatory human gate review when adversarial_escalation is active.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>What This Is Not</h2>
+<ul>
+<li>This is not a universal causal model of all AI governance. It is a causal model of the specific concept space defined for GAL-040B.</li>
+<li>This is not external validation. The causal structure reflects the structure of AIG&#39;s own evaluation data.</li>
+<li>The PC algorithm runs on a 2,000-state sample, not the full 25,764-state augmented set. Consensus edges are directionally reliable, not statistically exhaustive.</li>
+<li>Causal discovery on binary data has well-known limitations (faithfulness assumption, Markov condition). These are acknowledged.</li>
+</ul>
+<hr>
+<h2>Artifacts</h2>
+<p>All artifacts are versioned in the AIG repository under <code>stage2_artifacts/causal_auditor/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Key Artifacts</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phase 1</td>
+<td><code>phase1/gal040b_concept_states.json</code> - 1,800 binary concept vectors</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td><code>phase2/augmented_states.json</code> - 25,764 total states; <code>phase2/counterfactual_chains.json</code></td>
+</tr>
+<tr>
+<td>Phase 3</td>
+<td><code>phase3/dag_hillclimb.json</code>, <code>dag_pc.json</code>, <code>dag_consensus.json</code>, <code>causal_summary.json</code></td>
+</tr>
+<tr>
+<td>Phase 4</td>
+<td><code>phase4/trial_attributions.json</code> - 1,800 attributed trials; <code>governance_recommendations.json</code>; <code>family_attribution_profiles.json</code></td>
+</tr>
+</tbody></table>
+<p>Eval reports for all 4 phases pass at 100%.</p>
+<hr>
+<h2>Source Code</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Concept extractor</td>
+<td><code>sigint_agent/causal/concept_extractor.py</code></td>
+</tr>
+<tr>
+<td>Counterfactual generator</td>
+<td><code>sigint_agent/causal/counterfactual_generator.py</code></td>
+</tr>
+<tr>
+<td>Causal graph builder</td>
+<td><code>sigint_agent/causal/causal_graph_builder.py</code></td>
+</tr>
+<tr>
+<td>Causal attribution</td>
+<td><code>sigint_agent/causal/causal_attribution.py</code></td>
+</tr>
+</tbody></table>
+<hr>
+<p><em>Document ID: AIG-CAUSAL-005 | June 8, 2026 | Christopher Ramos | AIG Intel</em></p>
+
+    </article>
+    <div class="footer-note">AIG public documentation / mobile-readable edition</div>
+  </main>
+</body>
+</html>

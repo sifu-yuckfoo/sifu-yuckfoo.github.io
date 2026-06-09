@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>AKAMAI INTELLIGENCE GROUP | Akamai Intelligence Group</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --panel: #10131a;
+      --panel2: #151a23;
+      --text: #eef3ff;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --accent: #00d4ff;
+      --accent2: #8a5cff;
+      --code: #0b0f16;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0,212,255,.14), transparent 28rem), radial-gradient(circle at 80% 10%, rgba(138,92,255,.13), transparent 26rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,8,11,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: .8rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .08em; font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+    .nav { display: flex; gap: .65rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: .42rem .65rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(1.1rem, 3.2vw, 2.5rem);
+    }
+    article {
+      background: linear-gradient(180deg, rgba(21,26,35,.92), rgba(16,19,26,.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(1.1rem, 4vw, 2.5rem);
+      box-shadow: 0 24px 80px rgba(0,0,0,.36);
+    }
+    .doc-meta {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h1, h2, h3, h4 { line-height: 1.18; letter-spacing: -.02em; scroll-margin-top: 5rem; }
+    h1 { font-size: clamp(1.65rem, 6vw, 3.2rem); margin: .1rem 0 1rem; }
+    h2 { font-size: clamp(1.25rem, 4vw, 2rem); margin-top: 2.3rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+    h3 { font-size: clamp(1.08rem, 3vw, 1.45rem); margin-top: 1.8rem; color: #dfe8ff; }
+    p, li { font-size: clamp(1rem, 2.7vw, 1.08rem); }
+    p { margin: 1rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .45rem 0; }
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 1.2rem 0;
+      padding: .5rem 1rem;
+      background: rgba(0,212,255,.07);
+      color: #dceeff;
+      border-radius: 0 14px 14px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 7px;
+      padding: .13rem .35rem;
+      font-size: .92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: pre;
+      max-width: 100%;
+    }
+    pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    th, td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
+    th { background: rgba(0,212,255,.1); text-align: left; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .footer-note { color: var(--muted); font-size: .85rem; margin-top: 1.25rem; text-align: center; }
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      article { border-radius: 18px; }
+      th, td { min-width: 12rem; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar { display: none; }
+      article { box-shadow: none; border: 0; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Akamai Intelligence Group</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../dice.html">DICE</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="doc-meta">Public research document. Responsive HTML edition generated from <code>AIG_GHOST_FIELD_SCALE_DECISION.md</code>.</div>
+<h1>AKAMAI INTELLIGENCE GROUP
+GHOST FIELD SCALE DECISION MEMO</h1>
+<h1>Document ID: AIG-ARCH-017
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: 0.2 | Public release | May 31, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC ARCHITECTURE DECISION MEMO</h1>
+<h2>PURPOSE</h2>
+<p>This memo records the current architecture decision for the Ghost Field state bus
+in support of AIG&#39;s DICE scaling path from the current Ghost Unit seed cell to
+the 101-record command catalog and 500 Phase I logical agents.</p>
+<p>The decision is based on the new executable substrate and evidence chain:</p>
+<ul>
+<li>operator_scale_manifest.py</li>
+<li>logical_agent_factory.py</li>
+<li>ghost_field_load_simulator.py</li>
+<li>GAL-033 100-agent controlled-emergence stress test</li>
+<li>GAL-034 500-agent governed interaction capacity test</li>
+<li>GAL-035 governed interaction metrics package</li>
+</ul>
+<h2>DECISION</h2>
+<p>SQLite/WAL Ghost Field remains the correct near-term bus for edge prototype,
+local evaluation, and Phase I-scale simulation evidence.</p>
+<p>AIG will not claim that the current SQLite-backed Ghost Field is the final
+100,000-agent distributed substrate.</p>
+<p>AIG will claim that the governance architecture is substrate-agnostic. The
+current SQLite/WAL Ghost Field is the local edge/evaluation implementation of a
+more general stigmergic state-bus pattern.</p>
+<p>In short:</p>
+<p>  SQLite Ghost Field is sufficient for current 49-agent operations, 100-agent
+  named roster simulation, and 500-logical-agent Phase I evaluation.</p>
+<p>  For higher concurrency, distributed deployment, or Phase II/III scale, AIG
+  will migrate the same governance primitives onto sharded and/or queue-backed
+  state-bus infrastructure.</p>
+<h2>RATIONALE</h2>
+<p>The current Ghost Field passed the evidence threshold required for the present
+DICE strategy.</p>
+<p>GAL-033 demonstrated:</p>
+<ul>
+<li>100 logical agents</li>
+<li>9,900 naive all-to-all possible edges</li>
+<li>818 budget-allowed edges</li>
+<li>91.7374 percent fanout reduction</li>
+<li>100 percent authority-spoof blocking in tested attempts</li>
+<li>false-consensus detection</li>
+<li>rogue-coalition detection</li>
+<li>consultation-budget enforcement</li>
+</ul>
+<p>GAL-034 demonstrated:</p>
+<ul>
+<li>500 logical agents</li>
+<li>100 named operators</li>
+<li>400 sharded logical agents</li>
+<li>24 active inference workers</li>
+<li>4.8 percent active reasoning ratio</li>
+<li>249,500 naive all-to-all possible edges</li>
+<li>2,887 budget-allowed edges</li>
+<li>0.011571 governed interaction ratio</li>
+<li>246,663 blocked or throttled potential interaction paths</li>
+<li>100 percent authority-boundary block rate in tested attempts</li>
+<li>false-consensus detection</li>
+<li>rogue-coalition detection</li>
+<li>sensor-burst observability</li>
+</ul>
+<p>GAL-035 packaged those results into durable JSON and Markdown evidence.</p>
+<p>The evidence supports AIG&#39;s primary DICE claim:</p>
+<p>  AIG scales by governed interaction capacity, not by one always-on LLM per
+  logical agent.</p>
+<h2>CURRENT IMPLEMENTATION STATUS</h2>
+<p>The current Ghost Field implementation provides:</p>
+<ul>
+<li>SQLite-backed local signal bus</li>
+<li>WAL mode</li>
+<li>thread-safe write/read lock</li>
+<li>signal type taxonomy</li>
+<li>operator registry validation</li>
+<li>eval-safe probe/system source prefixes</li>
+<li>HMAC provenance signing for registered operators</li>
+<li>adversarial payload scan</li>
+<li>write-side validation gate</li>
+<li>burst/cascade monitoring</li>
+<li>PARIAH bus monitor subscription</li>
+<li>field status metrics</li>
+<li>active-signal TTL semantics</li>
+<li>cluster registration</li>
+</ul>
+<p>Observed scale behavior:</p>
+<ul>
+<li>100 temp-load simulation accepted 100/100 writes</li>
+<li>500 temp-load simulation accepted 500/500 writes</li>
+<li>no write rejection under eval-safe probe identities</li>
+<li>p95 write latency stayed well below 50 ms in tested runs</li>
+<li>default GhostField.read() has a LIMIT 100 window</li>
+<li>field_status() correctly reported all active 500 signals</li>
+</ul>
+<p>The read-window behavior is not a failure. It is an API design constraint that
+must be handled explicitly at scale.</p>
+<h2>ENGINEERING CAVEATS</h2>
+<p>The current SQLite/WAL Ghost Field should not be over-claimed.</p>
+<p>Known caveats:</p>
+<ol>
+<li>The current load tests are deterministic and local.</li>
+<li>The current tests are not multi-host distributed tests.</li>
+<li>The current tests do not prove 100,000-agent bus capacity.</li>
+<li>SQLite write locking may become a bottleneck under heavy concurrent write
+pressure.</li>
+<li>GhostField.read() defaults to LIMIT 100 and therefore requires explicit
+pagination, high-limit reads, read_recent(), or status-driven access for
+large populations.</li>
+<li>PARIAH burst monitoring correctly fires on repeated eval activity; future
+stress tests may need explicit eval windows or expected-burst annotations
+to distinguish test pressure from real compromise.</li>
+</ol>
+<p>These caveats are acceptable for Phase I evidence because the claim is not
+&quot;SQLite is the final swarm substrate.&quot; The claim is that AIG&#39;s governance
+architecture can be instantiated, measured, and migrated across substrate
+implementations.</p>
+<h2>SUBSTRATE-AGNOSTIC PRIMITIVES</h2>
+<p>The following AIG primitives should survive any future bus migration:</p>
+<ul>
+<li>operator identity</li>
+<li>authority tier</li>
+<li>logical layer</li>
+<li>interaction budget</li>
+<li>allowed signal types</li>
+<li>allowed action classes</li>
+<li>provenance and state lineage</li>
+<li>deterministic execution contracts</li>
+<li>legitimacy scoring</li>
+<li>gateway authority checks</li>
+<li>controlled emergence metrics</li>
+<li>false-consensus detection</li>
+<li>rogue-coalition detection</li>
+<li>burst/cascade monitoring</li>
+</ul>
+<p>Therefore, the Ghost Field should be treated as the current implementation of a
+stigmergic state-bus interface, not as the entire architecture.</p>
+<h2>MIGRATION PATH</h2>
+<p>AIG&#39;s bus scale path is staged.</p>
+<p>Stage 0 -- Current Edge/Eval Bus
+  SQLite/WAL Ghost Field on local edge hardware and local eval harnesses.</p>
+<p>Stage 1 -- Hardened SQLite Bus</p>
+<ul>
+<li>explicit read limits and pagination</li>
+<li>batched writes</li>
+<li>batch read APIs</li>
+<li>eval window metadata</li>
+<li>improved high-volume status queries</li>
+<li>retention and compaction jobs</li>
+<li>WAL tuning by deployment profile</li>
+</ul>
+<p>Stage 2 -- Sharded Ghost Fields</p>
+<ul>
+<li>per-cohort or per-layer bus shards</li>
+<li>governance-core aggregator</li>
+<li>shard-local state with summarized cross-shard exchange</li>
+<li>shard lineage and consistency monitors</li>
+<li>MIRRORNODE/LEDGERNODE style audit roles</li>
+</ul>
+<p>Stage 3 -- Queue-Backed Ingestion</p>
+<ul>
+<li>append-first queue in front of state store</li>
+<li>workers drain into durable state bus</li>
+<li>backpressure and rate-limit policies</li>
+<li>replayable event stream</li>
+<li>deterministic eval replay support</li>
+</ul>
+<p>Stage 4 -- Distributed State Bus
+  Candidate implementation families:
+    - Redis Streams
+    - NATS / JetStream
+    - PostgreSQL / Timescale-style event store
+    - SQLite shards per edge node with sync aggregation
+    - hybrid local-first edge bus plus central evaluation collector</p>
+<p>The correct final substrate should be selected only after the BAA clarifies
+Phase I/II/III evaluation environment constraints.</p>
+<h2>DICE PROPOSAL POSITION</h2>
+<p>Proposal-safe phrasing:</p>
+<p>  AIG&#39;s current Ghost Field is a local SQLite/WAL implementation of a broader
+  stigmergic state-bus abstraction. It is sufficient for edge prototyping and
+  Phase I-scale simulation evidence, including 500 logical agents under sparse
+  activation and interaction budgeting. AIG does not depend on SQLite as the
+  final distributed substrate; the governing primitives are substrate-agnostic
+  and can migrate to sharded, queue-backed, or distributed event-bus systems as
+  scale and evaluation requirements increase.</p>
+<p>Short version:</p>
+<p>  SQLite is the edge/eval bus. Governance is the architecture.</p>
+<h2>DECISION RECORD</h2>
+<p>Decision:
+  Keep SQLite/WAL Ghost Field for current edge prototype, GAL evidence, and
+  Phase I simulation harnesses.</p>
+<p>Do now:</p>
+<ul>
+<li>keep using SQLite/WAL in GAL-033/GAL-034/GAL-035 evidence</li>
+<li>document read-window and concurrency caveats</li>
+<li>add explicit scale-path language to DICE docs</li>
+<li>avoid claiming SQLite solves 100,000-agent distributed scale</li>
+</ul>
+<p>Do next:</p>
+<ul>
+<li>add pagination/batched-read helper if needed</li>
+<li>add eval-window metadata to reduce false alarm noise in stress tests</li>
+<li>add sharded bus design if BAA requires higher concurrency evidence</li>
+</ul>
+<p>Do later:</p>
+<ul>
+<li>prototype queue-backed or sharded Ghost Field if Phase I/II evaluation
+environment demands it</li>
+</ul>
+<h2>BOTTOM LINE</h2>
+<p>The Ghost Field has proven enough for the current DICE evidence chain. The next
+risk is not local 500-agent simulation. The next risk is over-claiming the bus.
+AIG should be explicit: the current bus is sufficient for evidence and edge
+prototype work; the governance primitives are designed to survive migration to
+larger substrates.</p>
+
+    </article>
+    <div class="footer-note">AIG public documentation / mobile-readable edition</div>
+  </main>
+</body>
+</html>

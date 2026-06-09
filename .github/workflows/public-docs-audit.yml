@@ -5,11 +5,17 @@ on:
     paths:
       - 'docs/**'
       - 'tools/audit_public_docs.py'
+      - 'tools/render_public_docs.js'
+      - 'package.json'
+      - 'package-lock.json'
       - '.github/workflows/public-docs-audit.yml'
   pull_request:
     paths:
       - 'docs/**'
       - 'tools/audit_public_docs.py'
+      - 'tools/render_public_docs.js'
+      - 'package.json'
+      - 'package-lock.json'
       - '.github/workflows/public-docs-audit.yml'
   workflow_dispatch:
 
@@ -19,5 +25,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install renderer dependencies
+        run: npm ci
+      - name: Regenerate responsive public docs
+        run: node tools/render_public_docs.js docs/aig
+      - name: Verify generated docs are committed
+        run: git diff --exit-code -- docs/aig
       - name: Run public docs audit
         run: python3 tools/audit_public_docs.py docs

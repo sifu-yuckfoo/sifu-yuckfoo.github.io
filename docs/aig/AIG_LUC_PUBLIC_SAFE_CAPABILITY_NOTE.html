@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>AKAMAI INTELLIGENCE GROUP | Akamai Intelligence Group</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --panel: #10131a;
+      --panel2: #151a23;
+      --text: #eef3ff;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --accent: #00d4ff;
+      --accent2: #8a5cff;
+      --code: #0b0f16;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0,212,255,.14), transparent 28rem), radial-gradient(circle at 80% 10%, rgba(138,92,255,.13), transparent 26rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,8,11,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: .8rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .08em; font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+    .nav { display: flex; gap: .65rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: .42rem .65rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(1.1rem, 3.2vw, 2.5rem);
+    }
+    article {
+      background: linear-gradient(180deg, rgba(21,26,35,.92), rgba(16,19,26,.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(1.1rem, 4vw, 2.5rem);
+      box-shadow: 0 24px 80px rgba(0,0,0,.36);
+    }
+    .doc-meta {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h1, h2, h3, h4 { line-height: 1.18; letter-spacing: -.02em; scroll-margin-top: 5rem; }
+    h1 { font-size: clamp(1.65rem, 6vw, 3.2rem); margin: .1rem 0 1rem; }
+    h2 { font-size: clamp(1.25rem, 4vw, 2rem); margin-top: 2.3rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+    h3 { font-size: clamp(1.08rem, 3vw, 1.45rem); margin-top: 1.8rem; color: #dfe8ff; }
+    p, li { font-size: clamp(1rem, 2.7vw, 1.08rem); }
+    p { margin: 1rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .45rem 0; }
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 1.2rem 0;
+      padding: .5rem 1rem;
+      background: rgba(0,212,255,.07);
+      color: #dceeff;
+      border-radius: 0 14px 14px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 7px;
+      padding: .13rem .35rem;
+      font-size: .92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: pre;
+      max-width: 100%;
+    }
+    pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    th, td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
+    th { background: rgba(0,212,255,.1); text-align: left; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .footer-note { color: var(--muted); font-size: .85rem; margin-top: 1.25rem; text-align: center; }
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      article { border-radius: 18px; }
+      th, td { min-width: 12rem; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar { display: none; }
+      article { box-shadow: none; border: 0; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Akamai Intelligence Group</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../dice.html">DICE</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="doc-meta">Public research document. Responsive HTML edition generated from <code>AIG_LUC_PUBLIC_SAFE_CAPABILITY_NOTE.md</code>.</div>
+<h1>AKAMAI INTELLIGENCE GROUP
+LUC-ADJACENT RF GOVERNANCE + EDGE EXPERIMENTATION
+Capability-Framing Note</h1>
+<h1>Document ID: AIG-SIGINT-LUC-009
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | June 7, 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC-SAFE CAPABILITY NOTE
+Classification posture: Unclassified, capability-framing only. No performer-status, endorsement, or validation claim.</h1>
+<h2>Purpose</h2>
+<p>Akamai Intelligence Group is evaluating whether its SIGIntAgentOS / Ghost Unit research stack may be relevant as an <strong>adjacent edge experimentation and governance substrate</strong> for DARPA Lightweight Universal Codec (LUC)-related performer teams or evaluation workflows.</p>
+<p>This note is intentionally narrow. AIG is <strong>not</strong> claiming to have built LUC, a universal codec, a military-radio decoder, or a protected-content recovery system.</p>
+<h2>Relevant Capability Lane</h2>
+<p>AIG&#39;s relevant contribution is not universal decoding. The relevant lane is governed RF workflow support around adaptive codec experimentation:</p>
+<ul>
+<li>provenance-preserving RF/IQ artifact handling</li>
+<li>SigMF-style metadata discipline</li>
+<li>offline signal-feature extraction</li>
+<li>bounded modulation-family triage</li>
+<li>lab-only FEC/code-family experimentation</li>
+<li>GRAND-inspired toy-channel experimentation</li>
+<li>candidate decoder planning with uncertainty labels</li>
+<li>controlled wrapper/audit gates for external-tool use</li>
+<li>operator-facing edge GUI integration</li>
+<li>explicit blocks against protected/encrypted payload recovery, live capture, transmit, and unauthorized active execution</li>
+</ul>
+<p>This is best understood as a <strong>governed RF analysis and test/evaluation workbench</strong> that could support lawful lab experiments, edge evaluation, workflow discipline, and human-controlled operator handoff.</p>
+<h2>Current Demonstrated Prototype State</h2>
+<p>The current local prototype has completed a lab validation ladder:</p>
+<ol>
+<li>adaptive decoder broker for dry-run candidate routing</li>
+<li>capture provenance sidecars and SigMF-style metadata</li>
+<li>synthetic RF fixture generation</li>
+<li>pure-Python IQ feature extraction</li>
+<li>controlled decoder wrapper/audit gates</li>
+<li>bounded modulation-family classification</li>
+<li>lab-only FEC/code-family identification</li>
+<li>GRAND-inspired toy FEC experiments</li>
+<li>SIGIntAgentOS GUI integration as an offline RF Workbench</li>
+</ol>
+<p>All generated evaluation artifacts are synthetic, lab-only, or metadata/provenance based. They are not off-air protected traffic and they do not contain recovered payloads.</p>
+<h2>Human-Control and Governance Posture</h2>
+<p>AIG&#39;s architecture treats autonomous capability and autonomous authority as separate concepts.</p>
+<p>The system may generate analysis, rank candidate pathways, preserve provenance, flag blockers, and recommend next experiments. It may not authorize protected-content recovery, live capture, transmit behavior, or active decoder execution without explicit human gate clearance and authorization context.</p>
+<p>Defensive refusal is allowed. Autonomous active execution is not.</p>
+<h2>Non-Claims</h2>
+<p>AIG does not claim:</p>
+<ul>
+<li>DARPA performer status</li>
+<li>DARPA endorsement</li>
+<li>external validation by DARPA or any third party</li>
+<li>LUC-equivalent universal codec capability</li>
+<li>universal military-radio decoding</li>
+<li>encryption defeat</li>
+<li>COMSEC or TRANSEC bypass</li>
+<li>protected payload recovery</li>
+<li>any-radio-to-any-radio interoperability</li>
+<li>operational deployment readiness for classified environments</li>
+</ul>
+<h2>Inquiry Question</h2>
+<p>Would DARPA LUC program staff or performer teams have interest in adjacent tooling for:</p>
+<ul>
+<li>edge RF experiment workflow governance</li>
+<li>lawful lab artifact provenance</li>
+<li>synthetic fixture generation</li>
+<li>bounded modulation/FEC experiment triage</li>
+<li>GRAND-inspired toy-channel evaluation harnesses</li>
+<li>human-controlled decoder orchestration and audit trails</li>
+<li>operator-facing edge workbench integration</li>
+</ul>
+<p>If so, AIG can provide a short public-safe technical overview and discuss whether the work is relevant to performer teaming, evaluation support, or future adjacent opportunities.</p>
+<h2>Contact</h2>
+<p>Christopher Ramos<br>Akamai Intelligence Group<br><code>christopher@aig-intel.dev</code></p>
+
+    </article>
+    <div class="footer-note">AIG public documentation / mobile-readable edition</div>
+  </main>
+</body>
+</html>

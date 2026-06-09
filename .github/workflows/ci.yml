@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint & Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install linting tools
+        run: pip install ruff pyflakes
+
+      - name: Ruff lint (errors only — hardware stubs tolerated)
+        run: |
+          ruff check sigint_agent/ \
+            --select E,F,W \
+            --ignore E501,E402,F401,E401,E701,E702,E711,E712,E722,E741,F541,F601,F811,F821,F841,W291,W293,W605
+        # Ignored rules:
+        #   E501       = line too long (fine on a cyberdeck codebase)
+        #   E402       = module-level import not at top (dynamic hardware imports)
+        #   F401       = unused import (hardware stubs may not resolve on x86)
+        #   E701/E702  = multiple statements on one line (compact PyQt6/GPIO one-liners)
+        #   E711/E712  = comparison to True/None (PyQt6 idioms)
+        #   E722       = bare except (needed for hardware probing)
+        #   E401       = multiple imports on one line (hardware module grouping)
+        #   E741       = ambiguous var names (l, w, v common in PyQt6 layouts)
+        #   F541       = f-string without placeholders (multi-line text blocks)
+        #   F601       = multi-value repeated key (dynamic dict patterns)
+        #   F811       = redefined while unused (hardware module overrides)
+        #   F821       = undefined name (logger defined at module level, dynamic imports)
+        #   F841       = local var assigned but unused (hardware stub returns)
+        #   W291/W293  = trailing whitespace (ASCII art banner)
+        #   W605       = invalid escape sequence (raw strings in text content)
+
+      - name: Syntax check all Python files
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            if python3 -m py_compile "$f"; then
+              echo "✓ $f"
+            else
+              echo "✗ FAIL: $f"
+              fail=1
+            fi
+          done < <(find sigint_agent/ -name "*.py")
+          exit $fail
+
+  structure:
+    name: Repo Structure Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          required=(
+            "sigint_agent/main.py"
+            "sigint_agent/config.py.example"
+            "sigint_agent/modules/power.py"
+            "sigint_agent/modules/rtlsdr.py"
+            "sigint_agent/modules/lora.py"
+            "sigint_agent/modules/gps.py"
+            "sigint_agent/modules/atak.py"
+            "sigint_agent/modules/fingerprint.py"
+            "sigint_agent/modules/meshtastic_parser.py"
+            "sigint_agent/modules/flipper/__init__.py"
+            "sigint_agent/modules/flipper/subghz.py"
+            "sigint_agent/modules/flipper/nfc.py"
+            "sigint_agent/modules/flipper/rfid.py"
+            "sigint_agent/modules/flipper/infrared.py"
+            "sigint_agent/modules/flipper/ibutton.py"
+            "sigint_agent/modules/flipper/ble.py"
+            "sigint_agent/modules/flipper/badusb.py"
+            "sigint_agent/webui/app.py"
+            "sigint_agent_os/scripts/build.sh"
+            "sigint_agent_os/scripts/update.sh"
+            "sigint_agent_os/recovery/recovery-server.sh"
+            "requirements.txt"
+            "LICENSE"
+          )
+          fail=0
+          for f in "${required[@]}"; do
+            if [ -f "$f" ]; then
+              echo "✓ $f"
+            else
+              echo "✗ MISSING: $f"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Secrets check — config.py must not be committed
+        run: |
+          if [ -f "sigint_agent/config.py" ]; then
+            echo "✗ FAIL: sigint_agent/config.py found in repo — contains secrets!"
+            exit 1
+          else
+            echo "✓ config.py not committed (good)"
+          fi
+
+      - name: Secrets check — no .p12 / .pem / .key files
+        run: |
+          found=$(find . -not -path "./.git/*" -not -path "./repo/*" \
+            \( -name "*.p12" -o -name "*.pem" -o -name "*.key" -o -name "*.pfx" \) \
+            2>/dev/null)
+          if [ -n "$found" ]; then
+            echo "✗ FAIL: Certificate/key files found in repo:"
+            echo "$found"
+            exit 1
+          else
+            echo "✓ No cert/key files committed (good)"
+          fi

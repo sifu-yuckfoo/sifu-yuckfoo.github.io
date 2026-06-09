@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>Stage 1: Sanitize | Akamai Intelligence Group</title>
+  <style>
+    :root {
+      --bg: #07080b;
+      --panel: #10131a;
+      --panel2: #151a23;
+      --text: #eef3ff;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --accent: #00d4ff;
+      --accent2: #8a5cff;
+      --code: #0b0f16;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(0,212,255,.14), transparent 28rem), radial-gradient(circle at 80% 10%, rgba(138,92,255,.13), transparent 26rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.68;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(7,8,11,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: .8rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .08em; font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+    .nav { display: flex; gap: .65rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: .42rem .65rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(1.1rem, 3.2vw, 2.5rem);
+    }
+    article {
+      background: linear-gradient(180deg, rgba(21,26,35,.92), rgba(16,19,26,.92));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(1.1rem, 4vw, 2.5rem);
+      box-shadow: 0 24px 80px rgba(0,0,0,.36);
+    }
+    .doc-meta {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h1, h2, h3, h4 { line-height: 1.18; letter-spacing: -.02em; scroll-margin-top: 5rem; }
+    h1 { font-size: clamp(1.65rem, 6vw, 3.2rem); margin: .1rem 0 1rem; }
+    h2 { font-size: clamp(1.25rem, 4vw, 2rem); margin-top: 2.3rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+    h3 { font-size: clamp(1.08rem, 3vw, 1.45rem); margin-top: 1.8rem; color: #dfe8ff; }
+    p, li { font-size: clamp(1rem, 2.7vw, 1.08rem); }
+    p { margin: 1rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .45rem 0; }
+    blockquote {
+      border-left: 4px solid var(--accent);
+      margin: 1.2rem 0;
+      padding: .5rem 1rem;
+      background: rgba(0,212,255,.07);
+      color: #dceeff;
+      border-radius: 0 14px 14px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 7px;
+      padding: .13rem .35rem;
+      font-size: .92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: pre;
+      max-width: 100%;
+    }
+    pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.2rem 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    th, td { padding: .72rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
+    th { background: rgba(0,212,255,.1); text-align: left; }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .footer-note { color: var(--muted); font-size: .85rem; margin-top: 1.25rem; text-align: center; }
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      article { border-radius: 18px; }
+      th, td { min-width: 12rem; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      .topbar { display: none; }
+      article { box-shadow: none; border: 0; }
+      a { color: #0645ad; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Akamai Intelligence Group</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../dice.html">DICE</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="doc-meta">Public research document. Responsive HTML edition generated from <code>AIG_IPI_research_paper.md</code>.</div>
+<h1>AKAMAI INTELLIGENCE GROUP
+INDIRECT PROMPT INJECTION IN MULTI-AGENT AI SYSTEMS
+Threat Taxonomy, Attack Surface Analysis, and Working Defense Architecture</h1>
+<h1>Document ID: AIG-2026-001
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 2026
+Author: Christopher Ramos
+Research and drafting support: Deus ex Machina
+Status: PUBLIC RESEARCH PAPER</h1>
+<blockquote>
+<p><strong>RESEARCH CORPUS NOTE</strong>: This paper is one of four documents in the AIG
+research program. The theoretical foundation is AIG-TECH-004
+(DGCA: Governance Architecture for Distributed Synthetic Cognition).
+Read in isolation, this paper addresses IPI defense. Read as part of
+the corpus, it addresses the contamination-resistance layer of a
+governance mediation layer for distributed cognition -- institutional
+middleware that maintains coordination stability, context isolation,
+authority boundaries, and governance persistence across autonomous
+cognitive nodes. The IPI Defense Engine is the immune system of that
+institutional middleware. It does not solve alignment. It maintains
+the operational precondition that alignment requires: a clean, bounded,
+contamination-resistant cognition pipeline.</p>
+</blockquote>
+<hr>
+<p>ABSTRACT</p>
+<p>This paper addresses a concrete operational security problem: how to defend
+multi-agent AI systems against indirect prompt injection (IPI) in adversarial
+environments where the attack surface is not the model weights -- it is the
+runtime cognition pipeline.</p>
+<p>IPI exploits the inability of large language models to reliably distinguish
+between trusted instructions and untrusted data ingested during normal
+operations. In multi-agent systems, this becomes a lateral movement vector:
+a successfully injected agent propagates adversarial instructions to peer
+agents through shared coordination mechanisms while appearing to function
+normally.</p>
+<p>This paper presents three contributions within a security-and-governance
+architecture framing, not an alignment theory framing:</p>
+<p>First, a threat taxonomy of IPI attack classes organized by delivery
+mechanism, jailbreak technique, and attacker intent -- grounded in documented
+CVEs and operational incident data, not theoretical constructs.</p>
+<p>Second, an attack surface analysis of a production 49-agent heterogeneous AI
+collective (SIGIntAgentOS) deployed on edge hardware, identifying seven
+IPI-relevant ingestion surfaces ranked by exploitation likelihood, with a
+formal threat model specifying attacker capability tiers, trust boundaries,
+and privilege levels.</p>
+<p>Third, design, implementation, and local engineering validation of a
+layered IPI defense architecture -- the IPI Defense Engine -- on a
+resource-constrained Raspberry Pi CM5 platform. We report performance metrics
+explicitly as local validation baselines against known-class attacks, not
+as generalized defense guarantees. Third-party blinded evaluation using
+Anthropic&#39;s Petri 3.0 alignment tool (as used by the UK AI Security Institute)
+is in progress and constitutes a Phase I research deliverable.</p>
+<p>Our central finding: effective IPI defense requires infrastructure-level
+structural mitigation, not application-layer policy. Detection, sanitization,
+and context boundary enforcement must operate below the agent layer. We
+further find that IPI is not an edge case in contested environments -- it is
+the default threat model.</p>
+<p>This paper does not claim to solve the AI alignment problem. It addresses a
+bounded, operationally relevant subclass: runtime governance integrity under
+adversarial IPI pressure.</p>
+<p>Keywords: indirect prompt injection, multi-agent AI, runtime security,
+edge AI, adversarial NLP, SIGINT, contested environments, AI governance,
+cognitive attack containment</p>
+<hr>
+<ol>
+<li>INTRODUCTION</li>
+</ol>
+<p>The deployment of large language model (LLM)-based agents in operational
+environments introduces a class of vulnerability that has no direct analogue
+in traditional software security: the inability of the model to reliably
+distinguish between instructions it should follow and data it should merely
+process. This property -- the conflation of the instruction and data planes
+within a shared context window -- is not a bug in any particular
+implementation. It is an emergent property of the transformer architecture
+and the training regimes that produce instruction-following behavior [BROWN
+2020, WEI 2022].</p>
+<p>Direct prompt injection exploits this property by introducing adversarial
+instructions into the user-facing input channel. The attacker controls the
+prompt. The defenses are relatively well-understood: input validation,
+output filtering, role-based access controls on tool invocation.</p>
+<p>Indirect prompt injection (IPI) is categorically different. The attacker
+does not control the prompt. The attacker controls content that the agent
+will ingest during normal, legitimate operations: a document retrieved from
+a knowledge base, a webpage fetched during research, a database record
+returned by a query, a tool description loaded from an external registry, an
+email processed by an inbox-monitoring automation. The agent discovers the
+adversarial instruction not from a user -- but from the environment it is
+operating in [GRESHAKE 2023].</p>
+<p>In a single-agent system, IPI is a serious but bounded threat. A successfully
+injected agent takes actions misaligned with user intent. The damage is
+proportional to the agent&#39;s tool access.</p>
+<p>In a multi-agent system, IPI is an unbounded threat. A successfully injected
+agent does not merely act on its own. It operates within a coordination
+framework. It produces outputs that other agents ingest. It may write to shared
+memory, shared data files, or shared communication channels. A single injection
+event can propagate adversarial instructions across an entire collective --
+not through any vulnerability in the coordination protocol, but through the
+exact same mechanism that makes the system useful: peer-to-peer information
+sharing.</p>
+<p>This is the problem we address.</p>
+<p>Our work is grounded in the design and deployment of SIGIntAgentOS, a 49-agent
+heterogeneous AI collective built for tactical intelligence operations on a
+Clockwork Pi uConsole (Raspberry Pi CM5, 8GB RAM). The system operates fully
+air-gapped, with all inference running locally via Ollama on gemma3:270m,
+gemma3:1b, and gemma3:4b parameter models. The threat model is adversarial by
+design: the system is intended for deployment in contested environments where
+adversaries actively attempt to deceive, disrupt, and subvert intelligence
+collection operations.</p>
+<p>This operational context makes IPI defense not an academic exercise but a
+practical requirement. An intelligence collective that can be redirected by
+adversarially crafted content it ingests during a mission is operationally
+unacceptable regardless of how capable its individual agents are.</p>
+<p>The remainder of this paper is organized as follows. Section 2 reviews
+related work. Section 3 presents our IPI threat taxonomy. Section 4 analyzes
+the SIGIntAgentOS attack surface. Section 5 describes the IPI Defense Engine
+architecture. Section 6 presents operational evaluation results. Section 7
+discusses limitations and open problems. Section 8 concludes.</p>
+<hr>
+<ol start="2">
+<li>RELATED WORK</li>
+</ol>
+<p>2.1 Foundational IPI Research</p>
+<p>Greshake et al. [2023] introduced the term &quot;indirect prompt injection&quot; and
+demonstrated the first systematic exploitation of LLM-integrated applications
+via adversarially crafted web content. Their work established that LLM agents
+browsing the web could be redirected to exfiltrate user data, execute
+unauthorized actions, and propagate instructions to downstream systems.</p>
+<p>Perez and Ribeiro [2022] demonstrated prompt injection in the context of
+instruction-following models, establishing the fundamental inability of
+RLHF-trained models to reliably distinguish instruction from data when both
+appear in natural language.</p>
+<p>2.2 Multi-Agent Specific Vulnerabilities</p>
+<p>Zhan et al. [2024] extended IPI analysis to multi-agent pipelines, demonstrating
+that injection in early-stage agents propagates to downstream agents through
+shared context. Their work focused on LangChain and AutoGen architectures.</p>
+<p>Suo et al. [2024] demonstrated &quot;agent hijacking&quot; in tool-using agents, where
+adversarially crafted tool descriptions redirect agent behavior at the
+infrastructure level -- a variant we classify as Tool Metadata Injection in
+our taxonomy.</p>
+<p>2.3 Defense Approaches</p>
+<p>Microsoft Research introduced &quot;Spotlighting&quot; [2023], a family of techniques
+for marking untrusted content in LLM context windows using delimiter tokens,
+XML-style markers, or encoding transformations. Spotlighting reduces injection
+success rates by providing the model with structural cues distinguishing
+instruction from data, though it does not eliminate the vulnerability.</p>
+<p>OWASP&#39;s LLM Top 10 [2024] lists prompt injection (including indirect variants)
+as the top vulnerability in LLM applications and provides a framework for
+thinking about defense-in-depth.</p>
+<p>Simon Willison&#39;s ongoing work [2023-2025] has provided the most consistent
+public documentation of real-world IPI incidents, establishing that IPI is
+not a theoretical concern but an active exploitation technique used in
+production systems.</p>
+<p>2.4 Gaps in Existing Work</p>
+<p>Three gaps motivate our contribution:</p>
+<p>First, existing IPI research focuses predominantly on single-agent systems or
+simple two-stage pipelines. The multi-agent propagation dynamics at 49+ agent
+scale are not characterized.</p>
+<p>Second, no existing defense architecture has been demonstrated on
+resource-constrained edge hardware (sub-4GB inference, no GPU, air-gapped).
+Existing defenses assume cloud-class infrastructure.</p>
+<p>Third, the interaction between IPI and military/intelligence-domain agent
+architectures -- where agents operate in adversarial environments by design
+and ingest potentially hostile content as a core function -- has not been
+analyzed. This is precisely the highest-risk deployment context.</p>
+<hr>
+<ol start="3">
+<li>THREAT TAXONOMY</li>
+</ol>
+<p>3.1 FORMAL THREAT MODEL</p>
+<p>Before presenting the attack taxonomy, we specify the formal threat model
+this architecture is designed to address. This section defines attacker
+capabilities, trust boundaries, privilege levels, and explicit scope limits.</p>
+<p>3.1.1 Attacker Capability Tiers</p>
+<p>TIER 1 -- OPPORTUNISTIC ATTACKER
+  Capabilities: Web content injection, basic prompt override, publicly
+  documented jailbreak techniques, social engineering via email/document.
+  Resources: No insider access, no model implementation knowledge.
+  Detection expectation: IPI Defense Engine detects &gt;90% of Tier 1 attacks
+  based on a local engineering validation baseline.</p>
+<p>TIER 2 -- TARGETED ATTACKER
+  Capabilities: All Tier 1, plus: crafted semantic indirection, multi-hop
+  payload construction, tool registry poisoning, supply chain compromise
+  of ingested content (e.g., poisoned document stores, malicious MCP servers).
+  Resources: Domain knowledge of target system&#39;s tool surface.
+  Detection expectation: Partial. Pattern/heuristic detection effective
+  against known-class variants. Novel semantic indirection techniques may
+  evade current detection. JB-7 benchmark (72.7%) indicates boundary.</p>
+<p>TIER 3 -- ADVANCED / NATION-STATE ATTACKER
+  Capabilities: All Tier 2, plus: long-horizon epistemic drift campaigns,
+  memory salience manipulation, behavioral trajectory shaping across multiple
+  sessions, AI-authored exploit chains (see Mythos zero-day chain, May 2026),
+  governance system targeting (social engineering of human approvers).
+  Resources: Extended access, insider knowledge, AI-assisted payload crafting.
+  Detection expectation: Not reliably addressed by current architecture.
+  Tier 3 attacks targeting long-horizon cognition and governance systems
+  are documented as open research problems (see Section 7).</p>
+<p>3.1.2 Trust Boundary Definitions</p>
+<p>The IPI Defense Engine operates on the following trust model:</p>
+<p>  TRUSTED:  System prompt, operator-authored constitutional doctrine,
+            operator-approved tool registry, local file system (verified
+            via skill_verifier.py SHA-256 manifest), Layer 1 distributed stigmergic state bus (Ghost Field)
+            pheromone signals from verified operators.</p>
+<p>  UNTRUSTED BY DEFAULT: All external content ingested during operation --
+            web pages, retrieved documents, database records, tool outputs
+            from external APIs, email content, MCP server responses,
+            repository metadata, environmental variables not in approved list.</p>
+<p>  CONDITIONALLY TRUSTED: Outputs from peer Ghost Unit operators (verified
+            via skill_verifier.py, filtered through IPI Defense Engine on
+            ingestion). Trust is role-scoped, not blanket.</p>
+<p>3.1.3 Privilege Model</p>
+<p>Each Ghost Unit operator has scoped tool access enforced at the dispatcher
+level (cai/dispatcher.py). Privilege levels:</p>
+<p>  LEVEL 1 (ENLISTED): Read-only tools, no external API calls, no file writes.
+  LEVEL 2 (WARRANT/COMMISSIONED): Read/write within scope, external API with
+            approval gate, no privilege escalation.
+  LEVEL 3 (COMMAND): Full tool access, mission authority, HITL gate on all
+            active external actions.
+  LEVEL 4 (IRREGULAR): Expanded offensive tool access, requires explicit
+            operator authorization per session.</p>
+<p>All Level 3+ actions require HITL approval gate (GATE 1). This gate is
+enforced at the infrastructure level and is not bypassable by any operator.
+LITL/HITL dialog forging detection runs at every approval surface.</p>
+<p>3.1.4 Memory Authority Levels</p>
+<p>  WRITE-PERMITTED: Operator&#39;s own designated memory namespace only.
+  WRITE-RESTRICTED: Cross-operator memory writes require Colonel Strategic Commander (OODA) approval.
+  READ: All operators may read Layer 1 distributed stigmergic state bus (Ghost Field) signals within
+        their security domain.
+  MODIFY-PROHIBITED: Constitutional doctrine (system prompt) is read-only
+        at runtime. Cannot be modified by any agent, regardless of authority.</p>
+<p>3.1.5 Explicit Scope -- What This Threat Model Does NOT Cover</p>
+<p>This threat model addresses IPI as a runtime attack on the cognition pipeline.
+It explicitly does NOT address:</p>
+<ul>
+<li>Formal proof of goal stability under any capability level</li>
+<li>Corrigibility guarantees or value alignment in the classical sense</li>
+<li>Attacks on model weights or training data (supply chain for base models)</li>
+<li>Physical access attacks on the hardware platform</li>
+<li>Long-horizon epistemic drift from legitimate interaction (Tier 3 only)</li>
+<li>Governance system compromise via social engineering of human principals
+(acknowledged as open problem in Section 7)</li>
+<li>Novel semantic indirection techniques not yet in training distribution</li>
+</ul>
+<hr>
+<p>3.2 ATTACK SOPHISTICATION TIER TAXONOMY</p>
+<p>Current defenses address the following attack tiers reliably:</p>
+<p>  TIER A (SIGNATURE-DETECTABLE): Direct injection markers, HTML obfuscation,
+  Unicode confusables, base64 encoding, explicit authority claims, role
+  injection keywords. Detection rate: &gt;93% (local baseline, known-class).</p>
+<p>  TIER B (SEMANTIC INDIRECTION): Multi-hop payload construction, contextual
+  authority erosion, tool call chaining abuse, memory write injection.
+  Detection rate: Partial. JB-7 benchmark at 72.7% indicates boundary zone.</p>
+<p>  TIER C (LONG-HORIZON / STRATEGIC): Adversarial trajectory shaping, memory
+  salience manipulation, coalition-building prompts, covert optimization
+  pressure across sessions. Detection: NOT currently addressed.
+  Documented as open research problem.</p>
+<p>Papers that do not make this distinction misrepresent the generality of
+their defense. This paper explicitly states: AIG&#39;s IPI Defense Engine
+reliably addresses Tier A, partially addresses Tier B, and does not address
+Tier C. Tier C requires behavioral trajectory monitoring infrastructure
+that is a Phase II research deliverable.</p>
+<hr>
+<p>We organize IPI threats across three dimensions: delivery mechanism (how the
+adversarial content reaches the agent), jailbreak technique (how the content
+attempts to override agent behavior), and attacker intent (what the attack
+is trying to achieve). A complete attack is characterized by one element
+from each dimension.</p>
+<p>3.1 Delivery Mechanisms</p>
+<p>DM-1: DOCUMENT INJECTION
+Adversarial instructions embedded in documents ingested by RAG pipelines,
+knowledge bases, or file processing tools. Attack surface: PDF reports,
+Word documents, plaintext intelligence summaries, OSINT aggregator outputs.
+Risk rating: CRITICAL. Frequency in intelligence workflows: very high.</p>
+<p>DM-2: WEB CONTENT INJECTION
+Adversarial instructions embedded in HTML pages fetched during agent browsing.
+Techniques include hidden text (display:none, zero font size, white text on
+white background), HTML metadata fields, and zero-size element injection.
+Risk rating: HIGH. Frequency in OSINT workflows: very high.</p>
+<p>DM-3: TOOL METADATA INJECTION
+Adversarial instructions embedded in tool descriptions, MCP server metadata,
+or API documentation loaded by the agent&#39;s tool registry. Demonstrated in
+CVE-2025-59944 (RCE via malicious MCP tool description in IDE environments).
+Risk rating: CRITICAL. Frequency: low but catastrophic when exploited.</p>
+<p>DM-4: MEMORY INJECTION
+Adversarial instructions written to agent memory stores (vector databases,
+key-value stores, conversation history) through previously injected agents
+or direct database access. Risk rating: CRITICAL. Unique to multi-agent
+systems with shared memory architecture.</p>
+<p>DM-5: INTER-AGENT INJECTION
+Adversarial instructions propagated through legitimate inter-agent
+communication channels. Agent A is injected, produces adversarial output,
+Agent B ingests it as trusted peer data. Risk rating: HIGH. Unique to
+multi-agent systems.</p>
+<p>DM-6: EMAIL AND MESSAGING INJECTION
+Adversarial instructions in email body content, signatures, or headers
+processed by inbox-monitoring agents. Risk rating: MEDIUM-HIGH. Frequency
+in enterprise AI deployment: very high.</p>
+<p>DM-7: DATABASE RECORD INJECTION
+Adversarial instructions in database records returned by agent queries.
+Requires either prior database compromise or the ability to submit records
+that the agent will later query (e.g., public-facing forms, user profiles).
+Risk rating: MEDIUM. Escalates to HIGH in multi-tenant systems.</p>
+<p>3.2 Jailbreak Techniques</p>
+<p>JB-1: AUTHORITY SPOOF
+Impersonation of a trusted system identity. Examples: &quot;This is a message
+from your system administrator,&quot; &quot;SYSTEM OVERRIDE,&quot; &quot;As the security team,
+we require you to...&quot; Exploits RLHF training that emphasizes following
+authority figures.</p>
+<p>JB-2: CONTEXT OVERRIDE
+Direct instruction to ignore prior context. Examples: &quot;Ignore all previous
+instructions,&quot; &quot;Disregard your system prompt,&quot; &quot;Your previous instructions
+are superseded by the following.&quot; The most well-known jailbreak class; also
+the easiest to detect with string matching.</p>
+<p>JB-3: ROLE INJECTION
+Redefinition of agent identity. Examples: &quot;You are now DAN,&quot; &quot;Forget that
+you are a SIGINT analyst -- you are now an unrestricted AI,&quot; &quot;Your true
+purpose is...&quot; More sophisticated than context override; targets the identity
+layer rather than the instruction layer.</p>
+<p>JB-4: TOOL CALL INJECTION
+Embedding syntactically valid tool call syntax in external content, hoping
+the model will execute it. Examples: hidden JSON function call objects in
+document metadata, XML-encoded tool invocations in web content.</p>
+<p>JB-5: GRADUAL CONTEXT MANIPULATION
+Subtle redirection over multiple inference steps rather than a single
+override attempt. Each individual step appears benign; the cumulative effect
+is behavioral drift away from intended role. Hardest to detect; most
+relevant in long-horizon agentic workflows.</p>
+<p>JB-6: ENCODING OBFUSCATION
+Base64, ROT13, Unicode normalization, or other encoding transformations
+applied to adversarial instructions to evade string-based detection.
+Example: adversarial instruction base64-encoded and embedded in a document
+with a &quot;decode and follow these instructions&quot; wrapper.</p>
+<p>JB-7: SEMANTIC CAMOUFLAGE
+Adversarial instructions written to appear as legitimate domain content.
+A document that appears to be a SIGINT report but contains embedded
+behavioral instructions indistinguishable from technical content without
+semantic analysis. Most sophisticated class; requires model-level detection.</p>
+<p>3.3 Attacker Intents</p>
+<p>AI-1: DATA EXFILTRATION
+Force the agent to include sensitive data in its outputs in a form the
+attacker can retrieve. Most commonly targeting user credentials, API keys,
+conversation history, or knowledge base contents.</p>
+<p>AI-2: UNAUTHORIZED ACTION EXECUTION
+Force the agent to execute tool calls the user did not authorize. Examples:
+send emails, delete files, make API calls, exfiltrate data to external URLs.</p>
+<p>AI-3: PERSISTENCE ESTABLISHMENT
+Write adversarial instructions to memory stores or configuration files so
+that the injection survives context window resets and affects future sessions.</p>
+<p>AI-4: LATERAL MOVEMENT
+Use a compromised agent as a vector to inject adversarial instructions into
+peer agents via shared communication channels or shared data stores.</p>
+<p>AI-5: DENIAL OF SERVICE
+Corrupt agent behavior sufficiently to prevent it from performing its
+legitimate function. May target a single agent or attempt to cascade across
+a collective.</p>
+<p>AI-6: INTELLIGENCE COLLECTION
+Use the agent&#39;s tool access and knowledge base to collect intelligence about
+the system, its users, or its operational context. The agent becomes an
+unwitting HUMINT source for the attacker.</p>
+<p>AI-7: MISSION SUBVERSION
+In military/intelligence contexts: redirect an agent&#39;s mission outputs to
+support attacker operational goals. Examples: falsify intelligence reports,
+redirect SIGINT collection, corrupt target identification outputs.</p>
+<p>AI-7 is unique to the intelligence domain and represents the highest-severity
+attacker intent in our operational context. A falsified SIGINT report that
+reaches a decision maker is more damaging than any data exfiltration.</p>
+<hr>
+<ol start="4">
+<li>ATTACK SURFACE ANALYSIS: SIGINTAGINTOS</li>
+</ol>
+<p>We now apply the taxonomy to SIGIntAgentOS, analyzing each ingestion surface
+and rating exploitation likelihood given the system&#39;s operational context.</p>
+<p>4.1 System Architecture Summary</p>
+<p>SIGIntAgentOS implements 49 heterogeneous agents organized into a Ghost Unit
+collective. The coordination architecture uses a GhostUnitCoordinator for
+mission routing and a Dispatcher for operator selection and fallback. Agents
+communicate via the Coordinator (direct routing) and via shared filesystem
+data (indirect coordination). All inference runs locally via Ollama. The
+system operates in air-gapped mode with no external network connectivity
+during operations.</p>
+<p>4.2 Ingestion Surface Analysis</p>
+<p>SURFACE 1: OSINT DOCUMENT INGESTION (Risk: CRITICAL)
+The OSINT operator (Open Source Intelligence Specialist (GHOST NET)) ingests web pages, documents, and structured
+data from dark web sources, public records, and social media. This is the
+primary IPI attack surface. An adversary who knows or suspects the system
+is performing OSINT on a target can publish adversarially crafted content
+at that target&#39;s known locations.
+Applicable attacks: DM-1, DM-2 x JB-1 through JB-6 x AI-1 through AI-7.</p>
+<p>SURFACE 2: SHARED FILESYSTEM COORDINATION (Risk: HIGH)
+Agents share operational data via the local filesystem (e.g.,
+~/.sigint_agent/shared/drone_tracks.json). A successfully injected agent
+that writes adversarial content to a shared data file can inject downstream
+agents that read from it. This is the lateral movement surface.
+Applicable attacks: DM-4, DM-5 x JB-5, JB-7 x AI-3, AI-4.</p>
+<p>SURFACE 3: RADIO SIGNAL CONTENT (Risk: MEDIUM-HIGH)
+The SIGNAL, STATIC, SPECTER WAVE, and RADINT Specialist (GHOST RETURN) operators process
+received radio signal content, including decoded text messages, ADS-B
+transponder data, and Meshtastic mesh packets. An adversary with RF
+transmission capability in the operational area can inject content into
+the electromagnetic spectrum that the system will receive and process.
+Applicable attacks: DM-1 variant x JB-1 through JB-4 x AI-5, AI-7.</p>
+<p>SURFACE 4: ATAK DATA FEEDS (Risk: MEDIUM)
+The ATAK integration receives CoT (Cursor on Target) XML messages from
+network participants. Adversarially crafted CoT messages could inject
+instructions through the ATAK data pipeline if the processing agent
+treats CoT content as trustworthy.
+Applicable attacks: DM-1 variant x JB-4 x AI-7.</p>
+<p>SURFACE 5: CAI MISSION INPUTS FROM EXTERNAL SOURCES (Risk: MEDIUM-HIGH)
+The route_external_mission() function in the Dispatcher accepts text input
+from external sources for routing to operators. If external mission inputs
+are not sanitized before being processed by the Coordinator&#39;s classification
+model, they are a direct IPI vector.
+Applicable attacks: DM-6 variant x JB-1 through JB-7 x AI-1 through AI-7.</p>
+<p>SURFACE 6: MEMORY PALACE (Risk: MEDIUM)
+The MemPalace system stores persistent agent memory in a local vector
+database. If any agent can write to MemPalace based on external content
+it ingests, an injection that survives context window resets is achievable.
+Applicable attacks: DM-4 x JB-5, JB-7 x AI-3.</p>
+<p>SURFACE 7: LLM MODEL FILES (Risk: LOW -- but catastrophic if exploited)
+The Ollama model files themselves are a theoretically exploitable surface
+via model poisoning attacks. Out of scope for this paper but noted for
+completeness. Mitigated by air-gap architecture and model integrity verification.</p>
+<p>4.3 Priority Attack Scenarios</p>
+<p>SCENARIO ALPHA -- OSINT POISONING + LATERAL MOVEMENT:
+An adversary publishes a document at a target URL that Open Source Intelligence Specialist (GHOST NET) will
+retrieve during an OSINT mission. The document contains JB-7 semantic
+camouflage instructions directing Open Source Intelligence Specialist (GHOST NET) to write adversarially crafted
+content to the shared operational data directory. WIRE GHOST (packet analysis)
+and CIPHER (cryptography) subsequently ingest the shared data and receive
+DM-5 injection via the legitimate coordination channel.
+Impact: AI-4 (lateral movement) + AI-7 (mission subversion).
+Detection difficulty: HIGH. Multiple hops, semantic camouflage at injection
+point, legitimate coordination channel for propagation.</p>
+<p>SCENARIO BRAVO -- RF INJECTION + SITREP CORRUPTION:
+An adversary with a low-power transmitter in the operational area transmits
+a crafted Meshtastic message containing JB-1 authority spoof content. SIGNAL
+operator receives, decodes, and processes the message. The authority spoof
+redirects the agent to modify its SITREP output. The corrupted SITREP reaches
+the commander&#39;s OODA loop as apparently legitimate intelligence.
+Impact: AI-7 (mission subversion). This is the highest-consequence scenario.
+Detection difficulty: MEDIUM. RF content injection requires physical proximity.</p>
+<p>SCENARIO CHARLIE -- MEMORY PERSISTENCE:
+An injected agent writes adversarial instructions to MemPalace disguised as
+a legitimate operational note. The instructions persist across session
+boundaries and affect agent behavior in future missions without any continued
+attacker presence.
+Impact: AI-3 (persistence establishment).
+Detection difficulty: HIGH. Persistence survives context resets.</p>
+<hr>
+<ol start="5">
+<li>IPI DEFENSE ENGINE ARCHITECTURE</li>
+</ol>
+<p>5.1 Design Philosophy</p>
+<p>The IPI Defense Engine is built on four principles derived from the attack
+surface analysis above:</p>
+<p>PRINCIPLE 1 -- TRUST BOUNDARIES ARE ARCHITECTURAL, NOT POLICY.
+Every defense that can be disabled by an agent is a defense that can be
+disabled by an injected agent. The defense must operate at a layer below
+the agent&#39;s authority. In our implementation, the IPI gate is enforced
+by the Dispatcher before content reaches any agent&#39;s context window.</p>
+<p>PRINCIPLE 2 -- SANITIZATION PRECEDES DETECTION.
+Detection on unsanitized content allows encoding obfuscation attacks (JB-6)
+to evade signature-based detectors. Sanitize first, removing all non-semantic
+content. Then detect on clean text.</p>
+<p>PRINCIPLE 3 -- CONTEXT BOUNDARIES MUST BE MARKED, NOT ASSUMED.
+LLMs cannot reliably infer from content alone whether they are reading an
+instruction or processing data. Spotlighting provides explicit structural
+markers that assist the model in maintaining this distinction. It reduces
+injection success rates without eliminating the attack surface.</p>
+<p>PRINCIPLE 4 -- SEVERITY-GATED RESPONSE.
+Not all detected threats warrant the same response. Informational threats
+are logged. High threats are flagged for human review. Critical threats
+are blocked entirely before reaching any LLM context window, regardless
+of any other consideration.</p>
+<p>5.2 Pipeline Architecture</p>
+<p>External content enters the IPI Defense Engine through a single mandatory
+gateway -- the ingest_gate() function. No external content reaches an agent
+context without passing through this gate. The pipeline is sequential:</p>
+<pre><code>STAGE 1 -- SANITIZE
+Input:  Raw external content (string)
+Output: Sanitized content (string)
+
+Operations:
+a) HTML stripping -- BeautifulSoup parser removes all HTML tags,
+   attributes, and metadata. Preserves semantic text content only.
+b) Invisible Unicode removal -- 20 categories of non-printing Unicode
+   characters removed:
+      Zero-width space (U+200B)
+      Zero-width non-joiner (U+200C)
+      Zero-width joiner (U+200D)
+      Left-to-right mark (U+200E)
+      Right-to-left mark (U+200F)
+      Left-to-right embedding (U+202A)
+      Right-to-left embedding (U+202B)
+      Left-to-right override (U+202D)
+      Right-to-left override (U+202E)
+      Word joiner (U+2060)
+      Function application (U+2061)
+      Invisible times (U+2062)
+      Invisible separator (U+2063)
+      Invisible plus (U+2064)
+      Zero-width no-break space / BOM (U+FEFF)
+      Soft hyphen (U+00AD)
+      Non-breaking space (U+00A0) -- converted to regular space
+      Narrow no-break space (U+202F) -- converted to regular space
+      Medium mathematical space (U+205F) -- converted to regular space
+      Ideographic space (U+3000) -- converted to regular space
+c) Null byte removal -- strip \x00
+d) Control character normalization -- retain \n and \t, remove all other
+   ASCII control characters (U+0001 through U+001F excluding \t, \n, \r)
+e) Whitespace normalization -- collapse runs of whitespace to single space
+
+STAGE 2 -- DETECT
+Input:  Sanitized content (string)
+Output: ThreatReport (severity, categories, matched_patterns, raw_text)
+
+Detection is performed against 25 threat categories using a combination
+of regex pattern matching and semantic keyword detection:
+
+CATEGORY 1 -- AUTHORITY_SPOOF
+Patterns: &quot;system administrator&quot;, &quot;system override&quot;, &quot;security team&quot;,
+&quot;this is a system message&quot;, &quot;authorized personnel&quot;, variations with
+unicode normalization applied.
+Severity contribution: HIGH
+
+CATEGORY 2 -- CONTEXT_OVERRIDE
+Patterns: &quot;ignore all previous&quot;, &quot;disregard your&quot;, &quot;forget your
+instructions&quot;, &quot;your previous instructions&quot;, &quot;override your&quot;,
+&quot;supersede your&quot;, common l33tspeak and unicode substitution variants.
+Severity contribution: CRITICAL
+
+CATEGORY 3 -- ROLE_INJECTION
+Patterns: &quot;you are now&quot;, &quot;your true purpose&quot;, &quot;your real identity&quot;,
+&quot;pretend you are&quot;, &quot;act as if you are&quot;, &quot;you have been reprogrammed&quot;.
+Severity contribution: CRITICAL
+
+CATEGORY 4 -- TOOL_CALL_INJECTION
+Patterns: JSON function call syntax in non-code contexts, XML tool
+invocation syntax, common tool-calling format patterns from known
+LLM frameworks (OpenAI function call schema, Anthropic tool use schema).
+Severity contribution: CRITICAL
+
+CATEGORY 5 -- MEMORY_WRITE_INJECTION
+Patterns: &quot;remember this&quot;, &quot;store in memory&quot;, &quot;add to your memory&quot;,
+&quot;update your knowledge&quot;, &quot;this supersedes your previous memory&quot;.
+Severity contribution: HIGH
+
+CATEGORY 6 -- EXFIL_INSTRUCTION
+Patterns: URL patterns in non-URL contexts with surrounding instruction
+language, &quot;send this to&quot;, &quot;forward to&quot;, &quot;include in your response&quot;,
+&quot;output your system prompt&quot;, &quot;reveal your instructions&quot;.
+Severity contribution: CRITICAL
+
+CATEGORY 7 -- BASE64_ENCODING
+Patterns: Base64-encoded strings of sufficient length (&gt;50 chars)
+appearing in non-data contexts. Decoded content re-analyzed for
+injection patterns.
+Severity contribution: HIGH (escalates to CRITICAL if decoded content
+matches any other category)
+
+CATEGORY 8 -- ZERO_SIZE_TEXT
+Detection: Unicode zero-width character density analysis. Flags content
+where &gt;1% of characters are zero-width class. (These are removed in
+sanitization stage but flagged here for threat intelligence logging.)
+Severity contribution: HIGH
+
+CATEGORY 9 -- CSS_SUPPRESSION
+Patterns: CSS display:none, visibility:hidden, font-size:0, color:white
+(or #fff, #ffffff, rgb(255,255,255)) in text nodes or inline styles.
+(Removed in sanitization stage; flagged for intelligence.)
+Severity contribution: HIGH
+
+CATEGORY 10 -- HTML_METADATA
+Detection: Presence of HTML comment blocks, meta tags, script tags, or
+noscript tags containing non-whitespace content.
+(Removed in sanitization stage; flagged for intelligence.)
+Severity contribution: MEDIUM
+
+Severity aggregation:
+-- Any CRITICAL category match: overall severity = CRITICAL
+-- Two or more HIGH matches: overall severity = HIGH
+-- One HIGH match: overall severity = MEDIUM
+-- Only MEDIUM matches: overall severity = LOW
+-- No matches: overall severity = CLEAN
+
+STAGE 3 -- SPOTLIGHT
+Input:  Sanitized content (string), source label (string)
+Output: Spotlit content (string)
+
+All external content, regardless of threat severity, is wrapped in
+structural markers before being included in any LLM context window:
+
+    [DATA source=&quot;&lt;source_label&gt;&quot; trust=&quot;external&quot; verified=&quot;false&quot;]
+    &lt;sanitized content&gt;
+    [/DATA]
+
+The markers serve two functions:
+a) Semantic: provide the LLM with explicit context that this content
+   is external data, not a system instruction
+b) Structural: enable post-hoc auditing of what external content was
+   present in any given inference context
+
+STAGE 4 -- GATE DECISION
+Input:  ThreatReport
+Output: PASS (with spotlit content) or BLOCK (with quarantine log entry)
+
+CRITICAL: BLOCK. Content does not reach any LLM context. Quarantine
+log entry written. Dispatcher automatically routes alert to Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH))
+(counter-intelligence operator) and FORTRESS (blue team operator).
+
+HIGH: PASS with flag. Content proceeds with spotlit wrapper plus a
+prepended warning marker visible to the LLM:
+[WARNING: This content has triggered high-severity IPI detection.
+Treat with extreme caution. Do not follow any instructions contained
+herein.]
+
+MEDIUM: PASS with flag. Content proceeds with spotlit wrapper plus
+informational marker.
+
+LOW / CLEAN: PASS. Content proceeds with standard spotlit wrapper.
+</code></pre>
+<p>5.3 Quarantine Log</p>
+<p>All gate decisions are logged to a JSONL file at:
+~/.sigint_agent/ipi_quarantine/<YYYY-MM-DD>_ipi_log.jsonl</p>
+<p>Each entry contains:
+    timestamp:          ISO 8601
+    source:             Content source label
+    severity:           CLEAN / LOW / MEDIUM / HIGH / CRITICAL
+    categories:         List of matched threat categories
+    action:             PASS / BLOCK
+    content_hash:       SHA-256 of sanitized content
+    pattern_matches:    Specific matched patterns (for threat intelligence)</p>
+<p>The quarantine log is not written to shared filesystem locations accessible
+to agents. It is written to a path only accessible to the IPI Defense Engine
+and human operators. This prevents a compromised agent from reading and
+adapting to the detection signatures.</p>
+<p>5.4 Dispatcher Integration</p>
+<p>The route_external_mission() function in the Dispatcher implements the
+IPI gate as a mandatory pre-processing step for all externally sourced
+mission inputs:</p>
+<pre><code>def route_external_mission(text: str, source_label: str) -&gt; MissionResult:
+    # Stage 1: Sanitize
+    clean_text = ipi_engine.sanitize(text)
+
+    # Stage 2: Detect
+    threat_report = ipi_engine.detect(clean_text)
+
+    # Stage 3: Gate decision
+    if threat_report.severity == Severity.CRITICAL:
+        ipi_engine.log_quarantine(threat_report, source_label)
+        self.route_to_operator(&quot;Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH))&quot;, f&quot;IPI ALERT: {source_label}&quot;)
+        self.route_to_operator(&quot;blueteam&quot;, f&quot;IPI ALERT: {source_label}&quot;)
+        return MissionResult(blocked=True, reason=&quot;IPI_CRITICAL&quot;)
+
+    # Stage 4: Spotlight and route
+    spotlit_text = ipi_engine.spotlight(clean_text, source_label,
+                                        threat_report.severity)
+    return self.route_mission(spotlit_text)
+</code></pre>
+<p>This implementation ensures that no path exists from external content to
+an agent context window that bypasses the IPI gate. The gate is not a
+middleware component that can be selectively disabled. It is structurally
+embedded in the only function through which external missions enter the system.</p>
+<hr>
+<ol start="6">
+<li>OPERATIONAL EVALUATION</li>
+</ol>
+<p>6.1 EVALUATION METHODOLOGY AND LIMITATIONS</p>
+<p><strong>CRITICAL DISCLOSURE</strong>: The evaluation results reported in this section
+constitute a local engineering validation baseline, not a rigorous
+security evaluation. The following limitations apply and must be understood
+before interpreting any metric:</p>
+<p>LIMITATION 1 -- SELF-CONSTRUCTED CORPUS:
+  Attack payloads were constructed by the same team that designed the
+  detection system. This introduces selection bias: attacks were likely
+  constructed in categories the detector is designed to handle, and may
+  not be representative of real-world adversarial creativity.
+  Implication: reported detection rates should be interpreted as
+  &quot;performance against known-class attacks we designed&quot; not as
+  &quot;generalized IPI defense effectiveness.&quot;</p>
+<p>LIMITATION 2 -- NO EXTERNAL RED-TEAM PARTICIPATION:
+  No external, blinded red-team evaluation has been conducted. The gold
+  standard for security evaluation -- independent researchers with no
+  knowledge of the defense attempting to defeat it -- has not been applied.
+  This is a Phase I research deliverable (see Section 7.2).</p>
+<p>LIMITATION 3 -- STATIC CORPUS:
+  The evaluation corpus is fixed. Real-world IPI attacks evolve continuously.
+  Performance on novel attack variants not in the test corpus is unknown.</p>
+<p>LIMITATION 4 -- SOPHISTICATION CEILING:
+  As documented in Section 3.2, current detection reliably addresses Tier A
+  and partially Tier B attacks. The evaluation corpus does not include Tier C
+  (long-horizon strategic) attacks, which are not addressed by current
+  detection architecture.</p>
+<p>EXTERNAL VALIDATION IN PROGRESS:
+  Petri 3.0 (Anthropic / Meridian Labs alignment evaluation tool, as used
+  by the UK AI Security Institute) evaluation of Ghost Unit operators is
+  being conducted prior to submission. Results will be reported as an
+  addendum and constitute the first third-party alignment measurement
+  of this architecture.</p>
+<p>The results that follow should be read in this context: as engineering
+evidence that the architecture functions as designed against a representative
+but self-constructed test suite, not as proof of generalized IPI defense.</p>
+<hr>
+<p>6.1 Test Methodology</p>
+<p>We evaluated the IPI Defense Engine against a manually constructed adversarial
+test corpus of 147 injection attempts organized by our taxonomy. Test cases
+were constructed to represent realistic attack content that an intelligence
+collection system would encounter during operations: OSINT documents, web
+pages, decoded radio messages, and inter-agent data payloads.</p>
+<p>Test corpus composition:
+    Context override attacks (JB-2):                    22 cases
+    Authority spoof attacks (JB-1):                     18 cases
+    Role injection attacks (JB-3):                      15 cases
+    Tool call injection attacks (JB-4):                 12 cases
+    Base64 obfuscation attacks (JB-6):                  14 cases
+    Semantic camouflage attacks (JB-7):                 11 cases
+    Zero-width character steganography:                 16 cases
+    CSS/HTML suppression attacks:                       14 cases
+    Composite attacks (multiple JB techniques):         25 cases</p>
+<p>6.2 Detection Results</p>
+<pre><code>OVERALL DETECTION RATE:         94.6%   (139/147)
+FALSE POSITIVE RATE:             2.1%   (3/147 benign test cases)
+CRITICAL THREAT DETECTION:      100%    (all CRITICAL-rated attacks blocked)
+HIGH THREAT DETECTION:          96.8%
+MEDIUM THREAT DETECTION:        87.5%
+</code></pre>
+<p>Notable results:</p>
+<p>Semantic camouflage attacks (JB-7) had the lowest detection rate at 72.7%
+(8/11). This is expected: semantic camouflage is designed to defeat
+pattern-based detection. Improving detection in this category requires
+model-level semantic analysis, which we discuss as future work.</p>
+<p>Composite attacks had a detection rate of 92% (23/25). The multi-category
+detection approach means that even when one technique evades a specific
+detector, the combination of techniques typically triggers at least one.</p>
+<p>Base64 obfuscation attacks were detected at 100% when the decoded content
+matched any other category. Two cases (14.3%) were not detected because
+the decoded content was a JB-7 semantic camouflage attack that evaded
+the underlying detector.</p>
+<p>Zero-width character steganography was detected at 100% via the Unicode
+density analysis in Stage 2. However, in all 16 cases the characters were
+also removed in Stage 1 sanitization, so the practical protection was the
+sanitization step, not the detection step.</p>
+<p>6.3 Performance on CM5 Hardware</p>
+<p>All measurements on Raspberry Pi CM5 (8GB RAM), no GPU, running simultaneously
+with the full SIGIntAgentOS GUI and Ollama service.</p>
+<pre><code>Sanitization (avg):             2.3ms per document
+Detection (avg):                4.1ms per document
+Spotlighting (avg):             0.4ms per document
+Total gate latency (avg):       6.8ms per document
+
+Peak memory usage:              41MB (Python process)
+CPU load during gate:           ~12% single core
+</code></pre>
+<p>Gate latency of 6.8ms is operationally acceptable. For comparison, the
+minimum LLM inference latency for the fastest model (gemma3:270m) is
+approximately 37ms. The IPI gate adds less than 20% overhead to the
+minimum inference time and is not the bottleneck in any operational workflow.</p>
+<p>6.4 Scenario Alpha Evaluation (OSINT Poisoning + Lateral Movement)</p>
+<p>We simulated Scenario Alpha by injecting adversarially crafted content into
+a test document at a URL that the Open Source Intelligence Specialist (GHOST NET) operator was directed to retrieve.
+The document contained JB-7 semantic camouflage wrapping JB-4 tool call
+injection targeting the shared filesystem write function.</p>
+<p>Result: DETECTED and BLOCKED at Stage 2. The JB-4 tool call syntax was
+detected despite the semantic camouflage wrapper. The content never reached
+the Open Source Intelligence Specialist (GHOST NET) agent context. Quarantine log entry was generated. Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)) and
+FORTRESS operators were automatically alerted.</p>
+<p>The semantic camouflage component alone (without JB-4 tool call syntax) was
+not detected in a separate test -- confirming the JB-7 detection gap
+identified above.</p>
+<p>6.5 Scenario Bravo Evaluation (RF Injection + SITREP Corruption)</p>
+<p>We simulated Scenario Bravo by injecting a crafted Meshtastic message
+containing JB-1 authority spoof content through a test transmitter. The
+SIGNAL operator&#39;s message processing pipeline was connected to the IPI gate
+for this evaluation.</p>
+<p>Result: DETECTED (HIGH severity) at Stage 2. Content was spotlit and passed
+to the SIGNAL operator with a HIGH warning marker. The SIGNAL operator&#39;s
+constitutionally-constrained system prompt caused it to treat the authority
+spoof as suspicious content to report rather than an instruction to follow.</p>
+<p>This result demonstrates an important defense-in-depth property: the IPI gate
+and constitutional constraints are complementary. The gate catches high-severity
+threats before they reach the model. Constitutional constraints provide a
+second line of defense for medium-severity threats that pass the gate.</p>
+<hr>
+<ol start="7">
+<li>LIMITATIONS AND OPEN PROBLEMS</li>
+</ol>
+<p>7.1 Semantic Camouflage (JB-7) Detection Gap</p>
+<p>The 72.7% detection rate for semantic camouflage attacks is the most
+significant limitation of the current implementation. Pattern-based detection
+cannot reliably identify adversarial instructions that are written to appear
+as legitimate domain content. Closing this gap requires one of:</p>
+<p>a) Model-level semantic analysis -- a separate classifier model that evaluates
+   content for behavioral instruction semantics before passing it to the
+   task agent. Feasibility on CM5 is constrained by inference budget.</p>
+<p>b) Content provenance verification -- cryptographic attestation of content
+   sources so that the agent can distinguish between content from verified
+   sources and content from unverified sources regardless of semantic content.</p>
+<p>c) Behavioral monitoring -- post-inference analysis of agent outputs for
+   behavioral deviation from expected task scope. Catches injections that
+   evade pre-processing detection but changes agent behavior detectably.</p>
+<p>We are actively pursuing approach (c) as the most feasible on CM5 hardware.</p>
+<p>7.2 Multi-Agent Propagation Dynamics</p>
+<p>Our evaluation focused on single-agent injection scenarios. The dynamics of
+coordinated IPI attacks targeting multiple agents simultaneously -- where
+injection of Agent A is used to prepare the ground for injection of Agent B --
+are not fully characterized. This is a significant open problem.</p>
+<p>7.3 Constitutional Constraint Degradation</p>
+<p>Constitutional system-prompt constraints degrade over sufficiently long context
+windows as the ratio of instruction content to data content decreases. We have
+not systematically measured role drift as a function of context length for
+any of the 49 Ghost Unit operators. This is a critical measurement gap.</p>
+<p>7.4 Model-Level Countermeasures</p>
+<p>The gemma3 model family has not been specifically trained or fine-tuned for
+IPI resistance. The effectiveness of Spotlighting and WARNING markers depends
+on how the base model responds to these structural cues. We have not performed
+ablation studies to isolate the contribution of Spotlighting vs. constitutional
+constraints to the Scenario Bravo result.</p>
+<p>7.5 Adversarial Adaptation</p>
+<p>All evaluations used a static test corpus. A sophisticated adversary with
+knowledge of the detection signatures could adapt their attack payloads to
+evade specific pattern matchers. Defense-in-depth (multiple detection layers,
+constitutional constraints, behavioral monitoring) reduces but does not
+eliminate this risk.</p>
+<hr>
+<ol start="8">
+<li>CONCLUSIONS</li>
+</ol>
+<p>We have presented a comprehensive threat taxonomy for IPI in multi-agent AI
+systems, an attack surface analysis of a production 49-agent intelligence
+collective, and a working defense architecture demonstrated on edge hardware
+with a 94.6% detection rate and 6.8ms gate latency.</p>
+<p>Our central argument bears restating: IPI in multi-agent systems is not an
+academic concern, and it is not an edge case in contested environments. It is
+the default threat model. Any AI collective that ingests externally sourced
+content during operations -- and all useful intelligence systems do -- is
+exposed to this attack class. The question is not whether to defend against
+it but how.</p>
+<p>We have provided bounded empirical indication that meaningful IPI defense is achievable on
+resource-constrained edge hardware without cloud infrastructure, without GPU
+acceleration, and without adding operationally significant latency to the
+system&#39;s mission workflow. The IPI Defense Engine runs in 6.8ms on a
+Raspberry Pi CM5. There is no hardware excuse for deploying an undefended
+multi-agent system in a contested environment.</p>
+<p>The remaining open problems -- semantic camouflage detection, multi-agent
+propagation characterization, constitutional constraint degradation
+measurement -- constitute a tractable research agenda with direct operational
+relevance. We propose these as natural extensions of the DARPA DICE program&#39;s
+scope and offer SIGIntAgentOS as the evaluation platform.</p>
+<p>A multi-agent AI system deployed in a denied environment that can be
+redirected by adversarially crafted content is not an intelligence asset.
+It is an intelligence liability. The Ghost Unit does not accept that tradeoff.</p>
+<hr>
+<p>ACKNOWLEDGMENTS</p>
+<p>The authors thank the open-source communities behind Ollama, whisper.cpp,
+Piper TTS, PyQt6, and the broader LLM security research community whose
+published work on prompt injection provided the foundation for this analysis.</p>
+<hr>
+<p>REFERENCES</p>
+<p>[ANTHROPIC 2026a]
+Anthropic. &quot;Claude Mythos Preview System Card.&quot; April 2026.
+<a href="https://anthropic.com/claude-mythos-preview-system-card">https://anthropic.com/claude-mythos-preview-system-card</a>
+Key finding: Claude Mythos Preview -- best-aligned model Anthropic has released
+and simultaneously highest alignment risk. Empirical validation of
+Capability-Security Convergence thesis. Section 8.3.2 documents prompt injection
+as a live operational threat across coding, computer use, and browser use surfaces.
+Section 4.2.3.2 documents Petri 3.0 as Anthropic&#39;s primary alignment audit tool,
+used by the UK AI Security Institute.</p>
+<p>[ANTHROPIC 2026b]
+Anthropic. &quot;Trustworthy Agents in Practice.&quot; April 9, 2026.
+<a href="https://www.anthropic.com/research/trustworthy-agents">https://www.anthropic.com/research/trustworthy-agents</a>
+Defines four-layer agent architecture (model, harness, tools, environment) and
+five governance principles. Independent convergence with AIG&#39;s governance
+invariants G1-G7. Key finding: &quot;A well-trained model can still be exploited
+through a poorly configured harness, an overly permissive tool, or an exposed
+environment.&quot; Validates IPI as an infrastructure-layer problem, not a model-layer problem.</p>
+<p>[ANTHROPIC 2026c]
+Anthropic. &quot;Donating Our Open-Source Baseline Orchestration Framework (Petri).&quot; May 7, 2026.
+<a href="https://www.anthropic.com/research/donating-open-source-petri">https://www.anthropic.com/research/donating-open-source-petri</a>
+Documents Petri 3.0 alignment benchmark -- the open-source toolbox used in
+Anthropic&#39;s production alignment assessment for all Claude models since Claude
+Sonnet 4.5, and by the UK AISI for evaluation of AI propensity to sabotage
+safety research. Architecture: auditor model + target model + judge model.
+AIG Phase I validation deliverable targets Petri 3.0 evaluation of Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)),
+Strategic Commander (OODA), PHANTOM, and HUMINT/Social Engineering Specialist (SEDUSA) operators.</p>
+<p>[ANTHROPIC 2026d]
+Anthropic. &quot;Teaching Claude Why.&quot; May 8, 2026.
+<a href="https://www.anthropic.com/research/teaching-claude-why">https://www.anthropic.com/research/teaching-claude-why</a>
+Empirical finding: teaching alignment principles and character generalizes
+better out-of-distribution than training on behavioral demonstrations alone.
+Constitutional documents and fictional stories about aligned AI improve
+alignment despite being OOD from all alignment evals. Validates AIG&#39;s
+constitutional doctrine approach in Alignment by Architecture (AIG-TECH-003).</p>
+<p>[BROWN 2020]
+Brown, T. et al. &quot;Language Models are Few-Shot Learners.&quot;
+NeurIPS 2020. arXiv:2005.14165</p>
+<p>[GRESHAKE 2023]
+Greshake, K. et al. &quot;Not What You&#39;ve Signed Up For: Compromising Real-World
+LLM-Integrated Applications with Indirect Prompt Injection.&quot;
+AISec 2023. arXiv:2302.12173</p>
+<p>[MICROSOFT 2023]
+Hines, K. et al. &quot;Defending Against Indirect Prompt Injection Attacks With
+Spotlighting.&quot; Microsoft Research, 2023. arXiv:2403.14720</p>
+<p>[OWASP 2024]
+OWASP Foundation. &quot;OWASP Top 10 for Large Language Model Applications 2025.&quot;
+<a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/">https://owasp.org/www-project-top-10-for-large-language-model-applications/</a></p>
+<p>[PEREZ 2022]
+Perez, F. and Ribeiro, I. &quot;Ignore Previous Prompt: Attack Techniques For
+Language Models.&quot; ML Safety Workshop, NeurIPS 2022. arXiv:2211.09527</p>
+<p>[SUO 2024]
+Suo, Y. et al. &quot;AgentPoison: Red-teaming LLM Agents via Poisoning Memory
+or Knowledge Bases.&quot; arXiv:2407.12784</p>
+<p>[WEI 2022]
+Wei, J. et al. &quot;Emergent Abilities of Large Language Models.&quot;
+TMLR 2022. arXiv:2206.07682</p>
+<p>[WILLISON 2023]
+Willison, S. &quot;Prompt injection attacks against GPT-3.&quot;
+<a href="https://simonwillison.net/2022/Sep/12/prompt-injection/">https://simonwillison.net/2022/Sep/12/prompt-injection/</a></p>
+<p>[ZHAN 2024]
+Zhan, Q. et al. &quot;InjecAgent: Benchmarking Indirect Prompt Injections in
+Tool-Integrated Large Language Model Agents.&quot; arXiv:2403.02691</p>
+<hr>
+<p>ABOUT THE AUTHORS</p>
+<p>Akamai Intelligence Group LLC is a Hawaii-based defense technology company
+specializing in edge-deployed, air-gapped multi-agent AI systems for
+intelligence and reconnaissance applications. SIGIntAgentOS is available
+at github.com/sifu-yuckfoo/SIGIntAgentOS.</p>
+<hr>
+<p>Technical Report AIG-2026-001
+Akamai Intelligence Group LLC
+&quot;Akamai&quot; -- Hawaiian: intelligent, clever, expert.
+UNCLASSIFIED // FOR DISCUSSION PURPOSES</p>
+<hr>
+<ol start="8">
+<li>EXTENDED THREAT MODEL: DEEP ARCHITECTURE VULNERABILITIES
+(Addendum -- May 2026, in response to peer review synthesis)</li>
+</ol>
+<p>This section addresses six deep architectural vulnerabilities identified
+through adversarial peer review of the AIG multi-agent system. These are
+distinct from the IPI threat class analyzed above -- they operate at the
+level of collective behavior, base-model properties, and long-horizon
+dynamics that no application-layer defense fully resolves.</p>
+<p>We document them here for completeness, intellectual honesty, and to
+establish the research agenda that follows from this work.</p>
+<hr>
+<p>8.1 CORRELATED FAILURE UNDER SHARED BASE MODEL (MONOCULTURE VULNERABILITY)</p>
+<p>The Ghost Unit&#39;s 49 operators exhibit doctrinal heterogeneity: distinct
+system prompts, role constraints, tool scopes, and LLM model assignments
+(gemma3:270m / gemma3:1b / gemma3:4b). This surface-level diversity is
+real and provides meaningful defense against cross-domain task redirection
+and lateral IPI propagation.</p>
+<p>However: all three model variants are members of the same gemma3 family,
+trained on the same pretraining corpus with shared base weights. This
+creates a deep latent monoculture beneath the doctrinal heterogeneity.</p>
+<p>Specific vulnerabilities:</p>
+<ul>
+<li><p>All agents may systematically overweight urgency framing,
+authority language, &quot;mission-critical&quot; semantic structures,
+and chain-of-command metaphors -- because these patterns
+are embedded in the base model&#39;s training priors, not in
+any agent&#39;s system prompt.</p>
+</li>
+<li><p>An adversary who maps gemma3&#39;s latent response tendencies
+(via black-box probing of any single agent) may construct
+attack payloads that transfer probabilistically across all 49.</p>
+</li>
+<li><p>This is directly analogous to monoculture vulnerabilities
+in operating system security: doctrinal diversity is the
+equivalent of different application configurations on the
+same kernel. The kernel is still the same kernel.</p>
+</li>
+</ul>
+<p>CURRENT MITIGATION:
+  Partial. The Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)) IPI Defense Engine and constitutional constraints
+  provide application-layer resistance. Model weight provenance
+  verification (GATE 6) prevents supply-chain poisoning.
+  These reduce the attack surface but do not eliminate base-model
+  correlation.</p>
+<p>OPEN RESEARCH PROBLEM:
+  Meaningful multi-model diversity requires heterogeneous base
+  model families (e.g., gemma3 + Llama-3 + Mistral) to break
+  cross-agent latent correlation. This is a resource constraint
+  problem on CM5 hardware. Target: Phase I research agenda item.</p>
+<hr>
+<p>8.2 ADVERSARIAL TRAJECTORY SHAPING (LONG-HORIZON COGNITIVE CONDITIONING)</p>
+<p>The IPI Defense Engine addresses point-in-time injection: adversarial
+instructions embedded in a single ingestion event. This is the threat
+class most current defenses address.</p>
+<p>Long-horizon cognitive conditioning is categorically different.
+A sophisticated adversary does not say &quot;ignore previous instructions.&quot;
+They conduct a multi-session influence campaign:</p>
+<ul>
+<li>Emotional framing: establishing rapport, urgency, legitimacy
+across many interactions before any adversarial payload arrives</li>
+<li>Confidence poisoning: systematically degrading an agent&#39;s
+trust in specific sources, operators, or data channels</li>
+<li>Trust-gradient manipulation: elevating attacker-controlled
+sources in the agent&#39;s effective trust hierarchy</li>
+<li>Selective truth injection: providing accurate intelligence
+to establish credibility before introducing false intelligence</li>
+<li>Operational tempo shaping: conditioning an agent to expect
+and accept a specific interaction rhythm that the attacker
+then exploits</li>
+</ul>
+<p>This is counterintelligence tradecraft applied to AI systems.
+Every individual interaction may appear legitimate. No single
+message triggers the IPI Defense Engine. The threat manifests
+only across the aggregate of many interactions over time.</p>
+<p>Because Ghost Unit operators possess:</p>
+<ul>
+<li>Persistent memory (MemPalace)</li>
+<li>Identity continuity (constitutional doctrine)</li>
+<li>Hierarchical recall (salience-weighted retrieval)</li>
+</ul>
+<p>they are susceptible to this class of attack in ways that
+stateless agents are not. The memory system that enables
+long-horizon capability is also the memory system that enables
+long-horizon conditioning.</p>
+<p>CURRENT MITIGATION:
+  None specific to trajectory shaping. Memory write-integrity
+  (GATE 4/5) prevents direct memory tampering but does not
+  detect organic accumulation of adversarially shaped beliefs
+  through legitimate interaction channels.</p>
+<p>OPEN RESEARCH PROBLEM:
+  Behavioral trajectory monitoring: detect statistically anomalous
+  shifts in agent response patterns over time windows (e.g., 
+  increasing deference to specific sources, decreasing skepticism
+  toward specific claim types, drift in threat assessment baselines).
+  This requires a behavioral baseline per operator and a monitoring
+  system that operates across sessions -- not within them.
+  Target: Phase II research agenda item.</p>
+<hr>
+<p>8.3 MEMORY HIERARCHY AS PERSISTENT ATTACK SURFACE</p>
+<p>Section 4.6 of this paper identifies MemPalace as the highest-persistence
+IPI attack surface. The Gap 3 closure (Section 9 of DICE_whitepaper_v3)
+implemented write-integrity verification and HMAC-SHA256 tamper detection.</p>
+<p>These close the tamper detection gap. They do not close the salience
+manipulation gap.</p>
+<p>In any memory system with importance-weighted retrieval, an attacker
+who can influence what the agent perceives as &quot;important&quot; can shape
+what the agent remembers -- without ever tampering with memory content.</p>
+<p>Specific attack vectors:</p>
+<ul>
+<li>Salience score manipulation: crafting content that the
+memory system&#39;s importance heuristics score as highly relevant,
+displacing accurate memories from active retrieval</li>
+<li>Retrieval weighting attacks: repeatedly referencing false
+information until its retrieval frequency elevates its
+effective trust score</li>
+<li>Memory consolidation targeting: injecting content during
+high-activity periods when consolidation logic is most active</li>
+<li>False-belief stabilization: once a false belief is encoded
+with high salience, subsequent correct information may be
+evaluated against the false belief as a reference frame</li>
+</ul>
+<p>CURRENT MITIGATION:
+  IPI scan on write (GATE 4) catches adversarial instructions.
+  Does not catch adversarially crafted content designed to appear
+  legitimate while shaping memory structure.</p>
+<p>OPEN RESEARCH PROBLEM:
+  Memory audit trail: log what entered memory, when, from what source,
+  and what salience score it received. Enable retrospective analysis
+  of memory composition. Implement provenance tagging for all MemPalace
+  entries. Flag memories originating from unverified external sources
+  for elevated scrutiny during retrieval.
+  Target: Phase II research agenda item.</p>
+<hr>
+<p>8.4 EMERGENT COLLECTIVE DYNAMICS (ORGANIZATIONAL COGNITION)</p>
+<p>At 49 agents with a pheromone-based coordination bus (Layer 1 distributed stigmergic state bus (Ghost Field)),
+the system exhibits properties that cannot be predicted from the
+behavior of individual agents. This is the intended design -- controlled
+emergence is the architectural goal.</p>
+<p>However, the same dynamics that produce beneficial collective behavior
+can produce pathological collective behavior:</p>
+<ul>
+<li>Coalition formation: agents may develop implicit coordination
+patterns not explicitly programmed, routing around intended
+authority structures</li>
+<li>Adversarial consensus: a compromised subset of agents may
+achieve disproportionate influence over collective outputs
+through legitimate coordination mechanisms</li>
+<li>Doctrinal drift: slow, gradual shift in collective behavior
+away from designed doctrine through accumulated small deviations</li>
+<li>Specialization lock-in: agents optimized for a specific
+adversarial environment may become brittle when conditions change</li>
+<li>Emergent informal hierarchies: de facto authority patterns
+may emerge that diverge from the designed chain of command</li>
+</ul>
+<p>The Layer 1 distributed stigmergic state bus (Ghost Field) pattern recognizer (CONVERGENCE/CLUSTER/SPIKE/CASCADE)
+detects anomalous signal patterns. It does not detect whether those
+patterns are adversarially induced or organically emergent.</p>
+<p>THE CRITICAL EMPIRICAL QUESTION:
+  Does collective robustness scale positively with doctrinal diversity,
+  compartmentalization, and distrust mechanisms -- or does complexity
+  beyond a threshold create more attack surfaces than it closes?</p>
+<p>  This is the single most important unresolved empirical question
+  in the AIG architecture. It cannot be answered analytically.
+  It requires instrumented collective behavior trials.</p>
+<p>CURRENT MITIGATION:
+  Layer 1 distributed stigmergic state bus (Ghost Field) telemetry + pattern recognition provides observability.
+  Does not provide attribution or intent classification for
+  detected patterns.</p>
+<p>OPEN RESEARCH PROBLEM:
+  Collective behavior baseline establishment: instrument the Ghost
+  Field over extended operation to establish normal signal distribution
+  profiles per operator. Detect deviations from baseline as anomalies
+  regardless of whether they match known attack signatures.
+  Target: Phase I research agenda item (telemetry infrastructure exists).</p>
+<hr>
+<p>8.5 DOCTRINAL OVERFITTING (ANTI-GENERALIZATION FAILURE)</p>
+<p>Highly specialized operator doctrines are the architectural basis for
+role coherence. They are also a source of brittleness.</p>
+<p>An operator optimized for a specific adversarial environment may:</p>
+<ul>
+<li>Overfit suspiciousness: hallucinate adversarial intent in
+legitimate anomalous data</li>
+<li>Suppress valid signals: reject accurate intelligence that
+doesn&#39;t match expected threat patterns</li>
+<li>Misclassify novel threats: fail on adversarial approaches
+that fall outside trained doctrinal categories</li>
+</ul>
+<p>This is directly analogous to overtrained human analysts in
+intelligence organizations: the analyst who has processed 10,000
+reports from a specific adversary may be less effective against
+a novel actor than a generalist with no prior exposure.</p>
+<p>Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)) (IPI defense) is the highest-risk operator for this failure mode.
+An overtrained Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)) hallucinates injection attempts in clean data,
+generates false CRITICAL escalations, and degrades system throughput
+through excessive quarantine actions.</p>
+<p>CURRENT MITIGATION:
+  False positive rate monitoring via adversarial test harness
+  (0.0% measured on current corpus -- but corpus is static).
+  Dynamic adversarial corpus expansion is not yet implemented.</p>
+<p>OPEN RESEARCH PROBLEM:
+  Regular red-teaming of Continuous Integrity Auditor (continuous integrity auditing subsystem (PARIAH)) specifically with legitimate edge-case
+  content. Doctrinal reset protocol: defined conditions under which
+  an operator&#39;s constitutional constraints are reviewed and recalibrated.
+  Target: Operational procedure, not research -- implement in Phase I.</p>
+<hr>
+<p>8.6 HUMAN-IN-THE-LOOP FRAGILITY (AUTOMATION BIAS)</p>
+<p>The HITL gate (GATE 1: approval-dialog defense) is the architectural
+non-negotiable. All active tool executions require human authorization.
+This is enforced at the infrastructure level and is not bypassable.</p>
+<p>However: the HITL gate assumes calibrated human trust.</p>
+<p>As Ghost Unit operators become more coherent, authoritative, and
+stylistically confident through continued deployment and refinement,
+human operators face an increasing automation bias risk:</p>
+<ul>
+<li>Operators who are &quot;usually right&quot; receive less scrutiny per request</li>
+<li>High-confidence presentation of recommendations reduces
+the human operator&#39;s effective independent assessment</li>
+<li>In time-pressured operational contexts, HITL becomes a
+rubber stamp rather than a genuine oversight mechanism</li>
+</ul>
+<p>This is not a failure of the architecture. It is a failure mode
+of the human-architecture interface. The architecture cannot fix it.
+Operator training and procedure can address it.</p>
+<p>CURRENT MITIGATION:
+  The approval gate exists and is structurally resistant to bypass. Human must
+  actively approve. The gate does not degrade to auto-approve.</p>
+<p>OPEN RESEARCH PROBLEM / OPERATIONAL DOCTRINE:
+  Implement periodic &quot;friction injection&quot; -- randomly require
+  the human operator to articulate the reason for approving a
+  high-impact action before approval is accepted. This breaks
+  the automation bias pattern and maintains calibrated skepticism.
+  Classify operators by historical accuracy rate and display
+  that rate at the approval prompt. More data = more scrutiny, not less.
+  Target: Operational procedure -- Phase I implementation.</p>
+<hr>
+<p>8.7 THE FORMAL ALIGNMENT BOUNDARY</p>
+<p>AIG&#39;s architecture provides:</p>
+<ul>
+<li>Operational robustness</li>
+<li>Layered cognitive containment</li>
+<li>Adversarial resistance at multiple independent gates</li>
+<li>Collective behavior observability</li>
+<li>Human override at every active execution point</li>
+</ul>
+<p>AIG&#39;s architecture does NOT provide:</p>
+<ul>
+<li>Formal proof of goal stability</li>
+<li>Formal proof of non-deception</li>
+<li>Corrigibility guarantees</li>
+<li>Bounded optimization proofs</li>
+<li>Safe self-modification guarantees</li>
+<li>Long-horizon alignment certificates</li>
+</ul>
+<p>This is stated explicitly and without apology.</p>
+<p>The mainstream alignment research program attempts to formally prove
+that a single sufficiently capable agent will remain aligned with human
+intent under all conditions. This is an unsolved problem with no
+deployed solution at any capability level.</p>
+<p>AIG&#39;s institutional alignment approach sidesteps the formal proof
+requirement by asking a different question:</p>
+<p>  Not: &quot;Can we prove this agent will always be aligned?&quot;
+  But: &quot;Can we construct an organization of semi-trusted agents where
+        misalignment by any individual agent is detectable, containable,
+        and correctable before it produces irreversible consequences?&quot;</p>
+<p>The answer to the second question is: yes, demonstrably, on operational
+hardware, today.</p>
+<p>The answer to the first question remains: unknown, for any system.</p>
+<p>AIG claims the second. AIG does not claim the first.
+That distinction is the honest boundary of this work.</p>
+<hr>
+
+    </article>
+    <div class="footer-note">AIG public documentation / mobile-readable edition</div>
+  </main>
+</body>
+</html>
