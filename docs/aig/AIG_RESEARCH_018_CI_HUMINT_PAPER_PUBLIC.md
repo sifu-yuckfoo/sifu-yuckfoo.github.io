@@ -10,7 +10,7 @@ Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Date: May 22, 2026
 Classification: UNCLASSIFIED // PUBLIC RELEASE
-arXiv preprint -- submitted for peer review
+Status: PUBLIC RESEARCH PAPER
 
 NOTE: This is the public release edition. Specific implementation
 parameters, signal taxonomy, and operational protocol details have
@@ -699,7 +699,7 @@ DOCUMENT CONTROL
   Date:         May 22, 2026
   Author:       Christopher Ramos
   Institution:  Akamai Intelligence Group LLC
-  Status:       PUBLIC RELEASE -- arXiv submission ready
+  Status:       PUBLIC RELEASE WEBSITE COPY
   Internal ref: AIG-2026-003 (full technical specification)
   Prior work:   AIG-2026-001 (IPI Defense)
                 AIG-2026-002 (GAL Empirical Validation)

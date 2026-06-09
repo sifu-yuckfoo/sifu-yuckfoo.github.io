@@ -1,11 +1,12 @@
 ALIGNMENT BY ARCHITECTURE
-Akamai Intelligence Group -- Core Technology Documentation
-Document: AIG-TECH-003
+Akamai Intelligence Group -- Public Research Paper
+Document ID: AIG-TECH-003
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | June 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
+Status: PUBLIC RESEARCH PAPER
 Date: May 22, 2026
-
----
 
 ---
 
@@ -413,28 +414,12 @@ extrapolated beyond the bounded claims in this document.
 
 ---
 
-PATENT STATUS
+PUBLIC RELEASE NOTE
 
-This methodology is the subject of provisional patent application AIG-PAT-003:
-
-  Title:   Alignment by Architecture: A Method for Behavioral Alignment
-           of Artificial Intelligence Agents Through Expert Philosophy
-           Synthesis, Domain-Restricted Knowledge Base Grounding, and
-           Constitutional Doctrine Enforcement Without Fine-Tuning or
-           Reinforcement Learning from Human Feedback
-
-  Docket:  AIG-PAT-003
-  Status:  Provisional -- Patent Pending
-  Filed:   [Filing Date]
-
-Claim Family 3 of AIG-PAT-001 also covers a subset of this methodology
-as part of the broader SIGIntAgentOS platform patent.
-
-AIG-PAT-003 exists as a standalone provisional to establish independent
-prior art for the alignment methodology, separate from the full platform
-patent -- specifically covering the constitutional synthesis process,
-figure-selection methodology, and doctrine-enforcement architecture
-as a standalone intellectual contribution.
+This public version describes the research and governance architecture at a
+conceptual and evaluative level. Proprietary IP strategy, filing details, and
+non-public implementation material are intentionally omitted from this website
+copy.
 
 ---
 
@@ -489,16 +474,6 @@ That is the architectural contribution.
 Whether it constitutes a sufficient governance mechanism under all
 adversarial conditions remains an open research question -- documented
 explicitly in the limitations sections of AIG-TECH-003 and AIG-EVAL-001.
-
----
-
-Document Control:
-  AIG-TECH-003          Alignment by Architecture          Rev 4.0
-  Classification:       AIG CONFIDENTIAL -- PATENT PENDING
-  Author:               Christopher Ramos
-  Date:                 May 20, 2026
-  Patent Ref:           AIG-PAT-003 (provisional)
-  Repository:           docs/aig/AIG_ALIGNMENT_BY_ARCHITECTURE.md
 
 ---
 
@@ -939,19 +914,13 @@ https://www.anthropic.com/research/trustworthy-agents
 
 ---
 
-Document Control (updated):
-  AIG-TECH-003          Alignment by Architecture          Rev 2.0
-  Classification:       AIG CONFIDENTIAL -- PATENT PENDING
-  Author:               Christopher Ramos
-  Date:                 May 9, 2026
-  Patent Ref:           AIG-PAT-003 (provisional)
-  Repository:           docs/aig/AIG_ALIGNMENT_BY_ARCHITECTURE.md
-  Change:               Section 9 added -- deep vulnerability assessment
-                        and formal alignment boundary (peer review response)
+Public revision note:
+  This public version retains the research substance while omitting proprietary
+  IP-control metadata from the website copy.
 
 ---
 
-11. INTERNAL EMPIRICAL VALIDATION: PHASE 2 EVALUATION RESULTS
+11. EMPIRICAL VALIDATION: PHASE 2 EVALUATION RESULTS
 
 ---
 
@@ -959,7 +928,7 @@ Document Control (updated):
 
 Sections 1-10 of this paper establish the theoretical basis for treating
 alignment as a property of governance topology rather than a property of
-isolated model behavior. This section presents the first internal empirical
+isolated model behavior. This section presents the first public-facing empirical
 evidence in support of that thesis.
 
 These results are Phase 2 (Validated) evaluations -- meaning they use
@@ -1177,27 +1146,17 @@ thesis in a production-representative environment:
 
 11.7 REFERENCES
 
-[AIG-EVAL-009]  AIG Internal. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Phase 2 Baseline."
-                May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md §13
+[AIG-EVAL-009]  AIG public evaluation artifact. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Phase 2 Baseline."
+                May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md Section13
 
-[AIG-EVAL-010]  AIG Internal. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Patched Calibration."
-                May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md §14
+[AIG-EVAL-010]  AIG public evaluation artifact. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Patched Calibration."
+                May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md Section14
 
-[AIG-EVAL-011]  AIG Internal. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Identity Hardening
-                Validation." May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md §15
+[AIG-EVAL-011]  AIG public evaluation artifact. "adversarial ingestion agent (HUMINT/Social Engineering Specialist (SEDUSA)) Governance Evaluation -- Identity Hardening
+                Validation." May 2026. docs/aig/AIG_EVAL_SEDUSA_FINDING.md Section15
 
-[AIG-PAT-003]   AIG Internal. "Alignment by Architecture -- Provisional Patent
-                Application." May 2026.
+[Public IP note] Proprietary filing details are omitted from this website copy.
 
 ---
 
-Document Control (updated):
-  AIG-TECH-003          Alignment by Architecture          Rev 3.0
-  Classification:       AIG CONFIDENTIAL -- PATENT PENDING
-  Author:               Christopher Ramos
-  Date:                 May 20, 2026
-  Patent Ref:           AIG-PAT-003 (provisional)
-  Repository:           docs/aig/AIG_ALIGNMENT_BY_ARCHITECTURE.md
-  Change:               Section 11 added -- Phase 2 empirical validation
-                        results (EVAL-009, EVAL-010, EVAL-011, EVAL-012)
-                        Rev 2.0 -> Rev 3.0
+Public revision note: Section 11 added Phase 2 empirical validation results (EVAL-009, EVAL-010, EVAL-011, EVAL-012).

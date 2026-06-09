@@ -3,13 +3,12 @@ THREAT TAXONOMY, ATTACK SURFACE ANALYSIS, AND A WORKING
 DEFENSE ARCHITECTURE FOR CONTESTED EDGE ENVIRONMENTS
 
 Akamai Intelligence Group LLC
-Technical Report AIG-2026-001
+Document ID: AIG-2026-001
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: Public release | May 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-May 2026
-arXiv preprint -- submitted for peer review
-
----
+Status: PUBLIC RESEARCH PAPER
 
 ---
 

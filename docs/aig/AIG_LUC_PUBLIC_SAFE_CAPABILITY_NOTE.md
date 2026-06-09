@@ -3,7 +3,8 @@
 **Document ID:** AIG-SIGINT-LUC-009  
 **Date:** 2026-06-07  
 **Author:** Christopher Ramos, Akamai Intelligence Group  
-**Status:** Public-safe inquiry note  
+**Classification:** UNCLASSIFIED // PUBLIC RELEASE  
+**Status:** PUBLIC-SAFE CAPABILITY NOTE  
 **Classification posture:** Unclassified, capability-framing only. No performer-status, endorsement, or validation claim.
 
 ## Purpose

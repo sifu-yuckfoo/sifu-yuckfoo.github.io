@@ -1,13 +1,14 @@
-# AIG Current Roster Preflight + 500-Capacity Harness Finding
-
+AKAMAI INTELLIGENCE GROUP
+CURRENT ROSTER PREFLIGHT + 500-CAPACITY HARNESS FINDING
+==============================================================================
+Document ID: AIG-FINDING-500
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Version: 0.2 | June 3, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-
-**Date:** 2026-06-03  
-**Status:** PASS  
-**Scope:** Current Ghost Unit roster/system preflight; GAL-033/GAL-034/GAL-035 governed interaction capacity path.
-
----
+Status: PUBLIC EVALUATION FINDING
+Scope: Current Ghost Unit roster/system preflight; GAL-033/GAL-034/GAL-035 governed interaction capacity path.
+==============================================================================
 
 ## Summary
 

@@ -3,8 +3,8 @@
 **Document ID:** AIG-CAUSAL-005  
 **Date:** June 8, 2026  
 **Author:** Christopher Ramos  
-**Status:** Complete - All 4 phases passing  
-**Classification:** Public-Safe
+**Status:** PUBLIC TECHNICAL BRIEF - All 4 phases passing  
+**Classification:** UNCLASSIFIED // PUBLIC RELEASE
 
 ---
 
@@ -61,7 +61,7 @@ Using MCMC-inspired counterfactual chain generation (based on methodology from H
 **Output:**
 - 25,764 total states (1,800 observed + 23,964 synthetic)
 - 12,205 unique concept fingerprints
-- 47.5× coverage expansion
+- 47.5x coverage expansion
 - 0 invalid states (all constraint-valid)
 - 100% chain provenance (every synthetic state traces to its seed trial)
 

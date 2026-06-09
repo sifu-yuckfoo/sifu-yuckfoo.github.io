@@ -2,19 +2,19 @@ AKAMAI INTELLIGENCE GROUP
 DICE SCALING EVIDENCE SECTION
 ==============================================================================
 Document ID: AIG-DICE-006
-Classification: UNCLASSIFIED // AIG INTERNAL
+Classification: UNCLASSIFIED // PUBLIC RELEASE
 Version: 0.3 | June 4, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Status: PROPOSAL-READY DRAFT SECTION
+Status: PUBLIC TECHNICAL EVIDENCE SECTION
 ==============================================================================
 
 PURPOSE
 ------------------------------------------------------------------------------
-This section provides proposal-ready language for AIG's DICE scaling evidence.
+This section provides public-facing technical language for AIG's DICE scaling evidence.
 It packages the empirically evaluated 101-record command catalog, the
 500-logical-agent Phase I evidence chain, governed interaction capacity metrics,
-and the Ghost Field scale decision into a form suitable for a technical volume.
+and the Ghost Field scale decision into a form suitable for external technical review.
 
 CORE POSITION
 ------------------------------------------------------------------------------

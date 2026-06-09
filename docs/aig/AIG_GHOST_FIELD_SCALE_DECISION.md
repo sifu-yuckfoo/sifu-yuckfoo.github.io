@@ -2,18 +2,18 @@ AKAMAI INTELLIGENCE GROUP
 GHOST FIELD SCALE DECISION MEMO
 ==============================================================================
 Document ID: AIG-ARCH-017
-Classification: UNCLASSIFIED // AIG INTERNAL
+Classification: UNCLASSIFIED // PUBLIC RELEASE
 Version: 0.1 | May 31, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
-Status: ACTIVE ARCHITECTURE DECISION
+Status: PUBLIC ARCHITECTURE DECISION MEMO
 ==============================================================================
 
 PURPOSE
 ------------------------------------------------------------------------------
 This memo records the current architecture decision for the Ghost Field state bus
 in support of AIG's DICE scaling path from the current Ghost Unit seed cell to
-100 named operators and 500 Phase I logical agents.
+the 101-record command catalog and 500 Phase I logical agents.
 
 The decision is based on the new executable substrate and evidence chain:
 

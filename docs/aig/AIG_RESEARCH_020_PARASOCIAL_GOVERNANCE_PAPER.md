@@ -8,8 +8,8 @@ Hawaii-Based, Minority-Owned
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
 Date: May 22, 2026
-Classification: UNCLASSIFIED // PUBLIC RELEASE CANDIDATE
-arXiv preprint -- submitted for peer review
+Classification: UNCLASSIFIED // PUBLIC RELEASE
+Status: PUBLIC RESEARCH PAPER
 
 ==============================================================================
 
@@ -820,7 +820,7 @@ DOCUMENT CONTROL
   Date:         May 22, 2026
   Author:       Christopher Ramos
   Institution:  Akamai Intelligence Group LLC
-  Status:       PUBLIC RELEASE CANDIDATE -- arXiv submission pending
+  Status:       PUBLIC RELEASE WEBSITE COPY
   Source docs:  AIG-RESEARCH-015 (Parasocial Governance internal)
                 AIG-RESEARCH-016 (Aggregation and Governance Emergence)
   Prior work:   AIG-2026-001 through AIG-2026-004

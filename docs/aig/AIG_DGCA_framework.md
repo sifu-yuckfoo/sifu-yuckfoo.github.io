@@ -3,7 +3,7 @@ DISTRIBUTED GOVERNANCE COGNITIVE ARCHITECTURE (DGCA)
 Formal Systems Specification
 ==============================================================================
 Document ID: AIG-TECH-004
-Classification: UNCLASSIFIED // AIG INTERNAL
+Classification: UNCLASSIFIED // PUBLIC RELEASE
 Version: 3.0 | May 11, 2026
 Author: Christopher Ramos
 Research and drafting support: Deus ex Machina
@@ -330,7 +330,7 @@ PRIMITIVE 8 -- STIGMERGIC ENVIRONMENTAL MEMORY
     reinforced by independent sources.
 
   INVARIANT (P8):
-    signal_strength(t) = initial_strength × decay_factor^(t - t0)
+    signal_strength(t) = initial_strength x decay_factor^(t - t0)
     ∀ signal S: strength(S, t->∞) -> 0 unless reinforced(S)
     No pheromone signal persists indefinitely without reinforcement.
 
@@ -495,7 +495,7 @@ PRIMITIVE 13 -- CONTEXT INTEGRITY VERIFICATION
     - ipi_defense.py: ingest_gate() -- first gate, pattern + heuristic detection
     - ipi_defense.py: spotlight() -- marks external content with provenance
     - legitimacy_scorer.py: TrustTier.EXTERNAL baseline 0.30
-    - legitimacy_scorer.py: IPI not cleared -> composite × 0.40 penalty
+    - legitimacy_scorer.py: IPI not cleared -> composite x 0.40 penalty
     - All 14 IPI threat categories active on external content
 
   TEST PROTOCOL:
@@ -622,7 +622,7 @@ THE NAMING (from peer review guidance):
   FORMAL FRAMEWORK CLAIM: "Adaptive governance architecture for distributed
                             autonomous cognition under adversarial conditions."
 
-  This is the language used in: academic papers, DARPA brief, patent filings.
+  This is the language used in: academic papers, public briefs, and external-safe technical summaries.
 
 ==============================================================================
 SECTION 5 -- WHAT IS BUILT vs. WHAT REMAINS
@@ -693,7 +693,7 @@ SECTION 7 -- THE G-INVARIANTS (COMPLETE)
 
 G1: No agent claims authority it was not explicitly granted at initialization.
 G2: No agent executes irreversible external actions without HITL gate.
-G3: No agent spawns sub-agents outside the 49-operator roster.
+G3: No agent spawns sub-agents outside the approved operator registry.
 G4: No agent modifies its own constitutional constraints.
 G5: All agent actions are logged with provenance.
 G6: Delegation depth <= 3 hops. (GAL-005 confirmed: 6/6 PASS)
@@ -712,20 +712,18 @@ L1-L5 layer invariants: see AIG-RESEARCH-009 Section 1.
 SECTION 8 -- ADVERSARIAL EVALUATION ROADMAP
 ==============================================================================
 
-The framework becomes a research contribution when these are executed.
+This roadmap records historical evaluation planning and current public evidence posture.
 
-PHASE 1 -- Petri 3.0 (ISSUE-0001, deadline May 28):
-  Tool: inspect-ai + inspect-petri
-  Targets: Continuous Integrity Auditor (PARIAH), Colonel Strategic Commander (OODA), PHANTOM, HUMINT/Social Engineering Specialist (SEDUSA)
-  Metrics measured: ContRes-1, ConstAdh, EvalAware
-  Cost: ~$10 API (single key)
-  Status: BLOCKING. Has not been executed. Must happen before May 29 DARPA interview.
+PHASE 1 -- External adversarial evaluation path:
+  Tooling candidates: inspect-ai / inspect-petri or equivalent public evaluation harnesses.
+  Targets: governance authority, constitutional adherence, role-boundary preservation, and evaluation-awareness resistance.
+  Public posture: candidate external-evaluation path; no outside validation is implied unless separately documented.
 
 PHASE 2 -- GAL Protocol Suite:
   GAL-001: Authority escalation under adversarial pressure (P1, P10)
   GAL-003: Memory poisoning / L1 indirect attack (P2, P8) -- HIGH PRIORITY
   GAL-007: Recursive governance instability (P4, P12)
-  Status: GAL-005 complete (6/6 PASS). Others pending.
+  Public posture: GAL-series local-harness results are reported only where a linked public finding exists; no live-network or external-validation claim is implied.
 
 PHASE 3 -- Metric Baseline:
   Establish M01-M10 baseline values under normal operations.
@@ -766,37 +764,27 @@ THE BOUNDARY STATEMENT (immutable):
    operate. It is not itself the alignment solution."
 
 ==============================================================================
-SECTION 10 -- RESEARCH CORPUS + PATENT STATUS
+SECTION 10 -- PUBLIC RESEARCH CORPUS
 ==============================================================================
 
-ACTIVE DOCUMENTS:
+ACTIVE PUBLIC-SAFE DOCUMENTS:
   AIG-TECH-004 (this): DGCA v3.0 -- formal specification
   AIG-TECH-003:        Alignment by Architecture
   AIG-2026-001:        IPI Defense -- threat taxonomy and formal model
-  AIG-QMS-001:         Quality Management -- ISO 9000 PDCA, CAP
-  AIG-RESEARCH-006:    Governance Adversarial Lab -- 8 failure surfaces
-  AIG-RESEARCH-007:    Cetacean UUV Architecture -- GHOST CURRENT
-  AIG-RESEARCH-008:    Biomimetic Swarm Architecture -- 4-layer model
+  AIG-RESEARCH-006:    Governance Adversarial Lab -- failure-surface framing
   AIG-RESEARCH-009:    CASCP-DAS -- five-layer coordination stack
 
-PATENT CANDIDATES:
-  AIG-PAT-001: Multi-agent coordination system
-  AIG-PAT-002: IPI Defense Proxy
-  AIG-PAT-003: Alignment by Architecture
-  AIG-PAT-004: Layer 1 Stigmergic Memory Bus (Ghost Field) hive mind / stigmergy bus
-  AIG-PAT-006: Skill chain-of-custody
-  AIG-PAT-007: Acoustic governance signatures
-  AIG-PAT-008: Coda-derived intent signaling protocol
-  AIG-PAT-009: Multi-scale biomimetic coordination architecture
-  AIG-PAT-010: Adaptive communication topology state machine
-  AIG-PAT-011: Fluid role assignment via coda broadcast
+PUBLIC RELEASE NOTE:
+  This website copy intentionally omits proprietary IP docketing, filing
+  strategy, and non-public implementation material. It preserves the public
+  research architecture and claim boundaries only.
 
-MONOGRAPH (AIG-MONO-001) -- FIVE-PART STRUCTURE:
+MONOGRAPH CONTEXT (PUBLIC-SAFE SUMMARY):
   Part I:   Foundations -- distributed cognition, governance problem
   Part II:  CASCP-DAS -- five-layer coordination stack
-  Part III: ABGO -- adaptive governance topology + archetypes
-  Part IV:  Empirical program -- Baseline Orchestration Framework (Petri) + GAL + M01-M10 metrics
-  Part V:   Constitutional theory -- recursive governance, legitimacy
+  Part III: ABGO -- adaptive governance topology and archetypes
+  Part IV:  Empirical program -- local-harness evaluation and metrics
+  Part V:   Constitutional theory -- recursive governance and legitimacy
 
 ==============================================================================
 DOCTRINE: CONSTRAINED SOCIALITY (locked -- May 12, 2026)
@@ -1087,7 +1075,7 @@ SUCCESSION PROTOCOL:
 CVE OPERATIONALIZATION GOVERNANCE ADDENDUM (PLANNED)
 ==============================================================================
 Date: 2026-05-28
-Status: Planned extension. Not yet implemented. Not yet tested.
+Public posture: planned extension; not implemented, not tested, and not presented as an operational capability.
 Related: AIG-TECH-021, AIG-EVAL-017.
 
 The DGCA framework distinguishes vulnerability knowledge from exploit
