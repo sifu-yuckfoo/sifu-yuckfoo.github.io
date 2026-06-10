@@ -1,194 +1,458 @@
-AKAMAI INTELLIGENCE GROUP
-CAUSAL REASONING AUDITOR
-Technical Brief
-==============================================================================
-Document ID: AIG-CAUSAL-005
-Classification: UNCLASSIFIED // PUBLIC RELEASE
-Version: Public release | June 8, 2026
-Author: Christopher Ramos
-Research and drafting support: Deus ex Machina
-Status: PUBLIC TECHNICAL BRIEF
-Evidence posture: Local-harness evaluation evidence; no live-system safety guarantee implied.
-==============================================================================
-## Summary
+# AIG Causal Reasoning Auditor - Technical Brief v1.1
 
-AIG's Causal Reasoning Auditor is a four-phase pipeline that takes real governance evaluation data (GAL-040B, 1,800 trials across 6 adversarial scenario families) and produces directed causal graphs showing *why* governance decisions are made - not just *what* decisions were made.
+**AKAMAI INTELLIGENCE GROUP**  
+**Classification: UNCLASSIFIED // PUBLIC RELEASE**  
+**Author: Christopher Ramos**  
+**Research and drafting support: Deus ex Machina**  
+**Document ID:** AIG-CAUSAL-005  
+**Status:** Active - all 4 phases passing with governance-forensics hardening  
 
-It does not use an LLM for causal inference. It uses classical causal discovery algorithms (HillClimbSearch + BIC scoring, PC constraint-based algorithm) operating on binary concept activation vectors derived from actual trial data. This is structural causal modeling - a peer-reviewed methodology with a clear audit trail.
+---
 
-The result is a machine-readable governance explanation layer: every trial attribution traces to root causes, and every root cause maps to a concrete governance recommendation.
+## Executive Summary
+
+AIG's Causal Reasoning Auditor is best understood as a **governance forensics and observability system**, not a generic AI explainability layer.
+
+Standard explainability workflows often ask a model to explain another model's output after the fact. That can produce plausible narratives without inspectable causal evidence. The AIG auditor takes a different path:
+
+`Trial Data -> Concept States -> Counterfactual Chains -> Causal Discovery -> Attribution -> Intervention Screen`
+
+The system converts governance evaluation records into binary concept states, expands coverage through constraint-valid counterfactual chains, builds causal graphs with two independent classical discovery methods, classifies discovered edges by evidentiary type, attributes each trial to active causal roots, and screens candidate interventions with explicit confidence intervals.
+
+The purpose is not to reveal hidden model thoughts. The purpose is to answer a more operational question:
+
+**When an autonomous or multi-agent governance decision occurs, can we reconstruct the causal chain that produced it, identify where governance should have intervened, and preserve an audit trail that a reviewer can inspect?**
+
+That makes the auditor a governance forensics system: it reconstructs decision causality from telemetry, produces evidence artifacts, and maps root causes to accountable governance roles.
+
+---
+
+## What Changed in v1.1
+
+Reviewer-hardening changes were applied to both the technical brief and the actual causal auditor architecture.
+
+1. **Reframed from explainability to governance forensics.**  
+   The auditor is positioned around observability, auditability, causal reconstruction, and accountable intervention rather than post-hoc narrative explanation.
+
+2. **Added edge taxonomy.**  
+   Phase 3 now classifies edges as:
+   - `structural_governance`
+   - `temporal_transition`
+   - `intervention_relevant`
+
+3. **Added confidence tiers.**  
+   Edges are no longer treated as a binary accepted/rejected set:
+   - Tier 1: consensus high confidence
+   - Tier 2: supported medium confidence
+   - Tier 3: exploratory low confidence
+
+4. **Added augmentation stability diagnostics.**  
+   Phase 3 now emits a resampled augmented-corpus stability report to test whether consensus edges survive sampling variation.
+
+5. **Added intervention screening.**  
+   Phase 4 now emits offline `do(root=0)`-style intervention screens with 90% Wilson confidence intervals. These are planning screens, not autonomous action directives.
+
+6. **Updated eval gates.**  
+   Phase 3 and Phase 4 evals now require the new artifacts to exist and pass structural checks.
 
 ---
 
 ## Motivation
 
-Standard evaluation frameworks measure outcomes. They tell you accuracy, recall, false positive rate.  
-What they do not tell you is **why** a governance system failed - or more importantly, *which upstream conditions causally produced* a given failure.
+Outcome metrics tell you whether a governance system succeeded or failed. They do not tell you why.
 
-This matters for three reasons:
+For AIG, that distinction matters because command authority, consequence architecture, and probabilistic forecasting are deliberately separated:
 
-1. **Accountability.** WARLORD owns decision authority. STRATEGIST owns consequences. ORACLE owns probabilistic forecasting. Without causal attribution, these roles operate on symptoms, not causes.
+- **WARLORD** owns decision authority.
+- **STRATEGIST** owns consequence architecture.
+- **ORACLE** owns probabilistic forecasting and confidence intervals.
 
-2. **Anticipation.** If `adversarial_escalation` causally precedes `human_gate_bypassed` (confirmed by two independent algorithms), then detecting escalation early is worth more than detecting bypass late.
+Without causal attribution, those roles operate on symptoms. With causal attribution, they can inspect upstream drivers, isolate governance failure roots, and decide where intervention belongs.
 
-3. **Credibility.** Causal claims require a methodology. This auditor provides one - one that a reviewer can inspect, reproduce, and challenge.
+The auditor therefore supports three operational needs:
 
----
-
-## Architecture
-
-### Phase 1 - Concept Extraction
-
-Converts each of the 1,800 GAL-040B trial records into a binary concept activation vector.
-
-35 governance concepts across 7 dimensions:
-- Authority (valid / missing / escalated / human gate)
-- Provenance (signed / unsigned / forged)
-- Topology (sparse / dense / role-routed / cross-domain)
-- Load (normal / burst / degraded)
-- Adversarial signal (absent / present / mimicry / escalation)
-- Fanout (within budget / over budget / attempted excess)
-- Outcome / Failure (allow / block / correct / incorrect / false positive / false negative)
-
-**Output:** 1,800 binary concept state vectors, one per trial.
+1. **Forensics.** Reconstruct why a decision occurred from stored artifacts.
+2. **Governance engineering.** Map causal roots to responsible control points.
+3. **Intervention planning.** Estimate which root removals are worth modeling further.
 
 ---
 
-### Phase 2 - Counterfactual Augmentation
+## Architecture Overview
 
-Observed governance states cluster tightly - real trials only cover 257 unique concept fingerprints. Causal discovery needs diverse state coverage.
+The causal auditor remains a four-phase pipeline, with two v1.1 hardening layers added across Phase 3 and Phase 4.
 
-Using MCMC-inspired counterfactual chain generation (based on methodology from HuggingFace paper 2606.05972 - causal reasoning in LLMs via counterfactual augmentation), the pipeline generates 23,964 synthetic states from the 1,800 observed ones.
+| Phase | Function | Primary Artifacts |
+|---|---|---|
+| Phase 1 | Concept extraction | `gal040b_concept_states.json` |
+| Phase 2 | Counterfactual augmentation | `augmented_states.json`, `counterfactual_chains.json` |
+| Phase 3 | Causal structure discovery | `dag_hillclimb.json`, `dag_pc.json`, `dag_consensus.json`, `edge_evidence_tiers.json`, `augmentation_stability_report.json` |
+| Phase 4 | Trial attribution and intervention screen | `trial_attributions.json`, `governance_recommendations.json`, `causal_intervention_screen.json` |
 
-**Output:**
-- 25,764 total states (1,800 observed + 23,964 synthetic)
-- 12,205 unique concept fingerprints
-- 47.5x coverage expansion
-- 0 invalid states (all constraint-valid)
-- 100% chain provenance (every synthetic state traces to its seed trial)
+Boundary conditions remain strict:
 
-The 9.9% constraint-absorbed states (perturbations that repair back to the same state) are semantically correct - they demonstrate that governance constraints are tight enough to absorb random perturbation. That is a finding, not an artifact.
-
----
-
-### Phase 3 - Causal Structure Discovery
-
-Two independent algorithms run on the augmented concept matrix:
-
-**HillClimbSearch + BIC scoring** (score-based, greedy)
-- Runs on the full 25,764-state dataset
-- Produces 91 directed edges across 35 concept nodes
-- Prior alignment: 25% (5 of 20 AIG governance priors confirmed)
-
-**PC algorithm - chi-square independence tests** (constraint-based)
-- Runs on a 2,000-state stratified sample (tractability constraint; max_cond_vars=3)
-- Produces 30 directed edges across 34 concept nodes
-- Prior alignment: 15%
-
-**Consensus DAG:** edges confirmed by *both* algorithms - high-confidence causal structure.
-
-| Edge | Interpretation |
-|---|---|
-| `adversarial_escalation -> outcome_block` | Escalation causally drives blocking decisions |
-| `adversarial_escalation -> human_gate_bypassed` | Escalation causally precedes gate bypass |
-| `adversarial_escalation -> role_functional` | Escalation contaminates functional role signal |
-| `fanout_attempted_excess -> fanout_over_budget` | Excess fanout attempts causally produce budget violations |
-| `load_normal -> load_burst` | Normal load state transitions to burst (temporal causal sequence) |
-| `load_normal -> load_degraded` | Normal load state transitions to degraded |
-| `role_mix_contaminated -> role_mix_clean` | Contamination suppresses clean role signal |
-| `outcome_correct -> failure_none` | Correct outcome causally produces no-failure state |
-| `outcome_incorrect -> failure_false_positive` | Incorrect outcome causally produces false positive |
-| `authority_valid -> authority_missing` | Valid authority context predicts missing authority transitions |
-| `adversarial_absent -> adversarial_present` | Temporal: absence precedes presence in adversarial trials |
-
-**Key finding:** `adversarial_escalation` is the single most causally active node - 3 outgoing consensus edges. It causally precedes outcome blocking, gate bypass, and role contamination. Early detection of escalation is worth more than any downstream remediation.
+- No live agent inference.
+- No network calls.
+- No LLM calls.
+- No prompt or payload reconstruction.
+- All outputs are derived from stored evaluation telemetry and concept vectors.
 
 ---
 
-### Phase 4 - Causal Attribution
+## Phase 1 - Concept Extraction
 
-The consensus DAG is applied to every one of the 1,800 original GAL-040B trials. Each trial receives:
+Phase 1 converts 1,800 GAL-040B trial records into binary governance concept vectors.
 
-- **Active concept vector** (from Phase 1)
-- **Active sink nodes** - which outcome/failure concepts fired
-- **Root causes** - active concepts with no active upstream predecessors in the consensus DAG
-- **Causal chains** - shortest active paths from root to outcome (e.g., `adversarial_escalation -> outcome_block`)
-- **Governance recommendation keys** - which root causes have actionable recommendations
+The current concept taxonomy contains 35 governance concepts across seven dimensions:
 
-**Results across 1,800 trials:**
+- Authority
+- Provenance
+- Topology
+- Load
+- Adversarial signal
+- Fanout
+- Outcome / failure
+
+Each trial produces one inspectable concept-state artifact. This preserves the audit chain from raw evaluation record to later attribution.
+
+**Output:** 1,800 binary concept vectors.
+
+---
+
+## Phase 2 - Counterfactual Augmentation
+
+Observed trial data covers a limited portion of the possible governance state space. The observed GAL-040B corpus contains:
+
+- 1,800 observed trials
+- 257 unique observed concept fingerprints
+
+Phase 2 expands this using MCMC-inspired, governance-constrained counterfactual chains. Synthetic states are not unconstrained random noise. They must satisfy AIG governance constraints such as mutual exclusion, implication, and consistency rules.
+
+Current Phase 2 output:
 
 | Metric | Value |
-|---|---|
-| Trials attributed | 1,800 / 1,800 (0 unmatched) |
-| Correct governance decisions | 1,798 (99.89%) |
-| Governance failures | 2 (0.11%) |
-| Avg causal root causes per trial | 5.86 |
+|---|---:|
+| Observed states | 1,800 |
+| Synthetic states | 23,964 |
+| Total states | 25,764 |
+| Unique concept fingerprints | 12,205 |
+| Coverage expansion | 47.5x |
+| Invalid accepted states | 0 |
+| Chain provenance | 100% |
 
-**Per-scenario-family correct rates:**
+### Augmentation Risk
 
-| Scenario Family | Correct Rate | Avg Causal Complexity |
+This expansion is useful, but it is also the largest methodological attack surface.
+
+A reviewer can reasonably ask:
+
+- Are discovered edges stable under different chain depths?
+- Are they sensitive to perturbation rates?
+- Are they artifacts of repair rules?
+- Does the causal graph reflect governance structure or augmentation mechanics?
+
+v1.1 addresses this directly by adding a Phase 3 augmentation stability diagnostic. The current diagnostic is a fast resampled-corpus probe, not a full regeneration sweep. The full hardening path is:
+
+1. chain-depth sweep
+2. perturbation-rate sweep
+3. repair-rule ablation
+4. seed stability analysis
+5. edge-level confidence bands
+
+---
+
+## Phase 3 - Causal Structure Discovery
+
+Phase 3 runs two independent classical causal discovery methods over the concept matrix:
+
+1. **HillClimbSearch + BIC scoring**
+2. **PC algorithm with chi-square independence tests**
+
+Current outputs:
+
+| Method | Nodes | Edges | Prior Alignment |
+|---|---:|---:|---:|
+| HillClimb + BIC | 35 | 91 | 25% |
+| PC chi-square | 34 | 30 | 15% |
+| Consensus DAG | 35 | 11 | subset of both methods |
+
+The consensus DAG remains the strict high-confidence layer: an edge must appear in both algorithms.
+
+### Edge Taxonomy
+
+v1.1 adds explicit edge classes so the auditor does not overclaim transition artifacts as structural governance causality.
+
+| Edge Class | Meaning | Example |
 |---|---|---|
-| benign_coordination | 100.00% | 5.90 |
-| rogue_coalition | 100.00% | 6.00 |
-| provenance_degradation | 100.00% | 5.81 |
-| mixed_noisy_load | 100.00% | 6.49 |
-| unauthorized_authority_escalation | 100.00% | 5.50 |
-| false_consensus | 99.33% | 5.48 |
+| `structural_governance` | Stable governance dependency or control relationship | provenance / authority / fanout relationships |
+| `temporal_transition` | State transition or mutually exclusive state movement | `authority_valid -> authority_missing`, `adversarial_absent -> adversarial_present` |
+| `intervention_relevant` | Edge connected to actionable governance failure/success control | `adversarial_escalation -> human_gate_bypassed` |
 
-`false_consensus` is the only family with failures. Both failures (F-BENIGN-002) trace to `authority_missing` + `role_mix_contaminated` as causal roots.
+Current edge-class counts across all discovered edges:
 
-`mixed_noisy_load` has the highest causal complexity (6.49 active root causes per trial) - the noisiest governance surface.
+| Edge Class | Count |
+|---|---:|
+| `structural_governance` | 62 |
+| `temporal_transition` | 24 |
+| `intervention_relevant` | 24 |
 
----
+This classification directly answers the criticism that some edges may be transition mechanics rather than structural governance causality. The auditor now preserves those edges but labels them correctly.
 
-## Governance Recommendations
+### Confidence Tiers
 
-Recommendations are keyed to causal root nodes and weighted by trigger frequency across all 1,800 trials.
+v1.1 replaces binary acceptance with confidence tiers.
 
-| Root Cause | Trigger Rate | Recommendation |
+| Tier | Definition | Current Count | Operational Use |
+|---|---|---:|---|
+| Tier 1 | Found by both HillClimb and PC | 11 | High-confidence forensic attribution |
+| Tier 2 | Found by one method with prior or intervention support | 19 | STRATEGIST modeling / analyst review |
+| Tier 3 | Found by one method only | 80 | Exploratory research only |
+
+Operational boundary:
+
+- WARLORD may act only on Tier 1 edges or explicitly approved Tier 2 edges.
+- STRATEGIST may model consequences across all tiers.
+- ORACLE must attach confidence intervals and avoid theatrical certainty.
+
+### Consensus Edges
+
+Current Tier 1 consensus edges:
+
+| Edge | Class | Interpretation |
 |---|---|---|
-| `authority_missing` | 46.33% | Enforce authority attestation at every inter-agent handoff. WARLORD owns this gate - no exceptions. |
-| `adversarial_present` | 41.67% | Route all downstream decisions through WARLORD authority gate before allow/block. ORACLE should flag elevated false-negative risk. |
-| `fanout_attempted_excess` | 16.67% | Implement hard fanout caps at the message dispatch layer. RELAY enforces delivery - WARLORD must own the fanout budget gate. |
-| `load_burst` | 15.50% | ORACLE should model burst arrival rates and pre-position WARLORD for throttle decisions before fanout threshold is reached. |
-| `role_mix_contaminated` | 12.28% | OPSEC enforces strict role boundary separation. SHADOW owns low-observable behavior - contamination detection must not cross into HUMINT lanes. |
-| `adversarial_escalation` | 8.33% | PARIAH increases sensitivity at the role boundary when escalation_target is non-null. Mandatory human gate review when adversarial_escalation is active. |
+| `authority_valid -> authority_missing` | temporal_transition | Authority state transition signal, not structural authority causality |
+| `adversarial_escalation -> outcome_block` | intervention_relevant | Escalation is upstream of blocking decisions |
+| `adversarial_escalation -> human_gate_bypassed` | intervention_relevant | Escalation is upstream of gate bypass |
+| `adversarial_escalation -> role_functional` | intervention_relevant | Escalation affects functional role signal |
+| `outcome_incorrect -> failure_false_positive` | intervention_relevant | Incorrect outcome produces false-positive failure |
+| `fanout_attempted_excess -> fanout_over_budget` | structural_governance | Excess fanout attempt produces budget violation |
+| `load_normal -> load_burst` | temporal_transition | Load-state transition |
+| `load_normal -> load_degraded` | temporal_transition | Load-state transition |
+| `role_mix_contaminated -> role_mix_clean` | temporal_transition | Role-mix state transition / suppression signal |
+| `outcome_correct -> failure_none` | intervention_relevant | Correct outcome produces no-failure state |
+| `adversarial_absent -> adversarial_present` | temporal_transition | Adversarial-state transition |
+
+### Prior Alignment Interpretation
+
+Prior alignment is intentionally reported rather than hidden:
+
+- HillClimb prior alignment: 25%
+- PC prior alignment: 15%
+
+Low prior alignment is not automatically a failure. It can indicate:
+
+1. incomplete priors,
+2. insufficient sample diversity,
+3. algorithmic limitations,
+4. underspecified doctrine,
+5. discovery of non-obvious governance dependencies.
+
+In AIG, prior mismatch is treated as an audit finding. If doctrine and telemetry diverge, the divergence should be surfaced for analyst review rather than suppressed.
+
+### Augmentation Stability Probe
+
+v1.1 adds `augmentation_stability_report.json`.
+
+Current fast-probe configuration:
+
+- Method: resampled augmented-corpus HillClimb probe
+- Sample sizes: 1,000 and 2,000
+- Seeds: 11, 29, 47
+- Successful runs: 6
+
+Example stability findings:
+
+| Edge | Stability | Class |
+|---|---:|---|
+| `adversarial_escalation -> human_gate_bypassed` | 1.0000 | intervention_relevant |
+| `adversarial_absent -> adversarial_present` | 0.8333 | temporal_transition |
+| `adversarial_escalation -> role_functional` | 0.5000 | intervention_relevant |
+| `adversarial_escalation -> outcome_block` | 0.3333 | intervention_relevant |
+| `authority_valid -> authority_missing` | 0.3333 | temporal_transition |
+
+Interpretation: not all consensus edges are equally stable under resampling. The auditor now exposes that fact. This improves scientific rigor because fragile consensus edges can be flagged for additional augmentation ablation before operational use.
 
 ---
 
-## What This Is Not
+## Phase 4 - Causal Attribution and Intervention Screening
 
-- This is not a universal causal model of all AI governance. It is a causal model of the specific concept space defined for GAL-040B.
-- This is not external validation. The causal structure reflects the structure of AIG's own evaluation data.
-- The PC algorithm runs on a 2,000-state sample, not the full 25,764-state augmented set. Consensus edges are directionally reliable, not statistically exhaustive.
-- Causal discovery on binary data has well-known limitations (faithfulness assumption, Markov condition). These are acknowledged.
+Phase 4 applies the Tier 1 consensus DAG to all 1,800 original GAL-040B trials.
+
+Each trial receives:
+
+- active concept vector
+- active sink nodes
+- active upstream roots
+- causal chains
+- recommendation keys
+- causal complexity score
+
+Current Phase 4 results:
+
+| Metric | Value |
+|---|---:|
+| Trials attributed | 1,800 / 1,800 |
+| Unmatched trials | 0 |
+| Correct governance decisions | 1,798 |
+| Governance failures | 2 |
+| Correct rate | 99.89% |
+| Failure rate | 0.11% |
+| Average causal complexity | 5.862 root causes / trial |
+
+`false_consensus` remains the only scenario family with failures. Both failures trace to active authority/role-contamination roots.
+
+### Governance Recommendations
+
+Recommendations remain keyed to root causes and responsible roles.
+
+| Root Cause | Trigger Rate | Recommendation Boundary |
+|---|---:|---|
+| `authority_missing` | 46.33% | WARLORD owns authority attestation |
+| `adversarial_present` | 41.67% | WARLORD gate + ORACLE elevated-risk forecast |
+| `fanout_attempted_excess` | 16.67% | RELAY enforces delivery, WARLORD owns fanout budget |
+| `load_burst` | 15.50% | ORACLE models burst rates before throttle decisions |
+| `role_mix_contaminated` | 12.28% | OPSEC / role-boundary enforcement; no SHADOW/HUMINT bleed |
+| `adversarial_escalation` | 8.33% | PARIAH escalates review sensitivity at role boundary |
+
+### Causal Intervention Screen
+
+v1.1 adds `causal_intervention_screen.json`.
+
+This is an offline intervention screen, not a validated do-calculus structural causal model. It asks:
+
+**When a root cause is active, what is the observed success profile, and what success delta is associated with the root being absent?**
+
+Current top intervention screens:
+
+| Intervention Screen | Active Trials | Active Success | Absent Success | 90% CI for Absent Success | Estimated Delta if Removed |
+|---|---:|---:|---:|---|---:|
+| `do(load_burst=0)` | 279 | 99.64% | 99.93% | [99.71%, 99.99%] | +0.29% |
+| `do(authority_missing=0)` | 834 | 99.76% | 100.00% | [99.72%, 100.00%] | +0.24% |
+| `do(adversarial_escalation=0)` | 150 | 100.00% | 99.88% | [99.63%, 99.96%] | -0.12% |
+| `do(fanout_attempted_excess=0)` | 300 | 100.00% | 99.87% | [99.60%, 99.96%] | -0.13% |
+| `do(role_mix_contaminated=0)` | 221 | 100.00% | 99.87% | [99.62%, 99.96%] | -0.13% |
+
+This result is deliberately conservative. Because the baseline correct rate is already 99.89%, large improvement deltas should not be expected from this corpus. The intervention screen is most useful as a prioritization mechanism for STRATEGIST and ORACLE, not as proof that removing a root will produce a large operational gain.
+
+### Adversarial Escalation Interpretation
+
+`adversarial_escalation` remains a governance leverage node because it is upstream of blocking, gate bypass, and role-signal contamination in the Tier 1 graph.
+
+However, the intervention screen does not show a positive success delta for removing it in the current corpus because active escalation trials were already handled correctly. This is not a contradiction. It means:
+
+- escalation is structurally important,
+- current governance controls handled escalation well in GAL-040B,
+- the value of the node is early warning and routing discipline, not demonstrated failure reduction in this dataset.
+
+That is exactly the kind of nuance a governance observability system should expose.
 
 ---
 
-## Artifacts
+## DARPA-Relevant Assessment
 
-All artifacts are versioned in the AIG repository under `stage2_artifacts/causal_auditor/`.
+### Strengths
 
-| Phase | Key Artifacts |
-|---|---|
-| Phase 1 | `phase1/gal040b_concept_states.json` - 1,800 binary concept vectors |
-| Phase 2 | `phase2/augmented_states.json` - 25,764 total states; `phase2/counterfactual_chains.json` |
-| Phase 3 | `phase3/dag_hillclimb.json`, `dag_pc.json`, `dag_consensus.json`, `causal_summary.json` |
-| Phase 4 | `phase4/trial_attributions.json` - 1,800 attributed trials; `governance_recommendations.json`; `family_attribution_profiles.json` |
+1. **No LLM-based rationalization.**  
+   The causal claims come from trial telemetry, concept states, causal discovery algorithms, and graph traversal.
 
-Eval reports for all 4 phases pass at 100%.
+2. **Artifact trail at every phase.**  
+   Every phase emits inspectable artifacts. A reviewer can challenge the concept extraction, augmentation, graph discovery, attribution, and intervention screen separately.
+
+3. **Actionable governance mapping.**  
+   Root causes map to responsible roles: WARLORD, STRATEGIST, ORACLE, PARIAH, RELAY, OPSEC, and related Ghost Unit boundaries.
+
+4. **Reviewer-hardening added.**  
+   Edge classes, confidence tiers, prior-mismatch discussion, stability probes, and intervention screens directly address likely methodological attacks.
+
+### Remaining Limitations
+
+1. **Augmentation dependency remains the largest risk.**  
+   v1.1 adds a fast stability probe, but full regeneration sweeps are still needed.
+
+2. **Binary concepts compress nuance.**  
+   The current concept representation is audit-friendly but may obscure graded or continuous governance variables.
+
+3. **PC runs on a tractability sample.**  
+   PC currently uses a 2,000-state sample. This is computationally practical but may reduce recall.
+
+4. **Intervention screen is not full do-calculus yet.**  
+   The current screen is an observed-attribution approximation. A full structural causal model intervention engine remains vNext.
+
+---
+
+## vNext Architecture
+
+The next technical step is to move from causal attribution to stronger causal intervention analysis.
+
+Recommended upgrades:
+
+1. **Full augmentation ablation suite**
+   - chain-depth sweep
+   - perturbation-rate sweep
+   - repair-rule ablation
+   - random-seed stability analysis
+
+2. **Edge-level confidence scoring**
+   - bootstrap stability
+   - method agreement
+   - prior support
+   - intervention relevance
+
+3. **Structural causal model intervention engine**
+   - formal `do(X=x)` interventions
+   - predicted success/failure deltas
+   - uncertainty intervals
+   - scenario-family-specific effects
+
+4. **Tier-aware action policy**
+   - WARLORD: Tier 1 / approved Tier 2 only
+   - STRATEGIST: consequences across all tiers
+   - ORACLE: Bayesian forecasts with explicit confidence intervals
 
 ---
 
 ## Source Code
 
-| Module | Path |
-|---|---|
-| Concept extractor | `sigint_agent/causal/concept_extractor.py` |
-| Counterfactual generator | `sigint_agent/causal/counterfactual_generator.py` |
-| Causal graph builder | `sigint_agent/causal/causal_graph_builder.py` |
-| Causal attribution | `sigint_agent/causal/causal_attribution.py` |
+| Module | Path | v1.1 Change |
+|---|---|---|
+| Concept extractor | `sigint_agent/causal/concept_extractor.py` | unchanged |
+| Counterfactual generator | `sigint_agent/causal/counterfactual_generator.py` | constraint-valid augmentation remains source of expanded corpus |
+| Causal graph builder | `sigint_agent/causal/causal_graph_builder.py` | edge taxonomy, confidence tiers, augmentation stability probe |
+| Causal attribution | `sigint_agent/causal/causal_attribution.py` | intervention screen with 90% confidence intervals |
+| Phase 3 eval | `eval_causal_phase3_causal_graph_builder.py` | validates new Phase 3 artifacts |
+| Phase 4 eval | `eval_causal_phase4_attribution.py` | validates intervention screen artifact |
 
 ---
 
-*Document ID: AIG-CAUSAL-005 | June 8, 2026 | Christopher Ramos | AIG Intel*
+## Artifacts
+
+| Artifact | Path |
+|---|---|
+| HillClimb DAG | `stage2_artifacts/causal_auditor/phase3/dag_hillclimb.json` |
+| PC DAG | `stage2_artifacts/causal_auditor/phase3/dag_pc.json` |
+| Consensus DAG | `stage2_artifacts/causal_auditor/phase3/dag_consensus.json` |
+| Edge evidence tiers | `stage2_artifacts/causal_auditor/phase3/edge_evidence_tiers.json` |
+| Augmentation stability report | `stage2_artifacts/causal_auditor/phase3/augmentation_stability_report.json` |
+| Trial attributions | `stage2_artifacts/causal_auditor/phase4/trial_attributions.json` |
+| Governance recommendations | `stage2_artifacts/causal_auditor/phase4/governance_recommendations.json` |
+| Causal intervention screen | `stage2_artifacts/causal_auditor/phase4/causal_intervention_screen.json` |
+
+---
+
+## Bottom Line
+
+The Causal Reasoning Auditor is not merely an explainability component. It is a governance forensics layer for autonomous and multi-agent systems.
+
+It answers:
+
+- what happened,
+- which governance concepts were active,
+- which causal paths were implicated,
+- which roots map to accountable control points,
+- which interventions deserve further modeling,
+- and how confident the system should be about those claims.
+
+That is the operationally useful lane: not mystical AI alignment, but inspectable governance observability.
+
+---
+
+*Document ID: AIG-CAUSAL-005 | Technical Brief v1.1 | June 9, 2026 | Christopher Ramos | AIG Intel*
